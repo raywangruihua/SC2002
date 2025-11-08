@@ -1,22 +1,39 @@
 package src;
+import java.util.*;
 public class Sort {
 
 	/**
 	 * 
 	 * @param major
 	 */
-	public List<Internship> sortByMajor(String major) {
+	public List<Internship> sortByMajor(List<Internship> internships, String major) {
 		// TODO - implement Sort.sortByMajor
-		throw new UnsupportedOperationException();
+		List<Internship> display_list = null;
+		for (Internship internship: internships){
+			if (internship.getPreferedMajor().equals(major)){
+				display_list.add(internship);
+			}
+		}
+		return display_list;
 	}
-
 	/**
 	 * 
 	 * @param yearOfStudy
 	 */
-	public List<Internship> sortByYearOfStudy(int yearOfStudy) {
+	public List<Internship> sortByYearOfStudy(List<Internship> internships, int yearOfStudy) {
 		// TODO - implement Sort.sortByYearOfStudy
-		throw new UnsupportedOperationException();
+		List<Internship> display_list = null;
+		if ((yearOfStudy == 3) || (yearOfStudy == 4)){
+			return internships;
+		}
+		else {
+			for (Internship internship : internships){
+				if (internship.getInternshipLevel().equals(InternshipLevel.Basic)){
+					display_list.add(internship);
+				}
+			}
+			return display_list;
+		}
 	}
 
 	/**
