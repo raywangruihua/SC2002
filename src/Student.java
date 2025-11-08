@@ -1,9 +1,10 @@
 package src;
+import Java.util.*;
 public class Student extends Account {
 
 	private int yearOfStudy;
 	private String major;
-	private List<InternshipApplications> applications;
+	private List<InternshipApplication> applications;
 	private Internship internship;
 
 	/**
