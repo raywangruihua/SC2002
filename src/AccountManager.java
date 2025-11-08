@@ -11,7 +11,18 @@ public class AccountManager {
 	 */
 	public boolean checkValid(String userID, String password) {
 		// TODO - implement AccountManager.checkValid
-		throw new UnsupportedOperationException();
+		for (Account acc: accounts){
+			// correct userID and password
+			if ((acc.getUserID().equals(userID)) && (acc.getPassword().equals(password))){
+				return true;
+			}
+			// correct userID but incorrect password
+			if ((acc.getUserID().equals(userID)) && !(acc.getPassword().equals(password))){
+				return false; 
+			}
+		}
+		// userID doesnt exist 
+		return false;
 	}
 
 	/**
@@ -20,7 +31,14 @@ public class AccountManager {
 	 */
 	public boolean checkExists(Account acc) {
 		// TODO - implement AccountManager.checkExists
-		throw new UnsupportedOperationException();
+		for (Account acc: accounts){
+			// acc exists 
+			if (acc.getUserID().equals(userID)){
+				return true;
+			}
+		}
+		// acc doesnt exist 
+		return false; 
 	}
 
 	/**
@@ -30,7 +48,12 @@ public class AccountManager {
 	 */
 	public void updatePassword(String userID, String newPassword) {
 		// TODO - implement AccountManager.updatePassword
-		throw new UnsupportedOperationException();
+		for (Account acc: accounts){
+			if (acc.getUserID().equals(userID)){
+				acc.setPassword(newPassword);
+			}
+		}
+		System.out.println("Account doesn't exist!");
 	}
 
 	/**
