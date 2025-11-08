@@ -1,4 +1,5 @@
 package src;
+import java.util.*;
 public class Internship {
 
 	private String title;
@@ -13,5 +14,10 @@ public class Internship {
 	private boolean approvalStatus;
 	private List<InternshipApplication> applicationsReceived;
 	private boolean visibility;
+	private int index; 
 
+
+	public int getIndex(){
+		return index;
+	}
 }
