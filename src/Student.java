@@ -1,5 +1,5 @@
 package src;
-import Java.util.*;
+import java.util.*;
 public class Student extends Account {
 
 	private int yearOfStudy;
@@ -20,8 +20,18 @@ public class Student extends Account {
 	 * 
 	 * @param i
 	 */
-	public void applyInternship(Internship i) {
-		// TODO - implement Student.applyInternship
+	public void applyInternship(int index) {
+		// TODO - implement Student.applyInternship 
+		if (applications.size() > 3){
+			System.out.println("Application Limit Exceeded");
+		}
+		else {
+			StudentPage ui = new StudentPage();
+			InternshipApplication application = ui.applyInternship(index, yearOfStudy, super.getName());
+
+			// add application to pending
+			applications.add(application);
+		}
 		throw new UnsupportedOperationException();
 	}
 
@@ -38,9 +48,15 @@ public class Student extends Account {
 	 * 
 	 * @param a
 	 */
-	public void viewApplications(InternshipApplication a) {
+	public void viewApplications() {
 		// TODO - implement Student.viewApplications
+		StudentPage ui = new StudentPage();
+		ui.viewApplications(applications);
 		throw new UnsupportedOperationException();
 	}
 
+	public void viewInternships(){
+		StudentPage ui = new StudentPage();
+		ui.viewInternships(yearOfStudy, major);
+	}
 }
