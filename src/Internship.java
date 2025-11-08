@@ -1,5 +1,6 @@
 package src;
 import java.util.*;
+import java.time.LocalDate;
 public class Internship {
 
 	private String title;
@@ -19,5 +20,25 @@ public class Internship {
 
 	public int getIndex(){
 		return index;
+	}
+
+	public InternshipLevel getInternshipLevel(){
+		return internshipLevel;
+	}
+
+	public String getPreferedMajor(){
+		return preferredMajor;
+	}
+
+	public String getTitle(){
+		return title;
+	}
+
+	public String getDescription(){
+		return description;
+	}
+
+	public String getCompanyName(){
+		return companyName;
 	}
 }
