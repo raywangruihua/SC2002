@@ -1,26 +1,26 @@
 package src.main.java.util;
 
 import java.util.List;
-import src.main.java.model.Account;
 import java.util.Scanner;
+import java.util.ArrayList;
+import src.main.java.model.Account;
+import src.main.java.model.Student;
+import src.main.java.model.CareerCenterStaff;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import src.main.java.model.Student;
 
 /**
  * Utility class that reads files
  */
 public class Read {
     /**
-     * Student accounts format: (StudentID, Name, Major, Year, Email)
-     * Assigns default password to account
-     * Remember to upcast Account back to Student when accessing
+     * Student accounts format: (StudentID, Name, Password, Year, Major, Email)
+     * Remember to downcast Account back to Student when accessing privileges
      * 
-     * @see Student
      * @see Account
+     * @see Student
      * 
-     * @param filepath Preferably use actual path of file
+     * @param filepath Preferably use actual filepath
      * @return List<Account>
      */
     public static List<Account> readStudentAccountsCSV(String filepath) {
@@ -29,23 +29,66 @@ public class Read {
         try {
             Scanner scStream = new Scanner(new File(filepath));
             String inputLine;
-            String[] studentInfo;
+            String[] info;
             
             while (scStream.hasNext()) {
                 inputLine = scStream.nextLine();
-                studentInfo = inputLine.split("[,]");
-                Student newStudent = new Student(studentInfo[0],
-                                                 studentInfo[1],
-                                                 Integer.parseInt(studentInfo[3]),
-                                                 studentInfo[2]
+                info = inputLine.split("[,]");
+                Student newAccount = new Student(
+                    info[0],
+                    info[1],
+                    info[2],
+                    Integer.parseInt(info[3]),
+                    info[4]
                 );
-                accounts.add(newStudent);
+                accounts.add(newAccount);
             }
 
             scStream.close();
+            System.out.println(filepath + " read successfully.");
         }
         catch (FileNotFoundException e) {
-            System.out.println("File Error!" + e.getMessage());
+            System.out.println(filepath + " not found.");
+        }
+
+        return accounts;
+    }
+
+    /**
+     * Staff accounts format: (StaffID, Name, Password, Department, Role, Email)
+     * Remember to downcast Account back to CareerStaffAccount when accessing privileges
+     * 
+     * @see Account
+     * @see CareerStaffAccount
+     * 
+     * @param filepath Preferably use the actual filepath
+     * @return List<Account>
+     */
+    public static List<Account> readStaffAccountsCSV(String filepath) {
+        List<Account> accounts = new ArrayList<>();
+
+        try {
+            Scanner scStream = new Scanner(new File(filepath));
+            String inputLine;
+            String[] info;
+            
+            while (scStream.hasNext()) {
+                inputLine = scStream.nextLine();
+                info = inputLine.split("[,]");
+                CareerCenterStaff newAccount = new CareerCenterStaff(
+                    info[0],
+                    info[1],
+                    info[2],
+                    info[3]
+                );
+                accounts.add(newAccount);
+            }
+
+            scStream.close();
+            System.out.println(filepath + " read successfully.");
+        }
+        catch (FileNotFoundException e) {
+            System.out.println(filepath + " not found.");
         }
 
         return accounts;

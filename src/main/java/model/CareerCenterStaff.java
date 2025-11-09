@@ -9,8 +9,8 @@ public class CareerCenterStaff extends Account {
 
 	private String staffDepartment;
 
-	public CareerCenterStaff(String userID, String name, String department) {
-		super(userID, name);
+	public CareerCenterStaff(String userID, String name, String password, String department) {
+		super(userID, name, password);
 		this.staffDepartment = department;
 	}
 
@@ -23,12 +23,13 @@ public class CareerCenterStaff extends Account {
 	}
 
 	/**
+	 * Interface -> Account -> Manager
 	 * 
-	 * @param c
+	 * @param rep
 	 */
-	public void authoriseAccount(CompanyRep c) {
+	public void approveAccount(CompanyRep rep) {
 		// TODO - implement CareerCenterStaff.authoriseAccount
-		throw new UnsupportedOperationException();
+		
 	}
 
 	/**

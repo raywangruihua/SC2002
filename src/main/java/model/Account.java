@@ -1,7 +1,8 @@
 package src.main.java.model;
 
 /**
- * Account abstract class implements basic account features inherited by subtypes
+ * Base class for account subtypes
+ * Implements basic account features inherited by subtypes
  * 
  * @see Student
  * @see CareerCenterStaff
@@ -19,15 +20,15 @@ public abstract class Account {
 	private 	  String password;
 
 	/**
-	 * Initial account csv files do not provide a password, so account information is incomplete
+	 * Initial account csv files do not provide a password
 	 * Password can be changed after default account creation for students and staff
 	 * 
-	 * @param password Default password is "password"
+	 * @param password Default password is ""
 	 */
-	public Account(String userID, String name) {
+	public Account(String userID, String name, String password) {
 		this.userID   = userID;
 		this.name 	  = name;
-		this.password = "password";
+		this.password = password;
 	}
 
 	public String getUserID() {

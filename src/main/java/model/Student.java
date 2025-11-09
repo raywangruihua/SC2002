@@ -17,10 +17,10 @@ public class Student extends Account {
 	private Internship 					internship;
 
 	/**
-	 * Constructor used when reading student account details from CSV file
+	 * Constructor used when reading student account details from csv file
 	 */
-	public Student(String userID, String name, int year, String major) {
-		super(userID, name);
+	public Student(String userID, String name, String password, int year, String major) {
+		super(userID, name, password);
 		this.yearOfStudy = year;
 		this.major 		 = major;
 		this.applications = new ArrayList<>();

@@ -1,5 +1,9 @@
-package src.ui;
+package src.main.java.ui;
 
+/** 
+ * Base class for user pages subtypes
+ * Implements basic user functions
+ */
 public abstract class UserPage implements UserInterface {
 
 	public abstract void display();
