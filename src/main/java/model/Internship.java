@@ -1,9 +1,9 @@
-package src.main.java.model;
+package model;
 
 import java.util.List;
 import java.time.LocalDate;
-import src.main.java.enums.InternshipLevel;
-import src.main.java.enums.InternshipStatus;
+import enums.InternshipLevel;
+import enums.InternshipStatus;
 
 public class Internship {
 

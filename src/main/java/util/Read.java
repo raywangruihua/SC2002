@@ -1,11 +1,11 @@
-package src.main.java.util;
+package util;
 
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
-import src.main.java.model.Account;
-import src.main.java.model.Student;
-import src.main.java.model.CareerCenterStaff;
+import model.Account;
+import model.Student;
+import model.CareerCenterStaff;
 import java.io.File;
 import java.io.FileNotFoundException;
 

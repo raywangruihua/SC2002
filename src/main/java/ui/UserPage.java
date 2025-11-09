@@ -1,4 +1,4 @@
-package src.main.java.ui;
+package ui;
 
 /** 
  * Base class for user pages subtypes

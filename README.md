@@ -11,6 +11,10 @@ Target folder for compiled code
 ## Doc
 Documentation
 
+# Maven
+Automatically compiles all files into "target" subdirectory
+Also has automatic unit tests capability
+
 # Javadoc
 ## Command to compile javadoc
 `javadoc -d docs sourcepath . src.enums src.model src.repository src.service src.ui src.util`

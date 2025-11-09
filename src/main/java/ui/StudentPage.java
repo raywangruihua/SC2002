@@ -1,12 +1,18 @@
-package src.ui;
+package ui;
 import java.util.*;
 
-import src.enums.InternshipLevel;
-import src.model.Internship;
-import src.model.InternshipApplication;
-import src.repository.Repository;
-import src.service.InternshipApplicationManager;
+import enums.InternshipLevel;
+import model.Internship;
+import model.InternshipApplication;
+import repository.Repository;
+import service.InternshipApplicationManager;
+
 public class StudentPage extends UserPage {
+
+	@Override
+	public void display() {
+
+	}
 
 	public void display(List<Internship> display_list) {
 		// TODO - implement StudentPage.display

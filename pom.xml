@@ -1,0 +1,13 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <properties>
+        <maven.compiler.release>14</maven.compiler.release>
+    </properties>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mycompany.app</groupId>
+
+    <artifactId>InternshipHubApp</artifactId>
+
+    <version>1</version>
+</project>

@@ -1,10 +1,10 @@
-package src.main.java.service;
+package service;
 
 import java.util.List;
 import java.util.ArrayList;
-import src.main.java.model.Account;
-import src.main.java.util.Read;
-import src.main.java.enums.LoginStatus;
+import model.Account;
+import util.Read;
+import enums.LoginStatus;
 
 /**
  * Loads all existing accounts from csv file and stores them in a list

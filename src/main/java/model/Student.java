@@ -1,9 +1,9 @@
-package src.main.java.model;
+package model;
 
 import java.util.List;
 import java.util.ArrayList;
-import src.main.java.enums.ApplicationStatus;
-import src.main.java.ui.StudentPage;
+import enums.ApplicationStatus;
+import ui.StudentPage;
 
 /**
  * Account subtype that has student privieges

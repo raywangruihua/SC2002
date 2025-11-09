@@ -1,8 +1,8 @@
-package src.main.java.ui;
+package ui;
 
 import java.util.Scanner;
-import src.main.java.service.AccountManager;
-import src.main.java.forms.Registration;
+import service.AccountManager;
+import forms.Registration;
 
 /**
  * The start page of the app

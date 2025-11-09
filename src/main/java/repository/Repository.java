@@ -1,9 +1,9 @@
-package src.main.java.repository;
+package repository;
 
 import java.util.List;
-import src.main.java.model.Internship;
-import src.main.java.model.InternshipApplication;
-import src.main.java.util.Sort;
+import model.Internship;
+import model.InternshipApplication;
+import util.Sort;
 
 /**
  * Repository class stores all pending internships, internships and internships applications

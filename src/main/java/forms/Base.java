@@ -1,4 +1,4 @@
-package src.main.java.forms;
+package forms;
 
 /**
  * All forms must implement submit operations

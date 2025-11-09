@@ -1,4 +1,4 @@
-package src.main.java.model;
+package model;
 
 /**
  * Account subtype that has staff privileges

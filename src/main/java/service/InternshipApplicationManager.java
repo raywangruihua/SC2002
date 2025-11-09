@@ -1,8 +1,8 @@
-package src.main.java.service;
+package service;
 
-import src.main.java.enums.ApplicationStatus;
-import src.main.java.model.InternshipApplication;
-import src.main.java.model.Student;
+import enums.ApplicationStatus;
+import model.InternshipApplication;
+import model.Student;
 
 public class InternshipApplicationManager {
 

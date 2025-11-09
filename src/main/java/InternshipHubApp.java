@@ -1,8 +1,6 @@
-package src.main.java;
-
 import java.util.Scanner;
-import src.main.java.service.AccountManager;
-import src.main.java.ui.*;
+import service.AccountManager;
+import ui.*;
 
 /**
  * Internship Hub App
@@ -25,12 +23,22 @@ public class InternshipHubApp {
         login.display();
 
         System.out.print("Enter option: ");
-        int option = -1;
+        int option;
         while (true) {
-            switch (option) {
-                case(1) -> login.login();
-                case(2) -> login.register();
-                case(3) -> System.exit(0);
+            switch (option = Integer.parseInt(sc.nextLine())) {
+                case 1  -> {
+                    if (login.login()) {
+                        System.out.print("Nice\n");
+                    }
+                    else {
+                        System.out.print("\nEnter option: ");
+                    }
+                }
+                case 2  -> {
+                    login.register();
+                    System.out.print("\nEnter option: ");
+                }
+                case 3  -> System.exit(0);
                 default -> System.out.print("Enter option: ");
             }
         }

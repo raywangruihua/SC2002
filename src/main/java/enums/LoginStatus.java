@@ -1,4 +1,4 @@
-package src.main.java.enums;
+package enums;
 
 /**
  * Possible outcomes when user enter account information during login

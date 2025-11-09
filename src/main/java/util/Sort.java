@@ -1,8 +1,8 @@
-package src.main.java.util;
+package util;
 
 import java.util.List;
-import src.main.java.enums.InternshipLevel;
-import src.main.java.model.Internship;
+import enums.InternshipLevel;
+import model.Internship;
 
 /**
  * Util class that sorts repository

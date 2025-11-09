@@ -1,8 +1,8 @@
-package src.main.java.forms;
+package forms;
 
 import java.util.Scanner;
-import src.main.java.model.CompanyRep;
-import src.main.java.service.AccountManager;
+import model.CompanyRep;
+import service.AccountManager;
 
 /**
  * Registration form for company representatives to submit information and create an account

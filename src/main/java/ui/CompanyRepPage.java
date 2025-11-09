@@ -1,4 +1,4 @@
-package src.main.java.ui;
+package ui;
 
 public class CompanyRepPage extends UserPage {
 

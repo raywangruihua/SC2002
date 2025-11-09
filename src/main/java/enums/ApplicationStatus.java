@@ -1,4 +1,4 @@
-package src.main.java.enums;
+package enums;
 
 /**
  * After a student creates an application for an internship, they can check its status

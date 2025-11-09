@@ -1,6 +1,6 @@
-package src.main.java.model;
+package model;
 
-import src.main.java.enums.ApplicationStatus;
+import enums.ApplicationStatus;
 
 public class InternshipApplication {
 	

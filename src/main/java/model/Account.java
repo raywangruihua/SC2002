@@ -1,4 +1,4 @@
-package src.main.java.model;
+package model;
 
 /**
  * Base class for account subtypes

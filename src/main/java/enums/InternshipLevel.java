@@ -1,4 +1,4 @@
-package src.main.java.enums;
+package enums;
 
 /**
  * Students can only view and apply for interships of a certain internship level
