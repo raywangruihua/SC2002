@@ -17,6 +17,6 @@ Also has automatic unit tests capability
 
 # Javadoc
 ## Command to compile javadoc
-`javadoc -d docs sourcepath . src.enums src.model src.repository src.service src.ui src.util`
+`javadoc -d docs sourcepath . <all source file paths>`
 ## Command to run javadoc index.html file in webpage for viewing
 `Invoke-Item docs\index.html`
