@@ -1,14 +1,31 @@
-package src.model;
+package src.main.java.model;
+
 import java.util.List;
+import java.util.ArrayList;
+import src.main.java.enums.ApplicationStatus;
+import src.main.java.ui.StudentPage;
 
-import src.enums.ApplicationStatus;
-import src.ui.StudentPage;
+/**
+ * Account subtype that has student privieges
+ * 
+ * @see Account
+ */
 public class Student extends Account {
-
-	private int yearOfStudy;
-	private String major;
+	private int 						yearOfStudy;
+	private String 						major;
 	private List<InternshipApplication> applications;
-	private Internship internship;
+	private Internship 					internship;
+
+	/**
+	 * Constructor used when reading student account details from CSV file
+	 */
+	public Student(String userID, String name, int year, String major) {
+		super(userID, name);
+		this.yearOfStudy = year;
+		this.major 		 = major;
+		this.applications = new ArrayList<>();
+		this.internship = new Internship();
+	}
 
 	/**
 	 * 

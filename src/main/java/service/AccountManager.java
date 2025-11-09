@@ -1,17 +1,29 @@
-package src.service;
+package src.main.java.service;
+
 import java.util.List;
+import src.main.java.model.Account;
 
-import src.model.Account;
+/**
+ * Loads all existing accounts from .csv file
+ * Stores all accounts
+ * Stores registered company representative accounts pending approval
+ * 
+ * @see Account
+ * @see CareerCenterStaff
+ * @see CompanyRep
+ * @see Student
+ */
 public class AccountManager {
-
+	/**
+	 * 
+	 */
 	private List<Account> accounts;
 	private List<Account> pending;
 
-	/**
-	 * 
-	 * @param userID
-	 * @param password
-	 */
+	public AccountManager() {
+		
+	}
+
 	public boolean checkValid(String userID, String password) {
 		// TODO - implement AccountManager.checkValid
 		for (Account acc: accounts){

@@ -7,7 +7,7 @@ For main code
 ## Test
 For testing code
 ## Target
-For compiling and testing code
+Target folder for compiled code
 ## Doc
 Documentation
 

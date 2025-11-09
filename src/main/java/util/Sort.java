@@ -1,8 +1,13 @@
-package src.util;
-import java.util.*;
+package src.main.java.util;
 
-import src.enums.InternshipLevel;
-import src.model.Internship;
+import java.util.List;
+import src.main.java.enums.InternshipLevel;
+import src.main.java.model.Internship;
+
+/**
+ * Util class that sorts repository
+ * @see Repository
+ */
 public class Sort {
 
 	/**

@@ -1,9 +1,17 @@
-package src.repository;
-import java.util.*;
+package src.main.java.repository;
 
-import src.model.Internship;
-import src.model.InternshipApplication;
-import src.util.Sort;
+import java.util.List;
+import src.main.java.model.Internship;
+import src.main.java.model.InternshipApplication;
+import src.main.java.util.Sort;
+
+/**
+ * Repository class stores all pending internships, internships and internships applications
+ * This creates a centralised list that all manager classes can access
+ * 
+ * @see InternshipManager
+ * @see InternshipApplicationManager
+ */
 public class Repository {
 
 	private List<Internship> internships;

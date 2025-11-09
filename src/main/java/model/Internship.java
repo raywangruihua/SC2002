@@ -1,26 +1,27 @@
-package src.model;
-import java.util.*;
+package src.main.java.model;
 
-import src.enums.InternshipLevel;
-import src.enums.InternshipStatus;
-
+import java.util.List;
 import java.time.LocalDate;
+import src.main.java.enums.InternshipLevel;
+import src.main.java.enums.InternshipStatus;
+
 public class Internship {
 
-	private String title;
-	private String description;
-	private InternshipLevel internshipLevel;
-	private String preferredMajor;
-	private LocalDate openDate;
-	private LocalDate closingData;
-	private InternshipStatus status;
-	private String companyName;
-	private List<String> companyRepresentatives;
-	private boolean approvalStatus;
+	private String 						title;
+	private String 						description;
+	private InternshipLevel 			internshipLevel;
+	private String 						preferredMajor;
+	private LocalDate 					openDate;
+	private LocalDate 					closingData;
+	private InternshipStatus 			status;
+	private String 						companyName;
+	private List<String> 				companyRepresentatives;
+	private boolean 					approvalStatus;
 	private List<InternshipApplication> applicationsReceived;
-	private boolean visibility;
-	private int index; 
+	private boolean 					visibility;
+	private int 						index; 
 
+	public Internship() {}
 
 	public int getIndex(){
 		return index;

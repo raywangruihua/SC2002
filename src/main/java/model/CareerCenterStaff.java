@@ -1,8 +1,26 @@
-package src.model;
+package src.main.java.model;
 
+/**
+ * Account subtype that has staff privileges
+ * 
+ * @see Account
+ */
 public class CareerCenterStaff extends Account {
 
 	private String staffDepartment;
+
+	public CareerCenterStaff(String userID, String name, String department) {
+		super(userID, name);
+		this.staffDepartment = department;
+	}
+
+	public String getDepartment() {
+		return this.staffDepartment;
+	}
+
+	public void setDepartment(String department) {
+		this.staffDepartment = department;
+	}
 
 	/**
 	 * 

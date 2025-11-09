@@ -1,9 +1,9 @@
-package src.model;
+package src.main.java.model;
 
-import src.enums.ApplicationStatus;
+import src.main.java.enums.ApplicationStatus;
 
 public class InternshipApplication {
-
+	
 	private String studentName;
 	private String internshipTitle;
 	private ApplicationStatus status;
