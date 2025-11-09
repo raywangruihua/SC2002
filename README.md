@@ -1,6 +1,16 @@
 # SC2002
 SC2002 Project
 
+# File Structure
+## Main
+For main code
+## Test
+For testing code
+## Target
+For compiling and testing code
+## Doc
+Documentation
+
 # Javadoc
 ## Command to compile javadoc
 `javadoc -d docs sourcepath . src.enums src.model src.repository src.service src.ui src.util`
