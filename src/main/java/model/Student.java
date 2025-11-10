@@ -40,8 +40,7 @@ public class Student extends Account {
 	}
 
 	/**
-	 * 
-	 * @param i
+	 * Student applies for internship through User Interface
 	 */
 	public void applyInternship(int index) {
 		// TODO - implement Student.applyInternship 
@@ -68,8 +67,7 @@ public class Student extends Account {
 	}
 
 	/**
-	 * 
-	 * @param a
+	 * Student views applications applied through User Interface
 	 */
 	public void viewApplications() {
 		// TODO - implement Student.viewApplications
@@ -77,7 +75,10 @@ public class Student extends Account {
 		ui.viewApplications(applications);
 		throw new UnsupportedOperationException();
 	}
-
+	
+	/**
+	 * Student views internships available for application through User Interface
+	 */
 	public void viewInternships(){
 		StudentPage ui = new StudentPage();
 		ui.viewInternships(yearOfStudy, major);
