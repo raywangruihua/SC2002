@@ -14,7 +14,7 @@ public class StudentPage extends UserPage {
 
 	}
 	/* 
-	 * displays internship information by index, title, internship level, company name and description
+	 * Displays internship information by index, title, internship level, company name and description
 	 */
 	public void display(List<Internship> display_list) {
 		for (Internship internship : display_list){
@@ -26,7 +26,7 @@ public class StudentPage extends UserPage {
 	}
 
 	/**
-	 * retrieves all internships student can apply for through internshipmanager
+	 * Retrieves all internships student can apply for through internshipmanager
 	 */
 	public void viewInternships(int yearOfStudy, String major) {
 		InternshipManager im = new InternshipManager();
@@ -35,7 +35,7 @@ public class StudentPage extends UserPage {
 	}
 
 	/**
-	 * creates internship application for student given student is applicable 
+	 * Creates internship application for student given student is applicable 
 	 */
 	public InternshipApplication applyInternship(int index, int yearOfStudy, String name) {
 		InternshipManager im = new InternshipManager();
@@ -53,17 +53,17 @@ public class StudentPage extends UserPage {
 	}
 
 	/**
-	 * displays all student applications and statuses given student has applied 
+	 * Displays all student applications and statuses given student has applied 
 	 */
 	public void viewApplications(List<InternshipApplication> applications) {
 		if (applications.size() == 0){
 			System.out.println("No Internship Applications");
 		}
 		else {
-			InternshipApplicationManager am = new InternshipApplicationManager();
+			InternshipApplicationManager iam = new InternshipApplicationManager();
 			for (InternshipApplication application: applications){
 				System.out.println("All Internship Applications");
-				System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + am.getApplicationStatus(application));
+				System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + iam.getApplicationStatus(application));
 			}
 		}
 		System.out.println();
