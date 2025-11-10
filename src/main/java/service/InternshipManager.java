@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import enums.ApplicationStatus;
 import enums.InternshipLevel;
 import enums.InternshipStatus;
@@ -15,14 +17,12 @@ public class InternshipManager {
 	}
 
 	/**
-	 * 
-	 * @param repo
-	 * @param yearOfStudy
-	 * @param major
+	 * Returns list of sorted internships from repo based on student's year of study and major
 	 */
-	public void getInternships(Repository repo, int yearOfStudy, String major) {
-		// TODO - implement InternshipManager.getInternships
-		throw new UnsupportedOperationException();
+	public List<Internship> getInternships(int yearOfStudy, String major) {
+		Repository repo = new Repository();
+		List<Internship> display_list = repo.getDisplayInternships(yearOfStudy, major);
+		return display_list;
 	}
 
 	public void toggleVisibility() {
@@ -59,13 +59,12 @@ public class InternshipManager {
 	}
 
 	/**
-	 * 
-	 * @param index The index of the internship
-	 * @return The internship level
+	 * Returns internship level of internship by index 
 	 */
 	public InternshipLevel getInternshipLevel(int index) {
-		// TODO - implement InternshipManager.getInternshipLevel
-		throw new UnsupportedOperationException();
+		Repository repo = new Repository();
+		Internship internship = repo.getInternshipByIndex(index);
+		return internship.getInternshipLevel();
 	}
 
 	public ApplicationStatus addApplicationStatus() {
@@ -105,9 +104,22 @@ public class InternshipManager {
 		throw new UnsupportedOperationException();
 	}
 
-	public void applyInternship() {
-		// TODO - implement InternshipManager.applyInternship
-		throw new UnsupportedOperationException();
+	/**
+	 * Creates internship application for students 
+	 */
+	public InternshipApplication applyInternship(int index, String name) {
+		Repository repo = new Repository();
+		Internship internship = repo.getInternshipByIndex(index);
+		InternshipApplication application = new InternshipApplication(name, internship.getTitle());
+
+		// add application to repo
+		repo.addApplication(application);
+		// add application to internship
+		internship.addApplication(application);
+		System.out.println("Application Successful");
+
+		// return application to add to student's list of pending applications
+		return application;
 	}
 
 	public void rejectApplication() {
