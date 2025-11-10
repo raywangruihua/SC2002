@@ -3,6 +3,7 @@ package service;
 import enums.ApplicationStatus;
 import model.InternshipApplication;
 import model.Student;
+import repository.Repository;
 
 public class InternshipApplicationManager {
 
@@ -22,12 +23,11 @@ public class InternshipApplicationManager {
 	}
 
 	/**
-	 * 
-	 * @param a
+	 * Returns application status of certain application through repo
 	 */
-	public ApplicationStatus getApplicationStatus(InternshipApplication a) {
-		// TODO - implement InternshipApplicationManager.getApplicationStatus
-		throw new UnsupportedOperationException();
+	public ApplicationStatus getApplicationStatus(InternshipApplication application) {
+		Repository repo = new Repository();
+		return repo.getApplicationStatus(application);
 	}
 
 	public void acceptApplication() {
