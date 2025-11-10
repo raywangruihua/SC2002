@@ -46,4 +46,11 @@ public class Internship {
 	public String getCompanyName(){
 		return companyName;
 	}
+
+	/*
+	 * adds application to list of applications received
+	 */
+	public void addApplication(InternshipApplication application){
+		applicationsReceived.add(application);
+	}
 }
