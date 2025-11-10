@@ -3,6 +3,8 @@ package repository;
 import java.util.List;
 import model.Internship;
 import model.InternshipApplication;
+import service.InternshipApplicationManager;
+import service.InternshipManager;
 import util.Sort;
 
 /**
@@ -18,6 +20,9 @@ public class Repository {
 	private List<InternshipApplication> applications;
 	private List<Internship> pendingInternships;
 
+	/* 
+	 * returns internship based off index
+	 */
 	public Internship getInternshipByIndex(int index){
 		for (Internship internship : internships){
 			if (internship.getIndex() == index){
@@ -27,6 +32,9 @@ public class Repository {
 		throw new IllegalArgumentException("Internship with index " + index + " not found.");
 	}
 
+	/* 
+	 * returns list of internships to display for students
+	 */
 	public List<Internship> getDisplayInternships(int yearOfStudy, String major){
 		Sort sort =  new Sort();
 		List<Internship> display_list = sort.sortByMajor(internships, major);
@@ -34,6 +42,9 @@ public class Repository {
 		return display_list;
 	}
 
+	/* 
+	 * adds new internship application to list of applications
+	 */
 	public void addApplication(InternshipApplication application){
 		applications.add(application);
 	}

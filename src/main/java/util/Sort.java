@@ -11,8 +11,7 @@ import model.Internship;
 public class Sort {
 
 	/**
-	 * 
-	 * @param major
+	 * returns sorted list of internships by major
 	 */
 	public List<Internship> sortByMajor(List<Internship> internships, String major) {
 		// TODO - implement Sort.sortByMajor
@@ -25,8 +24,7 @@ public class Sort {
 		return display_list;
 	}
 	/**
-	 * 
-	 * @param yearOfStudy
+	 * returns sorted list of internships by year of study
 	 */
 	public List<Internship> sortByYearOfStudy(List<Internship> internships, int yearOfStudy) {
 		// TODO - implement Sort.sortByYearOfStudy
