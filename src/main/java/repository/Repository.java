@@ -1,6 +1,8 @@
 package repository;
 
 import java.util.List;
+
+import enums.ApplicationStatus;
 import model.Internship;
 import model.InternshipApplication;
 import service.InternshipApplicationManager;
@@ -21,7 +23,7 @@ public class Repository {
 	private List<Internship> pendingInternships;
 
 	/* 
-	 * returns internship based off index
+	 * Returns internship based off index
 	 */
 	public Internship getInternshipByIndex(int index){
 		for (Internship internship : internships){
@@ -33,7 +35,7 @@ public class Repository {
 	}
 
 	/* 
-	 * returns list of internships to display for students
+	 * Returns list of internships to display for students
 	 */
 	public List<Internship> getDisplayInternships(int yearOfStudy, String major){
 		Sort sort =  new Sort();
@@ -43,10 +45,22 @@ public class Repository {
 	}
 
 	/* 
-	 * adds new internship application to list of applications
+	 * Adds new internship application to list of applications
 	 */
 	public void addApplication(InternshipApplication application){
 		applications.add(application);
+	}
+
+	/* 
+	 * Returns application status of applications
+	 */
+	public ApplicationStatus getApplicationStatus(InternshipApplication application){
+		for (InternshipApplication a: applications){
+			if (a.equals(application)){
+				return a.getStatus();
+			}
+		}
+		throw new IllegalArgumentException("Application with internship title " + application.getInternshipTitle() + " not found.");
 	}
 
 }
