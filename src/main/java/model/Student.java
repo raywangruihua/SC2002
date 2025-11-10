@@ -40,10 +40,9 @@ public class Student extends Account {
 	}
 
 	/**
-	 * Student applies for internship through User Interface
+	 * Student applies for internship through User Interface and adds to list of pending applications
 	 */
 	public void applyInternship(int index) {
-		// TODO - implement Student.applyInternship 
 		if (applications.size() > 3){
 			System.out.println("Application Limit Exceeded");
 		}

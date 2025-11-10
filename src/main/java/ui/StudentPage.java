@@ -4,8 +4,8 @@ import java.util.*;
 import enums.InternshipLevel;
 import model.Internship;
 import model.InternshipApplication;
-import repository.Repository;
 import service.InternshipApplicationManager;
+import service.InternshipManager;
 
 public class StudentPage extends UserPage {
 
@@ -13,13 +13,12 @@ public class StudentPage extends UserPage {
 	public void display() {
 
 	}
-
+	/* 
+	 * displays internship information by index, title, internship level, company name and description
+	 */
 	public void display(List<Internship> display_list) {
-		// TODO - implement StudentPage.display
-
-		//shows title, description, internship level, company name
 		for (Internship internship : display_list){
-			System.out.println("Internship Title: " + internship.getTitle() + ", Internship Level: " + internship.getInternshipLevel() + ", Company Name: " + internship.getCompanyName());
+			System.out.println("Index: " + internship.getIndex() + "Internship Title: " + internship.getTitle() + ", Internship Level: " + internship.getInternshipLevel() + ", Company Name: " + internship.getCompanyName());
 			System.out.println("Description: " + internship.getDescription());
 			System.out.println();
 		}
@@ -27,52 +26,47 @@ public class StudentPage extends UserPage {
 	}
 
 	/**
-	 * 
-	 * @param yearOfStudy
-	 * @param major
+	 * retrieves all internships student can apply for through internshipmanager
 	 */
 	public void viewInternships(int yearOfStudy, String major) {
-		// TODO - implement StudentPage.viewInternships
-		Repository repo = new Repository();
-		List<Internship> display_list = repo.getDisplayInternships(yearOfStudy, major);
+		InternshipManager im = new InternshipManager();
+		List<Internship> display_list = im.getInternships(yearOfStudy, major);
 		display(display_list);
-		throw new UnsupportedOperationException();
 	}
 
 	/**
-	 * 
-	 * @param numApplications
+	 * creates internship application for student given student is applicable 
 	 */
 	public InternshipApplication applyInternship(int index, int yearOfStudy, String name) {
-		// TODO - implement StudentPage.applyInternship
-		// get internship from repo
-		Repository repo = new Repository();
-		Internship internship = repo.getInternshipByIndex(index);
+		InternshipManager im = new InternshipManager();
 		
-		if ((internship.getInternshipLevel() != InternshipLevel.Basic) && ((yearOfStudy == 1) | (yearOfStudy == 2))){
+		if ((im.getInternshipLevel(index) != InternshipLevel.Basic) && ((yearOfStudy == 1) | (yearOfStudy == 2))){
 			System.out.println("Application Unaccepted");
 		}
 		else {
 			// create new application
-			InternshipApplication application = new InternshipApplication(name, internship.getTitle());
-
-			// add application to repo
-			repo.addApplication(application);
-			System.out.println("Application Successful");
-			
+			InternshipApplication application = im.applyInternship(index, name);
 			// add application to studentpending
 			return application;
 		}
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * displays all student applications and statuses given student has applied 
+	 */
 	public void viewApplications(List<InternshipApplication> applications) {
-		// TODO - implement StudentPage.viewApplications
-		InternshipApplicationManager am = new InternshipApplicationManager();
-		for (InternshipApplication application: applications){
-			System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + am.getApplicationStatus(application));
+		if (applications.size() == 0){
+			System.out.println("No Internship Applications");
 		}
-		throw new UnsupportedOperationException();
+		else {
+			InternshipApplicationManager am = new InternshipApplicationManager();
+			for (InternshipApplication application: applications){
+				System.out.println("All Internship Applications");
+				System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + am.getApplicationStatus(application));
+			}
+		}
+		System.out.println();
 	}
 
 	public void acceptInternship() {
