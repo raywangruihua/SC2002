@@ -83,3 +83,4 @@ public class Student extends Account {
 		ui.viewInternships(yearOfStudy, major);
 	}
 }
+
