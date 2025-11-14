@@ -73,12 +73,10 @@ public class AccountManager {
 	 */
 	public boolean checkExists(Account acc) {
 		for (Account existingAccount : accounts){
-			// acc exists 
 			if (acc.getUserID().equals(existingAccount.getUserID())){
 				return true;
 			}
 		}
-		// acc doesn't exist 
 		return false; 
 	}
 

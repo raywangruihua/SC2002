@@ -30,16 +30,17 @@ public class CareerCenterStaff extends Account {
 	public void approveAccount(CompanyRep rep) {
 		// TODO - implement CareerCenterStaff.authoriseAccount
 		
+
 		
 	}
 
 	/**
 	 * Remove account from pending list
-	 * @param c
+	 * @param rep
 	 */
 	public void rejectAccount(CompanyRep rep) {
 		// TODO - implement CareerCenterStaff.rejectAccount
-		throw new UnsupportedOperationException();
+		
 	}
 
 	/**

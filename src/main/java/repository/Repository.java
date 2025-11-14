@@ -22,6 +22,12 @@ public class Repository {
 	private List<InternshipApplication> applications;
 	private List<Internship> pendingInternships;
 
+	/**
+	 * 
+	 */
+	public List<InternshipApplication> getInternshipApplications(){
+		return this.applications; 
+	}
 	/* 
 	 * Returns internship based off index
 	 */

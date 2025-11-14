@@ -6,21 +6,46 @@ import model.Student;
 import repository.Repository;
 
 public class InternshipApplicationManager {
-
-	public void approveApplcation() {
-		// TODO - implement InternshipApplicationManager.approveApplcation
-		throw new UnsupportedOperationException();
+	/**
+	 * Accept the student's internship application 
+	 * @param app
+	 */
+	public void approveApplication(InternshipApplication app) {
+		if (app == null){
+			System.out.println("Invalid Application.");
+		} else {
+			app.setApplicationStatus(ApplicationStatus.Successful);
+		}
 	}
-
-	public void rejectApplication() {
-		// TODO - implement InternshipApplicationManager.rejectApplication
-		throw new UnsupportedOperationException();
+	/**
+	 * Reject the student's internship application 
+	 * @param app
+	 */
+	public void rejectApplication(InternshipApplication app) {
+		if (app == null){
+			System.out.println("Invalid Application.");
+			System.out.println("Application accepted.");
+		} else {
+			app.setApplicationStatus(ApplicationStatus.Unsuccessful);
+			System.out.println("Application rejected.");
+		}
 	}
+	/**
+	 * View list of internships applied by a student
+	 * @param student 
+	 */
+	public void viewInternshipApplied(Student student){
+		Repository repo = new Repository();  
+		List<InternshipApplication> apps = repo.getInternshipApplications();
 
-	public void viewInternshipApplied() {
-		// TODO - implement InternshipApplicationManager.viewInternshipApplied
-		throw new UnsupportedOperationException();
+		System.out.println("Internships Applied by " + student.getStudentName());
+		for (InternshipApplication a: apps){
+			if (a.getStudentID() == student.getStudentID()){
+				System.out.println("- " + a.getInternshipTitle() + "(" + a.getApplicationStatus());
+			}
+		}
 	}
+	
 
 	/**
 	 * Returns application status of certain application through repo
@@ -30,10 +55,7 @@ public class InternshipApplicationManager {
 		return repo.getApplicationStatus(application);
 	}
 
-	public void acceptApplication() {
-		// TODO - implement InternshipApplicationManager.acceptApplication
-		throw new UnsupportedOperationException();
-	}
+	public void acceptApplication(){}
 
 	public void loadApplication() {
 		// TODO - implement InternshipApplicationManager.loadApplication
@@ -58,6 +80,9 @@ public class InternshipApplicationManager {
 		throw new UnsupportedOperationException();
 	}
 
+	public void acceptWithdrawal(InternshipApplication app){
+		// 
+	}
 	public void rejectWithdrawal() {
 		// TODO - implement InternshipApplicationManager.rejectWithdrawal
 		throw new UnsupportedOperationException();

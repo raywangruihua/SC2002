@@ -25,4 +25,8 @@ public class InternshipApplication {
 	public ApplicationStatus getStatus() {
 		return status;
 	}
+
+	public void setApplicationStatus(ApplicationStatus status){ 
+		this.status = status;
+	}
 }
