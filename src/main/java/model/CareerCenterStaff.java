@@ -24,20 +24,20 @@ public class CareerCenterStaff extends Account {
 
 	/**
 	 * Interface -> Account -> Manager
-	 * 
+	 * Add account from pending list to accounts list 
 	 * @param rep
 	 */
-	public void approveAccount(CompanyRep c) {
+	public void approveAccount(CompanyRep rep) {
 		// TODO - implement CareerCenterStaff.authoriseAccount
 		
 		
 	}
 
 	/**
-	 * 
+	 * Remove account from pending list
 	 * @param c
 	 */
-	public void rejectAccount(CompanyRep c) {
+	public void rejectAccount(CompanyRep rep) {
 		// TODO - implement CareerCenterStaff.rejectAccount
 		throw new UnsupportedOperationException();
 	}

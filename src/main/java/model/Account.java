@@ -22,7 +22,6 @@ public abstract class Account {
 	/**
 	 * Initial account csv files do not provide a password
 	 * Password can be changed after default account creation for students and staff
-	 * 
 	 * @param password Default password is ""
 	 */
 	public Account(String userID, String name, String password) {
@@ -31,18 +30,30 @@ public abstract class Account {
 		this.password = password;
 	}
 
+	/**
+	 * @return userID
+	 */
 	public String getUserID() {
 		return this.userID;
 	}
 
+	/**
+	 * @return name
+	 */
 	public String getName() {
 		return this.name;
 	}
 
+	/**
+	 * @return password
+	 */
 	public String getPassword() {
 		return this.password; 
 	}
-
+	
+	/**
+	 * Change user's password
+	 */
 	public void setPassword(String newPassword) {
 		this.password = newPassword; 
 	}

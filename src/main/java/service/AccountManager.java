@@ -60,6 +60,7 @@ public class AccountManager {
 
 	/**
 	 * Add account to pending list
+	 * @param acc
 	 */
 	public void register(Account acc) {
 		pending.add(acc);
@@ -67,7 +68,7 @@ public class AccountManager {
 
 	/**
 	 * Check if account already exists by searching for user ID
-	 * 
+	 * @param acc
 	 * @return Whether account exists
 	 */
 	public boolean checkExists(Account acc) {
@@ -82,6 +83,7 @@ public class AccountManager {
 	}
 
 	/**
+	 * @param userID
 	 * @return Whether user ID is taken
 	 */
 	public boolean checkExists(String userID) {
@@ -96,6 +98,7 @@ public class AccountManager {
 	}
 
 	/**
+	 * @param userID
 	 * @return Whether account is pending approval
 	 */
 	public boolean checkPending(String userID) {
@@ -110,7 +113,6 @@ public class AccountManager {
 	}
 
 	/**
-	 * 
 	 * @param userID
 	 * @param newPassword
 	 */
@@ -126,7 +128,6 @@ public class AccountManager {
 
 	/**
 	 * Move company representative account from pending list to account list
-	 * 
 	 * @param userID 
 	 */
 	public void approveAccount(String userID) {
