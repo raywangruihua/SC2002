@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 import java.util.ArrayList;
 import enums.ApplicationStatus;
+import repository.Repository;
 import ui.StudentPage;
 
 /**
@@ -42,18 +43,17 @@ public class Student extends Account {
 	/**
 	 * Student applies for internship through User Interface and adds to list of pending applications
 	 */
-	public void applyInternship(int index) {
+	public void applyInternship(int index, Repository repo) {
 		if (applications.size() > 3){
 			System.out.println("Application Limit Exceeded");
 		}
 		else {
 			StudentPage ui = new StudentPage();
-			InternshipApplication application = ui.applyInternship(index, yearOfStudy, super.getName());
+			InternshipApplication application = ui.applyInternship(index, yearOfStudy, super.getName(), repo);
 
 			// add application to pending
 			applications.add(application);
 		}
-		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -68,19 +68,18 @@ public class Student extends Account {
 	/**
 	 * Student views applications applied through User Interface
 	 */
-	public void viewApplications() {
+	public void viewApplications(Repository repo) {
 		// TODO - implement Student.viewApplications
 		StudentPage ui = new StudentPage();
-		ui.viewApplications(applications);
-		throw new UnsupportedOperationException();
+		ui.viewApplications(applications, repo);
 	}
 	
 	/*
 	 * Student views internships available for application through User Interface
 	 */
-	public void viewInternships(){
+	public void viewInternships(Repository repo){
 		StudentPage ui = new StudentPage();
-		ui.viewInternships(yearOfStudy, major);
+		ui.viewInternships(yearOfStudy, major, repo);
 	}
 }
 

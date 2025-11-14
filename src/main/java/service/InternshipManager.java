@@ -19,8 +19,7 @@ public class InternshipManager {
 	/**
 	 * Returns list of sorted internships from repo based on student's year of study and major
 	 */
-	public List<Internship> getInternships(int yearOfStudy, String major) {
-		Repository repo = new Repository();
+	public List<Internship> getInternships(int yearOfStudy, String major, Repository repo) {
 		List<Internship> display_list = repo.getDisplayInternships(yearOfStudy, major);
 		return display_list;
 	}
@@ -61,8 +60,7 @@ public class InternshipManager {
 	/**
 	 * Returns internship level of internship by index 
 	 */
-	public InternshipLevel getInternshipLevel(int index) {
-		Repository repo = new Repository();
+	public InternshipLevel getInternshipLevel(int index, Repository repo) {
 		Internship internship = repo.getInternshipByIndex(index);
 		return internship.getInternshipLevel();
 	}
@@ -107,8 +105,7 @@ public class InternshipManager {
 	/**
 	 * Creates internship application for students 
 	 */
-	public InternshipApplication applyInternship(int index, String name) {
-		Repository repo = new Repository();
+	public InternshipApplication applyInternship(int index, String name, Repository repo) {
 		Internship internship = repo.getInternshipByIndex(index);
 		InternshipApplication application = new InternshipApplication(name, internship.getTitle());
 

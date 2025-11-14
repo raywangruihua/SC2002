@@ -3,6 +3,7 @@ package ui;
 import java.util.Scanner;
 import service.AccountManager;
 import forms.Registration;
+import model.Account;
 
 /**
  * The start page of the app
@@ -37,28 +38,40 @@ public class LoginPage implements UserInterface {
 	 * Default password is ""
 	 * Company representatives must register for account before login
 	 * 
-	 * @return Login success/failure
+	 * Returns account when successful
+	 * Throws error when unsuccessful
 	 */
-	public boolean login() {
+	public Account login() {
 		System.out.print("Enter user ID: ");
 		String userID = sc.nextLine();
 		System.out.print("Enter password: ");
 		String password = sc.nextLine();
 
 		switch (accMgr.checkValid(userID, password)) {
-			case Valid : return true;
+			case Valid : return getAccount(userID);
 			case IncorrectPassword : {
-				System.out.print("Incorrect password\n");
-				return false;
+				throw new IllegalArgumentException("Incorrect password\n");
 			}
 			case Invalid : {
-				System.out.print("Invalid user ID\n");
-				return false;
+				throw new IllegalArgumentException("Invalid user ID\n");
 			}
 			default : {
-				System.out.print("Something went wrong\n");
-				return false;
+				throw new IllegalArgumentException("Something went wrong\n");
 			}
+		}
+	}
+	/*
+	 * Returns account based on userID
+	 */
+	public Account getAccount(String userID){
+		if (userID.matches("^U\\\\d{7}[A-Z]$")){
+			return accMgr.getAccount(userID);
+		}
+		else if (userID.contains("@ntu.edu.sg")){
+			return accMgr.getAccount(userID);
+		}
+		else {
+			return accMgr.getAccount(userID);
 		}
 	}
 

@@ -4,6 +4,7 @@ import java.util.*;
 import enums.InternshipLevel;
 import model.Internship;
 import model.InternshipApplication;
+import repository.Repository;
 import service.InternshipApplicationManager;
 import service.InternshipManager;
 
@@ -18,44 +19,42 @@ public class StudentPage extends UserPage {
 	 */
 	public void display(List<Internship> display_list) {
 		for (Internship internship : display_list){
-			System.out.println("Index: " + internship.getIndex() + "Internship Title: " + internship.getTitle() + ", Internship Level: " + internship.getInternshipLevel() + ", Company Name: " + internship.getCompanyName());
+			System.out.println("Index: " + internship.getIndex() + ", Internship Title: " + internship.getTitle() + ", Internship Level: " + internship.getInternshipLevel() + ", Company Name: " + internship.getCompanyName());
 			System.out.println("Description: " + internship.getDescription());
 			System.out.println();
 		}
-		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * Retrieves all internships student can apply for through internshipmanager
 	 */
-	public void viewInternships(int yearOfStudy, String major) {
+	public void viewInternships(int yearOfStudy, String major, Repository repo) {
 		InternshipManager im = new InternshipManager();
-		List<Internship> display_list = im.getInternships(yearOfStudy, major);
+		List<Internship> display_list = im.getInternships(yearOfStudy, major, repo);
 		display(display_list);
 	}
 
 	/**
 	 * Creates internship application for student given student is applicable 
 	 */
-	public InternshipApplication applyInternship(int index, int yearOfStudy, String name) {
+	public InternshipApplication applyInternship(int index, int yearOfStudy, String name, Repository repo) {
 		InternshipManager im = new InternshipManager();
 		
-		if ((im.getInternshipLevel(index) != InternshipLevel.Basic) && ((yearOfStudy == 1) | (yearOfStudy == 2))){
-			System.out.println("Application Unaccepted");
+		if ((im.getInternshipLevel(index, repo) != InternshipLevel.Basic) && ((yearOfStudy == 1) || (yearOfStudy == 2))){
+			throw new IllegalArgumentException("Application Unaccepted");
 		}
 		else {
 			// create new application
-			InternshipApplication application = im.applyInternship(index, name);
+			InternshipApplication application = im.applyInternship(index, name, repo);
 			// add application to studentpending
 			return application;
 		}
-		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * Displays all student applications and statuses given student has applied 
 	 */
-	public void viewApplications(List<InternshipApplication> applications) {
+	public void viewApplications(List<InternshipApplication> applications, Repository repo) {
 		if (applications.size() == 0){
 			System.out.println("No Internship Applications");
 		}
@@ -63,7 +62,7 @@ public class StudentPage extends UserPage {
 			InternshipApplicationManager iam = new InternshipApplicationManager();
 			for (InternshipApplication application: applications){
 				System.out.println("All Internship Applications");
-				System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + iam.getApplicationStatus(application));
+				System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + iam.getApplicationStatus(application, repo));
 			}
 		}
 		System.out.println();
