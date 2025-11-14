@@ -50,8 +50,7 @@ public class InternshipApplicationManager {
 	/**
 	 * Returns application status of certain application through repo
 	 */
-	public ApplicationStatus getApplicationStatus(InternshipApplication application) {
-		Repository repo = new Repository();
+	public ApplicationStatus getApplicationStatus(InternshipApplication application, Repository repo) {
 		return repo.getApplicationStatus(application);
 	}
 

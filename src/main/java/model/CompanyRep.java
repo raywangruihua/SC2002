@@ -25,7 +25,7 @@ public class CompanyRep extends Account {
 		}
 		else{
 			System.out.println("List of internships:");
-			for (Internship i: interships){
+			for (Internship i: internships){
 				System.out.println(i);
 			}
 		}

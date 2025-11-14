@@ -3,6 +3,9 @@ package service;
 import java.util.List;
 import java.util.ArrayList;
 import model.Account;
+import model.CareerCenterStaff;
+import model.CompanyRep;
+import model.Student;
 import util.Read;
 import enums.LoginStatus;
 
@@ -164,6 +167,17 @@ public class AccountManager {
 		} else {
 			System.out.println("No pending account found with userID " + userID +".");
 		}
+	}
+	/**
+	 * Returns account based on UserID
+	 */
+	public Account getAccount(String userID){
+		for (Account account: accounts){
+			if (account.getUserID() == userID){
+				return account;
+			}
+		}
+		throw new IllegalArgumentException("Account does not exist");
 	}
 
 }
