@@ -27,8 +27,9 @@ public class CareerCenterStaff extends Account {
 	 * 
 	 * @param rep
 	 */
-	public void approveAccount(CompanyRep rep) {
+	public void approveAccount(CompanyRep c) {
 		// TODO - implement CareerCenterStaff.authoriseAccount
+		
 		
 	}
 

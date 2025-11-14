@@ -130,16 +130,41 @@ public class AccountManager {
 	 * @param userID 
 	 */
 	public void approveAccount(String userID) {
-		
+		Account toApprove = null; 
+		for (Account acc: pending){
+			if (acc.getUserID().equals(userID)){
+				toApprove = acc; 
+				break; 
+			}
+		}
+		if (toApprove != null){
+			pending.remove(toApprove);
+			accounts.add(toApprove);
+			System.out.println("Account " + userID + " is approved.");
+		} else {
+			System.out.println("No pending account found with userID " + userID + ".");
+		}
 	}
 
 	/**
-	 * 
+	 * Remove company representative account from pending list
 	 * @param userID
 	 */
 	public void removePending(String userID) {
 		// TODO - implement AccountManager.removePending
-		throw new UnsupportedOperationException();
+		Account toReject = null; 
+		for (Account acc: pending){
+			if (acc.getUserID().equals(userID)){
+				toReject = acc; 
+				break; 
+			}
+		}
+		if (toReject != null){
+			pending.remove(toReject);
+			System.out.println("Account " + userID + " is rejected.");
+		} else {
+			System.out.println("No pending account found with userID " + userID +".");
+		}
 	}
 
 }
