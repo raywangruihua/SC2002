@@ -20,7 +20,16 @@ public class CompanyRep extends Account {
 
 	public void viewInternship() {
 		// TODO - implement CompanyRep.viewInternship
-		throw new UnsupportedOperationException();
+		if (internships.isEmpty()){
+			System.out.println("No internships available");
+		}
+		else{
+			System.out.println("List of internships:");
+			for (Internship i: interships){
+				System.out.println(i);
+			}
+		}
+		
 	}
 
 	public void submitInfo() {

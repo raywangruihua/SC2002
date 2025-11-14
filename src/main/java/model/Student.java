@@ -75,7 +75,7 @@ public class Student extends Account {
 		throw new UnsupportedOperationException();
 	}
 	
-	/**
+	/*
 	 * Student views internships available for application through User Interface
 	 */
 	public void viewInternships(){
