@@ -22,8 +22,9 @@ public class InternshipHubApp {
     private static final String STAFF_ACCOUNTS_PATH   = "StaffAccounts.csv";
 
     private static AccountManager               accMgr      = new AccountManager(STUDENT_ACCOUNTS_PATH, STAFF_ACCOUNTS_PATH);
-    private static InternshipManager            internMgr   = new InternshipManager();
-    private static InternshipApplicationManager appMgr      = new InternshipApplicationManager();
+    private static Repository                   repo        = new Repository();
+    private static InternshipManager            internMgr   = new InternshipManager(repo);
+    private static InternshipApplicationManager appMgr      = new InternshipApplicationManager(repo);
     private static Scanner                      sc          = new Scanner(System.in);
     private static LoginPage                    loginPage   = new LoginPage(accMgr, sc);
     private static StudentPage                  studentPage = new StudentPage(internMgr, appMgr, sc);

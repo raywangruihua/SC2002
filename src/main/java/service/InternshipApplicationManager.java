@@ -7,6 +7,12 @@ import repository.Repository;
 import java.util.List;
 
 public class InternshipApplicationManager {
+	private Repository repo;
+
+	public InternshipApplicationManager(Repository repo) {
+		this.repo = repo;
+	}
+
 	/**
 	 * Accept the student's internship application 
 	 * @param app

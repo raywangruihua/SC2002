@@ -10,6 +10,11 @@ import model.InternshipApplication;
 import repository.Repository;
 
 public class InternshipManager {
+	private Repository repo;
+
+	public InternshipManager(Repository repo) {
+		this.repo = repo;
+	}
 
 	public Internship createInternship() {
 		// TODO - implement InternshipManager.createInternship
