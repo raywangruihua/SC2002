@@ -1,6 +1,20 @@
 package ui;
 
+import model.InternshipApplication;
+import service.InternshipApplicationManager;
+import service.InternshipManager;
+import java.util.Scanner;
+
 public class CompanyRepPage extends UserPage {
+	private InternshipManager 			 internMgr;
+	private InternshipApplicationManager appMgr;
+	private Scanner 					 sc;
+
+	public CompanyRepPage(InternshipManager internMgr, InternshipApplicationManager appMgr, Scanner sc) {
+		this.internMgr = internMgr;
+		this.appMgr    = appMgr;
+		this.sc 	   = sc;
+	}
 
 	public void display() {
 		// TODO - implement CompanyRepPage.display

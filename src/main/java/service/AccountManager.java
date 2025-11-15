@@ -38,6 +38,12 @@ public class AccountManager {
 		pending = new ArrayList<>();
 	}
 
+	public void printAccounts() {
+		for (Account acc : accounts) {
+			System.out.println(acc);
+		}
+	}
+
 	/**
 	 * Check if login information is valid
 	 * 
@@ -62,10 +68,13 @@ public class AccountManager {
 	}
 
 	/**
-	 * Add account to pending list
+	 * Add account to pending list if it isn't a duplicate
 	 * @param acc
 	 */
 	public void register(Account acc) {
+		if (checkPending(acc.getUserID())) {
+			return;
+		}
 		pending.add(acc);
 	}
 
@@ -173,7 +182,7 @@ public class AccountManager {
 	 */
 	public Account getAccount(String userID){
 		for (Account account: accounts){
-			if (account.getUserID() == userID){
+			if (account.getUserID().equals(userID)){
 				return account;
 			}
 		}

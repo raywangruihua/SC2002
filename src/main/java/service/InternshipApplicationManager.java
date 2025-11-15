@@ -4,6 +4,7 @@ import enums.ApplicationStatus;
 import model.InternshipApplication;
 import model.Student;
 import repository.Repository;
+import java.util.List;
 
 public class InternshipApplicationManager {
 	/**
@@ -38,10 +39,10 @@ public class InternshipApplicationManager {
 		Repository repo = new Repository();  
 		List<InternshipApplication> apps = repo.getInternshipApplications();
 
-		System.out.println("Internships Applied by " + student.getStudentName());
+		System.out.println("Internships Applied by " + student.getName());
 		for (InternshipApplication a: apps){
-			if (a.getStudentID() == student.getStudentID()){
-				System.out.println("- " + a.getInternshipTitle() + "(" + a.getApplicationStatus());
+			if (a.getStudentID() == student.getUserID()){
+				System.out.println("- " + a.getInternshipTitle() + "(" + a.getStatus());
 			}
 		}
 	}

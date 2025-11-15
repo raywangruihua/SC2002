@@ -10,6 +10,7 @@ import model.Account;
  * Filepath for student and staff account csv must be entered before starting the app
  */
 public class LoginPage implements UserInterface {
+	public final int MAX_OPTION = 3;
 	private AccountManager accMgr;
 	private Scanner 	   sc;
 
@@ -28,8 +29,7 @@ public class LoginPage implements UserInterface {
 			                      "\n" +
 			"1. Login			   \n" +
 			"2. Register		   \n" +
-			"3. Exit			   \n" +
-			                      "\n"
+			"3. Exit			   \n"
 		);
 	}
 
@@ -60,6 +60,7 @@ public class LoginPage implements UserInterface {
 			}
 		}
 	}
+	
 	/*
 	 * Returns account based on userID
 	 */

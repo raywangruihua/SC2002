@@ -30,7 +30,7 @@ public class Registration {
      * @return Creates a new CompanyRep account object
      */
     public CompanyRep submit() {
-        System.out.print("Enter user ID: ");
+        System.out.print("\nEnter user ID: ");
         String userID = sc.nextLine();
 
         while (accMgr.checkExists(userID) || accMgr.checkPending(userID)) {
@@ -38,6 +38,7 @@ public class Registration {
                 "User ID taken\n\n" +
                 "Enter user ID: "
             );
+            userID = sc.nextLine();
         }
         
         System.out.print("Enter name: ");

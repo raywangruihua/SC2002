@@ -49,7 +49,7 @@ public class Student extends Account {
 		}
 		else {
 			StudentPage ui = new StudentPage();
-			InternshipApplication application = ui.applyInternship(index, yearOfStudy, super.getName(), repo);
+			InternshipApplication application = ui.applyInternship(index, yearOfStudy, getUserID(), getName(), repo);
 
 			// add application to pending
 			applications.add(application);

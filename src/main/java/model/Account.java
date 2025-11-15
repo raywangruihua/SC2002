@@ -57,4 +57,9 @@ public abstract class Account {
 	public void setPassword(String newPassword) {
 		this.password = newPassword; 
 	}
+
+	@Override
+	public String toString() {
+		return "UserID: " + getUserID() + ", Name: " + getName() + ", Password: " + getPassword();
+	}
 }

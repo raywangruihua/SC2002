@@ -12,7 +12,7 @@ public class Internship {
 	private InternshipLevel 			internshipLevel;
 	private String 						preferredMajor;
 	private LocalDate 					openDate;
-	private LocalDate 					closingData;
+	private LocalDate 					closingDate;
 	private InternshipStatus 			status;
 	private String 						companyName;
 	private List<String> 				companyRepresentatives;

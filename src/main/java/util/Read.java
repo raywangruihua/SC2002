@@ -31,6 +31,7 @@ public class Read {
             String inputLine;
             String[] info;
             
+            inputLine = scStream.nextLine();
             while (scStream.hasNext()) {
                 inputLine = scStream.nextLine();
                 info = inputLine.split("[,]");
@@ -72,6 +73,7 @@ public class Read {
             String inputLine;
             String[] info;
             
+            inputLine = scStream.nextLine();
             while (scStream.hasNext()) {
                 inputLine = scStream.nextLine();
                 info = inputLine.split("[,]");

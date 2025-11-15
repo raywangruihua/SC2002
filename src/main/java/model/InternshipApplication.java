@@ -4,14 +4,20 @@ import enums.ApplicationStatus;
 
 public class InternshipApplication {
 	
-	private String studentName;
-	private String internshipTitle;
+	private String			  studentID;
+	private String			  studentName;
+	private String 			  internshipTitle;
 	private ApplicationStatus status;
 
-	public InternshipApplication(String studentName, String internshipTitle){
-		this.studentName = studentName;
+	public InternshipApplication(String studentID, String studentName, String internshipTitle){
+		this.studentID 		 = studentID;
+		this.studentName 	 = studentName;
 		this.internshipTitle = internshipTitle;
-		this.status = ApplicationStatus.Pending;
+		this.status 		 = ApplicationStatus.Pending;
+	}
+
+	public String getStudentID() {
+		return studentID;
 	}
 
 	public String getStudentName() {

@@ -105,9 +105,9 @@ public class InternshipManager {
 	/**
 	 * Creates internship application for students 
 	 */
-	public InternshipApplication applyInternship(int index, String name, Repository repo) {
+	public InternshipApplication applyInternship(int index, String id, String name, Repository repo) {
 		Internship internship = repo.getInternshipByIndex(index);
-		InternshipApplication application = new InternshipApplication(name, internship.getTitle());
+		InternshipApplication application = new InternshipApplication(id, name, internship.getTitle());
 
 		// add application to repo
 		repo.addApplication(application);

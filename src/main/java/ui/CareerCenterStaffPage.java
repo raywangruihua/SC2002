@@ -1,6 +1,24 @@
 package ui;
 
+import java.util.Scanner;
+
+import model.Account;
+import service.AccountManager;
+import service.InternshipApplicationManager;
+import service.InternshipManager;
+
 public class CareerCenterStaffPage extends UserPage {
+	private AccountManager				 accMgr;
+	private InternshipManager			 internMgr;
+	private InternshipApplicationManager appMgr;
+	private Scanner						 sc;
+
+	public CareerCenterStaffPage(AccountManager accMgr, InternshipManager internMgr, InternshipApplicationManager appMgr, Scanner sc) {
+		this.accMgr    = accMgr;
+		this.internMgr = internMgr;
+		this.appMgr    = appMgr;
+		this.sc 	   = sc;
+	}
 
 	public void display() {
 		// TODO - implement CareerCenterStaffPage.display

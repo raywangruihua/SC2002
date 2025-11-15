@@ -5,15 +5,40 @@ import enums.InternshipLevel;
 import model.Internship;
 import model.InternshipApplication;
 import repository.Repository;
+import service.AccountManager;
 import service.InternshipApplicationManager;
 import service.InternshipManager;
 
 public class StudentPage extends UserPage {
+	private InternshipManager 			 internMgr;
+	private InternshipApplicationManager appMgr;
+	private Scanner		   				 sc;
+
+	public StudentPage(InternshipManager internMgr, InternshipApplicationManager appMgr, Scanner sc) {
+		this.internMgr = internMgr;
+		this.appMgr	   = appMgr;
+		this.sc		   = sc;
+	}
 
 	@Override
 	public void display() {
-
+		System.out.print(
+			"-------------------------------\n" +
+			"|                             |\n" +
+			"|   Student Internship Hub    |\n" +
+			"|                             |\n" +
+			"-------------------------------\n" +
+										   "\n" +
+			"1. View Internships		    \n" +
+			"2. Apply Internships		    \n" +
+			"3. View Applications	        \n" +
+			"4. Accept Placement		    \n" +
+			"5. Withdraw Applications	    \n" +
+			"6. Logout		           	    \n" +
+										   "\n"
+		);
 	}
+	
 	/* 
 	 * Displays internship information by index, title, internship level, company name and description
 	 */
@@ -37,7 +62,7 @@ public class StudentPage extends UserPage {
 	/**
 	 * Creates internship application for student given student is applicable 
 	 */
-	public InternshipApplication applyInternship(int index, int yearOfStudy, String name, Repository repo) {
+	public InternshipApplication applyInternship(int index, int yearOfStudy, String id, String name, Repository repo) {
 		InternshipManager im = new InternshipManager();
 		
 		if ((im.getInternshipLevel(index, repo) != InternshipLevel.Basic) && ((yearOfStudy == 1) || (yearOfStudy == 2))){
@@ -45,7 +70,7 @@ public class StudentPage extends UserPage {
 		}
 		else {
 			// create new application
-			InternshipApplication application = im.applyInternship(index, name, repo);
+			InternshipApplication application = im.applyInternship(index, id, name, repo);
 			// add application to studentpending
 			return application;
 		}
