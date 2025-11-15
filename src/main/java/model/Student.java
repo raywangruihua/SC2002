@@ -28,6 +28,14 @@ public class Student extends Account {
 		this.internship = new Internship();
 	}
 
+	public int getYear() {
+		return yearOfStudy;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
 	/**
 	 * 
 	 * @param a

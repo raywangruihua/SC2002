@@ -15,7 +15,6 @@ import java.io.FileNotFoundException;
 public class Read {
     /**
      * Student accounts format: (StudentID, Name, Password, Year, Major, Email)
-     * Remember to downcast Account back to Student when accessing privileges
      * 
      * @see Account
      * @see Student

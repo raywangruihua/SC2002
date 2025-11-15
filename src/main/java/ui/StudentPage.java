@@ -53,24 +53,30 @@ public class StudentPage extends UserPage {
 	/**
 	 * Retrieves all internships student can apply for through internshipmanager
 	 */
-	public void viewInternships(int yearOfStudy, String major, Repository repo) {
-		InternshipManager im = new InternshipManager();
-		List<Internship> display_list = im.getInternships(yearOfStudy, major, repo);
+	public void viewInternships(int yearOfStudy, String major) {
+		List<Internship> display_list = internMgr.getInternships(yearOfStudy, major);
 		display(display_list);
 	}
 
 	/**
 	 * Creates internship application for student given student is applicable 
 	 */
-	public InternshipApplication applyInternship(int index, int yearOfStudy, String id, String name, Repository repo) {
-		InternshipManager im = new InternshipManager();
-		
-		if ((im.getInternshipLevel(index, repo) != InternshipLevel.Basic) && ((yearOfStudy == 1) || (yearOfStudy == 2))){
+	public InternshipApplication applyInternship(int yearOfStudy, String id, String name) {
+		int index = -1;
+		while (!internMgr.checkInternshipExists(index)) {
+			try {
+				System.out.print("Enter internship index: ");
+				index = Integer.parseInt(sc.nextLine());
+			}
+			catch (NumberFormatException e) {}
+		}
+
+		if ((internMgr.getInternshipLevel(index) != InternshipLevel.Basic) && ((yearOfStudy == 1) || (yearOfStudy == 2))){
 			throw new IllegalArgumentException("Application Unaccepted");
 		}
 		else {
 			// create new application
-			InternshipApplication application = im.applyInternship(index, id, name, repo);
+			InternshipApplication application = internMgr.applyInternship(index, id, name);
 			// add application to studentpending
 			return application;
 		}
@@ -84,10 +90,9 @@ public class StudentPage extends UserPage {
 			System.out.println("No Internship Applications");
 		}
 		else {
-			InternshipApplicationManager iam = new InternshipApplicationManager();
 			for (InternshipApplication application: applications){
 				System.out.println("All Internship Applications");
-				System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + iam.getApplicationStatus(application, repo));
+				System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + appMgr.getApplicationStatus(application, repo));
 			}
 		}
 		System.out.println();

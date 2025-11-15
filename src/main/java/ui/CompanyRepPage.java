@@ -5,6 +5,8 @@ import service.InternshipApplicationManager;
 import service.InternshipManager;
 import java.util.Scanner;
 
+import forms.InternshipCreation;
+
 public class CompanyRepPage extends UserPage {
 	private InternshipManager 			 internMgr;
 	private InternshipApplicationManager appMgr;
@@ -17,17 +19,36 @@ public class CompanyRepPage extends UserPage {
 	}
 
 	public void display() {
-		// TODO - implement CompanyRepPage.display
-		throw new UnsupportedOperationException();
+		System.out.print(
+			"----------------------------------------------\n" +
+			"|                          			      |\n" +
+			"|   Company Representative Internship Hub    |\n" +
+			"|                            				  |\n" +
+			"----------------------------------------------\n" +
+										   				  "\n" +
+			"1. Create  Internship						   \n" +
+			"2. Toggle  Internship						   \n" +
+			"2. View    Applications					   \n" +
+			"3. Approve Application						   \n" +
+			"4. Reject  Application						   \n" +
+			"3. Logout									   \n"
+		);
 	}
 
 	/**
+	 * Submit internship creation form
+	 * Add new internship to pending list in repo for Career Center Staff approval
+	 * Prevents new internships from being created if current company already has 5
+	 * 
+	 * @see InternshipCreation
+	 * @see Repository
+	 * @see CareerCenterStaff
 	 * 
 	 * @param numInternships
 	 */
 	public void createInternship(int numInternships) {
-		// TODO - implement CompanyRepPage.createInternship
-		throw new UnsupportedOperationException();
+		InternshipCreation form = new InternshipCreation(sc);
+		internMgr.createInternship(form.submit());
 	}
 
 	public void checkInternshipApproval() {

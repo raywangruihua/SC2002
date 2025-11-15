@@ -1,10 +1,12 @@
 package repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import enums.ApplicationStatus;
 import model.Internship;
 import model.InternshipApplication;
+import model.Company;
 import service.InternshipApplicationManager;
 import service.InternshipManager;
 import util.Sort;
@@ -12,22 +14,34 @@ import util.Sort;
 /**
  * Repository class stores all pending internships, internships and internships applications
  * This creates a centralised list that all manager classes can access
+ * Also stores list of companies
  * 
  * @see InternshipManager
  * @see InternshipApplicationManager
  */
 public class Repository {
-
-	private List<Internship> internships;
+	private List<Internship> 			internships;
 	private List<InternshipApplication> applications;
-	private List<Internship> pendingInternships;
+	private List<Internship> 			pendingInternships;
+	private List<Company>				companies;
 
-	/**
-	 * 
-	 */
-	public List<InternshipApplication> getInternshipApplications(){
-		return this.applications; 
+	public List<Internship> 		   getInternships() 		   {return internships;}
+	public List<InternshipApplication> getInternshipApplications() {return applications;}
+	public List<Internship> 		   getPendingInternships() 	   {return pendingInternships;}
+
+	public Repository() {
+		this.internships 		= new ArrayList<>();
+		this.applications 		= new ArrayList<>();
+		this.pendingInternships = new ArrayList<>();
+		this.companies 			= new ArrayList<>();
 	}
+
+	public List<Company> getCompanies() {return companies;}
+
+	public void addCompany(Company co) {companies.add(co);}
+
+	public void addInternship(Internship i) {pendingInternships.add(i);}
+
 	/* 
 	 * Returns internship based off index
 	 */

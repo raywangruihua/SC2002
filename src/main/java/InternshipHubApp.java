@@ -61,6 +61,7 @@ public class InternshipHubApp {
     }
 
     public static void student() {
+        Student studentAcc = (Student) acc;
         studentPage.display();
         
         int option = -1;
@@ -72,13 +73,14 @@ public class InternshipHubApp {
             catch (NumberFormatException e) {}
 
             switch (option) {
-                case 1 -> studentPage.display();
+                case 1 -> studentPage.viewInternships(studentAcc.getYear(), studentAcc.getMajor());
+                case 2 -> studentPage.applyInternship(studentAcc.getYear(), studentAcc.getUserID(), studentAcc.getName());
             }
         }
     }
 
     public static void companyRep() {
-
+        
     }
 
     public static void careerCenterStaff() {

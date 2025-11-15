@@ -16,15 +16,23 @@ public class InternshipManager {
 		this.repo = repo;
 	}
 
-	public Internship createInternship() {
-		// TODO - implement InternshipManager.createInternship
-		throw new UnsupportedOperationException();
+	public boolean checkInternshipExists(int index) {
+		for (Internship i : repo.getInternships()) {
+			if (i.getIndex() == index) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void createInternship(Internship i) {
+		repo.addInternship(i);
 	}
 
 	/**
 	 * Returns list of sorted internships from repo based on student's year of study and major
 	 */
-	public List<Internship> getInternships(int yearOfStudy, String major, Repository repo) {
+	public List<Internship> getInternships(int yearOfStudy, String major) {
 		List<Internship> display_list = repo.getDisplayInternships(yearOfStudy, major);
 		return display_list;
 	}
@@ -65,7 +73,7 @@ public class InternshipManager {
 	/**
 	 * Returns internship level of internship by index 
 	 */
-	public InternshipLevel getInternshipLevel(int index, Repository repo) {
+	public InternshipLevel getInternshipLevel(int index) {
 		Internship internship = repo.getInternshipByIndex(index);
 		return internship.getInternshipLevel();
 	}
@@ -110,7 +118,7 @@ public class InternshipManager {
 	/**
 	 * Creates internship application for students 
 	 */
-	public InternshipApplication applyInternship(int index, String id, String name, Repository repo) {
+	public InternshipApplication applyInternship(int index, String id, String name) {
 		Internship internship = repo.getInternshipByIndex(index);
 		InternshipApplication application = new InternshipApplication(id, name, internship.getTitle());
 
