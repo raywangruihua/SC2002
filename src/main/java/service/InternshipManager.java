@@ -1,7 +1,7 @@
 package service;
 
 import java.util.List;
-
+import java.util.stream.Collectors;
 import enums.ApplicationStatus;
 import enums.InternshipLevel;
 import enums.InternshipStatus;
@@ -12,22 +12,42 @@ import repository.Repository;
 public class InternshipManager {
 	private Repository repo;
 
-	public InternshipManager(Repository repo) {
-		this.repo = repo;
+	public InternshipManager(Repository repo) {this.repo = repo;}
+
+	public Internship getInternship(int index) {
+		for (Internship i : repo.getInternships()) if (i.getIndex() == index) return i;
+		return null;
+	}
+
+	/**
+	 * Get pending internships according to company
+	 */
+	public List<Internship> getPendingInternships(String companyName) {
+		return repo.getPendingInternships().stream()
+										   .filter(i -> i.getCompanyName().equalsIgnoreCase(companyName))
+										   .collect(Collectors.toList());
+	}
+
+	/**
+	 * Get approved internships according to company
+	 */
+	public List<Internship> getApprovedInternships(String companyName) {
+		return repo.getInternships().stream()
+									.filter(i -> i.getCompanyName().equalsIgnoreCase(companyName))
+									.collect(Collectors.toList());
 	}
 
 	public boolean checkInternshipExists(int index) {
-		for (Internship i : repo.getInternships()) {
-			if (i.getIndex() == index) {
-				return true;
-			}
-		}
+		for (Internship i : repo.getInternships()) if (i.getIndex() == index) return true;
 		return false;
 	}
 
-	public void createInternship(Internship i) {
-		repo.addInternship(i);
-	}
+	/**
+	 * External users should call this method instead of accessing repo directly for encapsulation
+	 * 
+	 * @param i
+	 */
+	public void createInternship(Internship i) {repo.createInternship(i);}
 
 	/**
 	 * Returns list of sorted internships from repo based on student's year of study and major
@@ -36,6 +56,7 @@ public class InternshipManager {
 		List<Internship> display_list = repo.getDisplayInternships(yearOfStudy, major);
 		return display_list;
 	}
+
 
 	public void toggleVisibility() {
 		// TODO - implement InternshipManager.toggleVisibility

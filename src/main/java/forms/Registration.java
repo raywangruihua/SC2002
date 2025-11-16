@@ -64,7 +64,7 @@ public class Registration implements Base<CompanyRep> {
         
         /// Check if company already exists
         /// If not, add the new company to repository
-        Company company = companyMgr.find(companyName);
+        Company company = companyMgr.getCompany(companyName);
         if (company == null) {
             company = new Company(companyName);
             companyMgr.addCompany(company);

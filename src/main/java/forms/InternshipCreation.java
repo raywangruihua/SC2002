@@ -1,6 +1,5 @@
 package forms;
 
-import java.text.NumberFormat;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -30,9 +29,9 @@ public class InternshipCreation implements Base<Internship> {
                 System.out.print("Enter internship level (1 - Basic, 2 - Intermediate, 3 - Advanced): ");
                 option = Integer.parseInt(sc.nextLine());
                 switch (option) {
-                    case 1 : level = InternshipLevel.Basic; break outer;
+                    case 1 : level = InternshipLevel.Basic;        break outer;
                     case 2 : level = InternshipLevel.Intermediate; break outer;
-                    case 3 : level = InternshipLevel.Advanced; break outer;
+                    case 3 : level = InternshipLevel.Advanced;     break outer;
                 }
             }
             catch (NumberFormatException e) {}

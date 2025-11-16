@@ -1,7 +1,6 @@
 package service;
 
 
-import java.util.List;
 import repository.Repository;
 import model.Company;
 import model.CompanyRep;
@@ -18,12 +17,17 @@ public class CompanyManager {
         this.repo = repo;
     }
 
-    public Company find(String companyName) {
+    public Company getCompany(String companyName) {
         for (Company c : repo.getCompanies()) {
             if (c.getName().equalsIgnoreCase(companyName)) return c;
         }
         return null;
     }
+
+    public int  getNumInternships(String companyName)    {return getCompany(companyName).getNumInternships();}
+
+    public void incrementInternships(String companyName) {getCompany(companyName).incrementInternships();}
+    public void decrementInternships(String companyName) {getCompany(companyName).decrementInternships();}
 
     public void addCompany(Company co) {repo.addCompany(co);}
 
@@ -34,7 +38,7 @@ public class CompanyManager {
      * @param companyName
      */
     public void addNewEmployee(CompanyRep acc, String companyName) {
-        Company company = find(companyName);
+        Company company = getCompany(companyName);
         company.addEmployee(acc);
     }
 }

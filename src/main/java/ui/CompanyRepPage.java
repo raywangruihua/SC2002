@@ -1,15 +1,17 @@
 package ui;
 
+import java.util.Scanner;
+import model.Internship;
 import model.InternshipApplication;
+import service.CompanyManager;
 import service.InternshipApplicationManager;
 import service.InternshipManager;
-import java.util.Scanner;
-
 import forms.InternshipCreation;
 
 public class CompanyRepPage extends UserPage {
 	private InternshipManager 			 internMgr;
 	private InternshipApplicationManager appMgr;
+	private CompanyManager				 coMgr;
 	private Scanner 					 sc;
 
 	public CompanyRepPage(InternshipManager internMgr, InternshipApplicationManager appMgr, Scanner sc) {
@@ -27,18 +29,19 @@ public class CompanyRepPage extends UserPage {
 			"----------------------------------------------\n" +
 										   				  "\n" +
 			"1. Create  Internship						   \n" +
-			"2. Toggle  Internship						   \n" +
-			"2. View    Applications					   \n" +
-			"3. Approve Application						   \n" +
-			"4. Reject  Application						   \n" +
-			"3. Logout									   \n"
+			"2. View 	Internships						   \n" +
+			"3. Toggle  Internship						   \n" +
+			"4. View    Applications					   \n" +
+			"5. Approve Application						   \n" +
+			"6. Reject  Application						   \n" +
+			"7. Logout									   \n"
 		);
 	}
 
 	/**
 	 * Submit internship creation form
 	 * Add new internship to pending list in repo for Career Center Staff approval
-	 * Prevents new internships from being created if current company already has 5
+	 * Prevents new internships from being created if current company already has 5 (pending or approved)
 	 * 
 	 * @see InternshipCreation
 	 * @see Repository
@@ -46,18 +49,36 @@ public class CompanyRepPage extends UserPage {
 	 * 
 	 * @param numInternships
 	 */
-	public void createInternship(int numInternships) {
+	public void createInternship(String companyName) {
+		if (coMgr.getNumInternships(companyName) >= 5) System.out.println("Number of internships exceeded.");
+
 		InternshipCreation form = new InternshipCreation(sc);
 		internMgr.createInternship(form.submit());
+		coMgr.incrementInternships(companyName);
+		System.out.println("Internship submitted for approval.");
+	}
+
+	/**
+	 * View internships (pending or approved)
+	 */
+	public void viewInternships(String companyName) {
+		System.out.println("Approved Internships");
+		for (Internship i : internMgr.getApprovedInternships(companyName)) System.out.println(i);
+
+		System.out.println("Pending Internships");
+		for (Internship i : internMgr.getPendingInternships(companyName)) System.out.println(i);
+	}
+
+	/**
+	 * Toggle approved internship visibility by index
+	 */
+	public void toggleInternship(int index) {	
+		try { internMgr.getInternship(index).toggleVisibility();}
+		catch (NullPointerException e) {System.out.println("Internship does not exist.");} 
 	}
 
 	public void checkInternshipApproval() {
 		// TODO - implement CompanyRepPage.checkInternshipApproval
-		throw new UnsupportedOperationException();
-	}
-
-	public void toggleInternshipVisibility() {
-		// TODO - implement CompanyRepPage.toggleInternshipVisibility
 		throw new UnsupportedOperationException();
 	}
 

@@ -38,30 +38,32 @@ public class Internship {
 		this.visibility 			= false;
 		this.index 					= -1;
 	}
-
-	public int getIndex(){
-		return index;
+	
+	@Override
+	public String toString() {
+		return "Company Name: "				 + companyName			  +
+			   "\nTitle: " 			  		 + title 				  +
+			   "\nDescription: " 	  		 + description 			  +
+			   "\nInternship Level: "  		 + internshipLevel 		  +
+			   "\nPreferred Major: "  		 + preferredMajor 		  +
+			   "\nOpen date: " 		  		 + openDate 			  +
+			   "\nClose date: " 	  		 + closingDate 			  +
+			   "\nStatus: " 		  		 + status 				  +
+			   "\nSlots: " 			  		 + slots 				  + 
+			   "\nCompany Representatives: " + companyRepresentatives +
+			   "\nApplications Received: "   + applicationsReceived   +
+			   "\nVisibility: " 			 + visibility 			  +
+			   "\nIndex: " 					 + index;
 	}
 
-	public InternshipLevel getInternshipLevel(){
-		return internshipLevel;
-	}
+	public String 		   getTitle() 			{return title;}
+	public String 		   getDescription() 	{return description;}
+	public InternshipLevel getInternshipLevel() {return internshipLevel;}
+	public String 		   getPreferedMajor() 	{return preferredMajor;}	
+	public String 		   getCompanyName() 	{return companyName;}
+	public int 			   getIndex() 			{return index;}
 
-	public String getPreferedMajor(){
-		return preferredMajor;
-	}
-
-	public String getTitle(){
-		return title;
-	}
-
-	public String getDescription(){
-		return description;
-	}
-
-	public String getCompanyName(){
-		return companyName;
-	}
+	public void toggleVisibility() {visibility = !visibility;}
 
 	/*
 	 * adds application to list of applications received

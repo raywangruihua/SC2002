@@ -6,7 +6,7 @@ import model.Account;
 import model.CareerCenterStaff;
 import model.CompanyRep;
 import model.Student;
-import util.Read;
+import util.FileUtil;
 import enums.LoginStatus;
 
 /**
@@ -32,8 +32,8 @@ public class AccountManager {
 	 */
 	public AccountManager(String studentsFilepath, String staffsFilepath) {
 		accounts = new ArrayList<>();
-		accounts.addAll(Read.readStudentAccountsCSV(studentsFilepath));
-		accounts.addAll(Read.readStaffAccountsCSV(staffsFilepath));
+		accounts.addAll(FileUtil.readStudentAccountsCSV(studentsFilepath));
+		accounts.addAll(FileUtil.readStaffAccountsCSV(staffsFilepath));
 
 		pending = new ArrayList<>();
 	}

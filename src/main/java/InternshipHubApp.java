@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import service.AccountManager;
+import service.CompanyManager;
 import service.InternshipApplicationManager;
 import service.InternshipManager;
 import ui.*;
@@ -22,10 +23,14 @@ public class InternshipHubApp {
     private static final String STAFF_ACCOUNTS_PATH   = "StaffAccounts.csv";
 
     private static AccountManager               accMgr      = new AccountManager(STUDENT_ACCOUNTS_PATH, STAFF_ACCOUNTS_PATH);
+    /// Future implementation : Save repository offline
     private static Repository                   repo        = new Repository();
+    /// Managers have access to repo
+    private static CompanyManager               coMgr       = new CompanyManager(repo);
     private static InternshipManager            internMgr   = new InternshipManager(repo);
     private static InternshipApplicationManager appMgr      = new InternshipApplicationManager(repo);
     private static Scanner                      sc          = new Scanner(System.in);
+    /// UI pages
     private static LoginPage                    loginPage   = new LoginPage(accMgr, sc);
     private static StudentPage                  studentPage = new StudentPage(internMgr, appMgr, sc);
     private static CareerCenterStaffPage        staffPage   = new CareerCenterStaffPage(accMgr, internMgr, appMgr, sc);

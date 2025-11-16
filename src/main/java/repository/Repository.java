@@ -25,10 +25,6 @@ public class Repository {
 	private List<Internship> 			pendingInternships;
 	private List<Company>				companies;
 
-	public List<Internship> 		   getInternships() 		   {return internships;}
-	public List<InternshipApplication> getInternshipApplications() {return applications;}
-	public List<Internship> 		   getPendingInternships() 	   {return pendingInternships;}
-
 	public Repository() {
 		this.internships 		= new ArrayList<>();
 		this.applications 		= new ArrayList<>();
@@ -36,11 +32,21 @@ public class Repository {
 		this.companies 			= new ArrayList<>();
 	}
 
-	public List<Company> getCompanies() {return companies;}
+	public List<Internship> 		   getInternships() 		   {return internships;}
+	public List<InternshipApplication> getInternshipApplications() {return applications;}
+	public List<Internship> 		   getPendingInternships() 	   {return pendingInternships;}
+	public List<Company> 			   getCompanies() 			   {return companies;}
+
 
 	public void addCompany(Company co) {companies.add(co);}
 
-	public void addInternship(Internship i) {pendingInternships.add(i);}
+	/**
+	 * When new internship is created, add to pending list to await approval by career center staff
+	 * 
+	 * @see Internship
+	 * @see CareerCenterStaff
+	 */
+	public void createInternship(Internship i) {pendingInternships.add(i);}
 
 	/* 
 	 * Returns internship based off index

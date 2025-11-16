@@ -10,9 +10,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Utility class that reads files
+ * Utility class that reads and writes files
  */
-public class Read {
+public class FileUtil {
     /**
      * Student accounts format: (StudentID, Name, Password, Year, Major, Email)
      * 
