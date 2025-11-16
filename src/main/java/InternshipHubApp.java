@@ -63,6 +63,12 @@ public class InternshipHubApp {
                 default -> System.out.println("Please enter a valid option (1-" + loginPage.MAX_OPTION + ")");
             }
         }
+
+        /// After successful login, check which account type has logged in
+        if      (acc instanceof Student)           student();
+        else if (acc instanceof CompanyRep)        companyRep();
+        else if (acc instanceof CareerCenterStaff) careerCenterStaff();
+        else System.out.println("Unknown account type.");
     }
 
     public static void student() {
@@ -85,6 +91,79 @@ public class InternshipHubApp {
     }
 
     public static void companyRep() {
+        CompanyRep repAcc = (CompanyRep) acc;
+
+        repPage.display();
+
+        int option = -1;
+        while (true) {
+            try {
+                System.out.print("Enter option: ");
+                option = Integer.parseInt(sc.nextLine());
+            }
+            catch (NumberFormatException e) {}
+
+            switch (option) {
+                case 1 -> repPage.createInternship(repAcc.getCompanyName());
+                case 2 -> repPage.viewInternships(repAcc.getCompanyName());
+                case 3 -> {
+                    while (true) {
+                        try {
+                            System.out.print("Enter internship index: ");
+                            option = Integer.parseInt(sc.nextLine());
+                            repPage.toggleInternship(option);
+                            break;
+                        }
+                        catch (NumberFormatException e) {}
+                        catch (NullPointerException e)  {
+                            System.out.println("Internship " + option + " does not exist.");
+                            break;
+                        }
+                    }
+                }
+                case 4 -> {
+                    while (true) {
+                        try {
+                            System.out.print("Enter internship index: ");
+                            option = Integer.parseInt(sc.nextLine());
+                            repPage.viewApplications(option);
+                            break;
+                        }
+                        catch (NumberFormatException e) {}
+                    }
+                }
+                case 5 -> {
+                    while (true) {
+                        try {
+                            System.out.print("Enter application index: ");
+                            option = Integer.parseInt(sc.nextLine());
+                            repPage.approveApplication(option);
+                            break;
+                        }
+                        catch (NumberFormatException e) {}
+                    }
+                }
+                case 6 -> {
+                    while (true) {
+                        try {
+                            System.out.print("Enter application index: ");
+                            option = Integer.parseInt(sc.nextLine());
+                            repPage.rejectApplication(option);
+                            break;
+                        }
+                        catch (NumberFormatException e) {}
+                    }
+                }
+                /// Proper handling of logout?
+                case 7 -> {
+                    repAcc = null;
+                    acc = null;
+                    login();
+                }
+                default -> System.out.print("Please enter a valid option (1-" + repPage.MAX_OPTION + "): ");
+            }
+        }
+
         
     }
 
@@ -94,12 +173,6 @@ public class InternshipHubApp {
 
     public static void main(String[] args) {
         login();
-
-        /// After successful login, check which account type has logged in
-        if      (acc instanceof Student)           student();
-        else if (acc instanceof CompanyRep)        companyRep();
-        else if (acc instanceof CareerCenterStaff) careerCenterStaff();
-        else System.out.println("Invalid account type.");
 
         /*
         System.out.print("Enter option: ");

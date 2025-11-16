@@ -1,42 +1,51 @@
 package service;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import enums.ApplicationStatus;
+import model.Internship;
 import model.InternshipApplication;
 import model.Student;
 import repository.Repository;
-import java.util.List;
 
 public class InternshipApplicationManager {
 	private Repository repo;
 
-	public InternshipApplicationManager(Repository repo) {
-		this.repo = repo;
+	public InternshipApplicationManager(Repository repo) {this.repo = repo;}
+
+	/**
+	 * Get internship applications to a specific internship according to its index
+	 */
+	public List<InternshipApplication> getApplications(int internshipIndex) {
+		return repo.getInternshipApplications().stream()
+											   .filter(a -> a.getInternshipIndex() == internshipIndex)
+											   .collect(Collectors.toList());
+	}
+
+	/**
+	 * Get internship application using its index
+	 */
+	public InternshipApplication getApplication(int applicationIndex) {
+		for (InternshipApplication a : repo.getInternshipApplications()) {
+			if (a.getApplicationIndex() == applicationIndex) return a;
+		}
+		return null;
 	}
 
 	/**
 	 * Accept the student's internship application 
-	 * @param app
 	 */
-	public void approveApplication(InternshipApplication app) {
-		if (app == null){
-			System.out.println("Invalid Application.");
-		} else {
-			app.setApplicationStatus(ApplicationStatus.Successful);
-		}
+	public void approveApplication(int applicationIndex) {
+		getApplication(applicationIndex).setApplicationStatus(ApplicationStatus.Successful);
 	}
+
 	/**
 	 * Reject the student's internship application 
-	 * @param app
 	 */
-	public void rejectApplication(InternshipApplication app) {
-		if (app == null){
-			System.out.println("Invalid Application.");
-			System.out.println("Application accepted.");
-		} else {
-			app.setApplicationStatus(ApplicationStatus.Unsuccessful);
-			System.out.println("Application rejected.");
-		}
+	public void rejectApplication(int applicationIndex) {
+		getApplication(applicationIndex).setApplicationStatus(ApplicationStatus.Unsuccessful);		
 	}
+
 	/**
 	 * View list of internships applied by a student
 	 * @param student 

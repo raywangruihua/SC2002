@@ -9,6 +9,8 @@ import service.InternshipManager;
 import forms.InternshipCreation;
 
 public class CompanyRepPage extends UserPage {
+	public final int MAX_OPTION = 7;
+
 	private InternshipManager 			 internMgr;
 	private InternshipApplicationManager appMgr;
 	private CompanyManager				 coMgr;
@@ -50,7 +52,7 @@ public class CompanyRepPage extends UserPage {
 	 * @param numInternships
 	 */
 	public void createInternship(String companyName) {
-		if (coMgr.getNumInternships(companyName) >= 5) System.out.println("Number of internships exceeded.");
+		if (coMgr.getNumInternships(companyName) >= 5) System.out.println("\nNumber of internships exceeded.");
 
 		InternshipCreation form = new InternshipCreation(sc);
 		internMgr.createInternship(form.submit());
@@ -62,39 +64,36 @@ public class CompanyRepPage extends UserPage {
 	 * View internships (pending or approved)
 	 */
 	public void viewInternships(String companyName) {
-		System.out.println("Approved Internships");
+		System.out.print("\nApproved Internships");
 		for (Internship i : internMgr.getApprovedInternships(companyName)) System.out.println(i);
 
-		System.out.println("Pending Internships");
+		System.out.print("\nPending Internships");
 		for (Internship i : internMgr.getPendingInternships(companyName)) System.out.println(i);
 	}
 
 	/**
 	 * Toggle approved internship visibility by index
 	 */
-	public void toggleInternship(int index) {	
-		try { internMgr.getInternship(index).toggleVisibility();}
-		catch (NullPointerException e) {System.out.println("Internship does not exist.");} 
+	public void toggleInternship(int index) throws NullPointerException {	
+		internMgr.getInternship(index).toggleVisibility();
 	}
 
-	public void checkInternshipApproval() {
-		// TODO - implement CompanyRepPage.checkInternshipApproval
-		throw new UnsupportedOperationException();
+	/**
+	 * View applications for internship chosen
+	 */
+	public void viewApplications(int internshipIndex) {
+		for (InternshipApplication a : appMgr.getApplications(internshipIndex)) {
+			System.out.println(a);
+		}
 	}
 
-	public void viewInternshipApplications() {
-		// TODO - implement CompanyRepPage.viewInternshipApplications
-		throw new UnsupportedOperationException();
-	}
+	/**
+	 * Approve application via InternshipApplication Manager
+	 */
+	public void approveApplication(int applicationIndex) {appMgr.approveApplication(applicationIndex);}
 
-	public void approveInternshipApplication() {
-		// TODO - implement CompanyRepPage.approveInternshipApplication
-		throw new UnsupportedOperationException();
-	}
-
-	public void rejectInternshipApplication() {
-		// TODO - implement CompanyRepPage.rejectInternshipApplication
-		throw new UnsupportedOperationException();
-	}
-
+	/**
+	 * Reject application via InternshipApplication Manager
+	 */
+	public void rejectApplication(int applicationIndex) {appMgr.rejectApplication(applicationIndex);}
 }

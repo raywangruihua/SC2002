@@ -16,7 +16,7 @@ public class InternshipCreation implements Base<Internship> {
 
     @Override
     public Internship submit() {
-        System.out.print("Enter internship title: ");
+        System.out.print("\nEnter internship title: ");
         String title  = sc.nextLine();
 
         System.out.print("Enter short description: ");
