@@ -63,18 +63,22 @@ public class InternshipManager {
 		throw new UnsupportedOperationException();
 	}
 
+	// Print all internships (for staff UI)
 	public void viewInternships() {
-		// TODO - implement InternshipManager.viewInternships
-		throw new UnsupportedOperationException();
+		List<Internship> internships = repo.getInternships();
+        for (Internship i : internships) {
+            System.out.println(i);
+        }
 	}
 
 	/**
-	 * 
+	 * Count the number of internships belonging to a particular company
 	 * @param companyName
 	 */
 	public int getNumInternships(String companyName) {
-		// TODO - implement InternshipManager.getNumInternships
-		throw new UnsupportedOperationException();
+		return (int) repo.getInternships().stream()
+            .filter(i -> i.getCompanyName().equalsIgnoreCase(companyName))
+            .count();
 	}
 
 	/**
@@ -82,13 +86,13 @@ public class InternshipManager {
 	 * @param i
 	 */
 	public void addInternship(Internship i) {
-		// TODO - implement InternshipManager.addInternship
-		throw new UnsupportedOperationException();
+		repo.getInternships().add(i);
 	}
 
-	public void checkNumInternships() {
-		// TODO - implement InternshipManager.checkNumInternships
-		throw new UnsupportedOperationException();
+	// Print out how many internships a company owns
+	public void checkNumInternships(String companyName) {
+		int count = getNumInternships(companyName);
+        System.out.println("Total internships for company " + companyName + ": " + count);
 	}
 
 	/**
@@ -104,27 +108,33 @@ public class InternshipManager {
 		throw new UnsupportedOperationException();
 	}
 
-	public void rejectInternship() {
-		// TODO - implement InternshipManager.rejectInternship
-		throw new UnsupportedOperationException();
+	// career staff reject the publish of internships
+	public void rejectInternship(int index) {
+		Internship internship = getInternship(index);
+        if (internship != null) {
+            internship.setStatus(InternshipStatus.Rejected);
+        }
 	}
 
 	/**
-	 * 
+	 * Set the status (eg. approved, rejected, pending) for an internship
 	 * @param i
 	 */
-	public void setInternshipStatus(InternshipStatus i) {
-		// TODO - implement InternshipManager.setInternshipStatus
-		throw new UnsupportedOperationException();
+	public void setInternshipStatus(int index, InternshipStatus status) {
+		Internship internship = getInternship(index);
+        if (internship != null) {
+            internship.setStatus(status);
+        }
 	}
 
 	/**
-	 * 
+	 * Request withdrawal for an application by student
 	 * @param a The internship application to withdraw
 	 */
 	public void requestWithdrawal(InternshipApplication a) {
-		// TODO - implement InternshipManager.requestWithdrawal
-		throw new UnsupportedOperationException();
+		if (a != null) {
+            a.setApplicationStatus(ApplicationStatus.WITHDRAWAL_REQUESTED);
+        }
 	}
 
 	/**
@@ -152,20 +162,21 @@ public class InternshipManager {
 		// return application to add to student's list of pending applications
 		return application;
 	}
-
-	public void rejectApplication() {
-		// TODO - implement InternshipManager.rejectApplication
-		throw new UnsupportedOperationException();
+	// Reject an application and mark with rejected status
+	public void rejectApplication(InternshipApplication a) {
+		if (a != null) {
+            a.setApplicationStatus(ApplicationStatus.Unsuccessful);
+        }
 	}
-
-	public void approveWithdrawal() {
-		// TODO - implement InternshipManager.approveWithdrawal
-		throw new UnsupportedOperationException();
+	// Approve a withdrawal request and mark as withdrawn
+	public void approveWithdrawal(InternshipApplication a) {
+		if (a != null) {
+            a.setApplicationStatus(ApplicationStatus.Successful);
+        }
 	}
-
-	public void getWithdrawalStatus() {
-		// TODO - implement InternshipManager.getWithdrawalStatus
-		throw new UnsupportedOperationException();
+   // Retrieve withdrawal status of a given application
+	public ApplicationStatus getWithdrawalStatus(InternshipApplication a) {
+		return a != null ? a.getStatus() : null;
 	}
 
 }
