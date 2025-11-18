@@ -66,12 +66,13 @@ public class Internship {
 			   "\nIndex: " 					 + index;
 	}
 
-	public String 		   getTitle() 			{return title;}
-	public String 		   getDescription() 	{return description;}
-	public InternshipLevel getInternshipLevel() {return internshipLevel;}
-	public String 		   getPreferedMajor() 	{return preferredMajor;}	
-	public String 		   getCompanyName() 	{return companyName;}
-	public int 			   getIndex() 			{return index;}
+	public String 		    getTitle() 			 {return title;}
+	public String 		    getDescription() 	 {return description;}
+	public InternshipLevel  getInternshipLevel() {return internshipLevel;}
+	public String 		    getPreferedMajor() 	 {return preferredMajor;}	
+	public String 		    getCompanyName() 	 {return companyName;}
+	public int 			    getIndex() 			 {return index;}
+	public InternshipStatus getStatus()			 {return status;}
 
 	public void toggleVisibility() {visibility = !visibility;}
 

@@ -3,14 +3,9 @@ package ui;
 import java.util.Scanner;
 
 import enums.InternshipLevel;
-import model.Account;
-import model.CareerCenterStaff;
-import model.Internship;
-import model.InternshipApplication;
+import model.*;
 import repository.Repository;
-import service.AccountManager;
-import service.InternshipApplicationManager;
-import service.InternshipManager;
+import service.*;
 
 public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 	public final int MAX_OPTION = 11;
@@ -29,22 +24,22 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 	public int display(CareerCenterStaff staffAcc, Repository repo) {
 		System.out.print(
 			"----------------------------------------------\n" +
-			"|                          			      |\n" +
+			"|                                            |\n" +
 			"|     Career-Center Staff Internship Hub     |\n" +
-			"|                            				  |\n" +
+			"|                                            |\n" +
 			"----------------------------------------------\n" +
 										   				  "\n" +
-			"1. View      Company account				  	\n" +
-			"2. Accept    Company account				 	\n" +
-			"3. Reject    Company account					\n" +
-			"4. View 	  Internships						\n" +
-			"5. Approve   Internship					    \n" +
-			"6. Reject    Internship					    \n" +
-			"7. View 	  Withdrawal Requests				\n" +
-			"8. Accept    Withdrawal						\n" +
-			"9. Reject    Withdrawal						\n" +
-			"10. Generate    Report							\n" +
-			"11. Logout									   \n"
+			"1.  View      Company account                  \n" +
+			"2.  Accept    Company account                  \n" +
+			"3.  Reject    Company account                  \n" +
+			"4.  View      Internships                      \n" +
+			"5.  Approve   Internship                       \n" +
+			"6.  Reject    Internship                       \n" +
+			"7.  View      Withdrawal Requests              \n" +
+			"8.  Accept    Withdrawal                       \n" +
+			"9.  Reject    Withdrawal                       \n" +
+			"10. Generate  Report                        \n" +
+			"11. Logout                                    \n"
 		);
 
 		int option = -1;
@@ -67,12 +62,12 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
                     String userid = sc.nextLine();
 					rejectAccount(userid);
 				}
-				case 4 -> viewInternships();
-				case 5 -> approveInternship();
-                case 6 -> rejectInternship();
-				case 7 -> viewWithdrawals();
-				case 8 -> acceptWithdrawal();
-				case 9 -> rejectWithdrawal();
+				case 4 ->  viewInternships();
+				case 5 ->  approveInternship();
+                case 6 ->  rejectInternship();
+				case 7 ->  viewWithdrawals();
+				case 8 ->  acceptWithdrawal();
+				case 9 ->  rejectWithdrawal();
 				case 10 -> generateReport();
 				case 11 -> {
 					return 11;
@@ -120,23 +115,42 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 		if (!internMgr.checkInternshipExists(index)) {System.out.println("Internship does not exist!");}
 		else {
 			internMgr.setInternshipStatus(index, enums.InternshipStatus.Approved);
-        System.out.println("Internship " + index + " approved.");
+        	System.out.println("Internship " + index + " approved.");
 		}
 	}
 
 	public void rejectInternship() {
-		// TODO - implement CareerCenterStaffPage.rejectInternship
-		throw new UnsupportedOperationException();
+		int index = -1;
+		while (true) {
+			try {
+				System.out.print("Enter internship index: ");
+				index = Integer.parseInt(sc.nextLine());
+				break;
+			}
+			catch (NumberFormatException e) {}
+		}
+
+		if (!internMgr.checkInternshipExists(index)) {System.out.println("Internship does not exist!");}
+		else {
+			internMgr.setInternshipStatus(index, enums.InternshipStatus.Rejected);
+        	System.out.println("Internship " + index + " rejected.");
+		}
 	}
 
+	/**
+	 * View application withdrawals
+	 */
 	public void viewWithdrawals() {
-		// TODO - implement CareerCenterStaffPage.viewWithdrawals
-		throw new UnsupportedOperationException();
+		for (InternshipApplication a : appMgr.getWithdrawals()) System.out.println(a);
 	}
 
-	public void acceptWithdrawal() {
-		// TODO - implement CareerCenterStaffPage.acceptWithdrawal
-		throw new UnsupportedOperationException();
+	/**
+	 * If withdrawal is accepted, delete application from repository
+	 * 
+	 * @see Repository
+	 */
+	public void acceptWithdrawal(int index) {
+		appMgr.removeApplication(index);
 	}
 
 	public void rejectWithdrawal() {
@@ -144,9 +158,16 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Generate report regarding internships
+	 * Can filter internships based on : Status, Preferred Major, Internship Level, etc...
+	 * Can also sort based on the same parameters
+	 * Dynamically filers and sorts a list of internships
+	 * 
+	 * @see Sort
+	 */
 	public void generateReport() {
-		// TODO - implement CareerCenterStaffPage.generateReport
-		throw new UnsupportedOperationException();
+		
 	}
 
 }
