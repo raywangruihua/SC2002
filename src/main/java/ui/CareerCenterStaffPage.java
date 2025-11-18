@@ -3,6 +3,7 @@ package ui;
 import java.util.Scanner;
 
 import model.Account;
+import model.Internship;
 import service.AccountManager;
 import service.InternshipApplicationManager;
 import service.InternshipManager;
@@ -21,33 +22,54 @@ public class CareerCenterStaffPage extends UserPage {
 	}
 
 	public void display() {
-		// TODO - implement CareerCenterStaffPage.display
-		throw new UnsupportedOperationException();
+		System.out.print(
+			"----------------------------------------------\n" +
+			"|                          			      |\n" +
+			"|     Career-Center Staff Internship Hub     |\n" +
+			"|                            				  |\n" +
+			"----------------------------------------------\n" +
+										   				  "\n" +
+			"1. View      Company account				  	\n" +
+			"2. Accept    Company account				 	\n" +
+			"3. Reject    Company account					\n" +
+			"4. View 	  Internships						\n" +
+			"5. Approve   Internship					    \n" +
+			"6. Reject    Internship					    \n" +
+			"7. View 	  Withdrawal Requests				\n" +
+			"8. Accept    Withdrawal						\n" +
+			"9. Reject    Withdrawal						\n" +
+			"10. Generate    Report							\n" +
+			"11. Logout									   \n"
+		);
 	}
-
+	/**
+	 * View Accounts (pending or approved) done via Account Manager
+	 */
 	public void viewAccounts() {
-		// TODO - implement CareerCenterStaffPage.viewAccounts
-		throw new UnsupportedOperationException();
+		System.out.print("\nAll Accounts");
+		accMgr.printAccounts();
 	}
 
-	public void acceptAccount() {
-		// TODO - implement CareerCenterStaffPage.acceptAccount
-		throw new UnsupportedOperationException();
+	/**
+	 * Approve Account via Account Manager
+	 */
+	public void acceptAccount(String userID) {
+		accMgr.approveAccount(userID);
 	}
-
-	public void rejectAccount() {
-		// TODO - implement CareerCenterStaffPage.rejectAccount
-		throw new UnsupportedOperationException();
+	/**
+	 * Reject Account via Account Manager
+	 */
+	public void rejectAccount(String userID) {
+		accMgr.removePending(userID);
 	}
-
+	// List all internships (pending, approved, rejected)
 	public void viewInternships() {
-		// TODO - implement CareerCenterStaffPage.viewInternships
-		throw new UnsupportedOperationException();
+		internMgr.viewInternships();
 	}
 
-	public void approveInternship() {
-		// TODO - implement CareerCenterStaffPage.approveInternship
-		throw new UnsupportedOperationException();
+	public void approveInternship(int index) {
+		internMgr.setInternshipStatus(index, enums.InternshipStatus.Approved);
+        System.out.println("Internship " + index + " approved.");
 	}
 
 	public void rejectInternship() {
@@ -65,8 +87,8 @@ public class CareerCenterStaffPage extends UserPage {
 		throw new UnsupportedOperationException();
 	}
 
-	public void rejectWithdrawal() {
-		// TODO - implement CareerCenterStaffPage.rejectWithdrawal
+	public void rejectWithdrawal(int appIndex) {
+		// TODO - implement CareerCenterStaffPage.generateReport
 		throw new UnsupportedOperationException();
 	}
 

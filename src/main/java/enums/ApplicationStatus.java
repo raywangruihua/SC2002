@@ -1,5 +1,7 @@
 package enums;
 
+import model.InternshipApplication;
+
 /**
  * After a student creates an application for an internship, they can check its status
  * 
@@ -19,5 +21,12 @@ public enum ApplicationStatus {
 	/**
 	 * The application has been rejected
 	 */
-	Unsuccessful
+	Unsuccessful,
+
+	/**
+	 * student requests for withdrawnal
+	 */
+	WITHDRAWAL_REQUESTED
+
+
 }

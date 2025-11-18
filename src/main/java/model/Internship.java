@@ -71,4 +71,12 @@ public class Internship {
 	public void addApplication(InternshipApplication application){
 		applicationsReceived.add(application);
 	}
+	/*
+	 * change InternshipStatus from pending to approve or reject
+	 */
+	public void setStatus(InternshipStatus status) {
+		this.status = status;
+	}
+		
+
 }
