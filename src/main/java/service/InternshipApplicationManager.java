@@ -14,6 +14,15 @@ public class InternshipApplicationManager {
 	public InternshipApplicationManager(Repository repo) {this.repo = repo;}
 
 	/**
+	 * Get all applications with withdrawal requests
+	 */
+	public List<InternshipApplication> getWithdrawals() {
+		return repo.getInternshipApplications().stream()
+											   .filter(a -> a.getStatus() == ApplicationStatus.WITHDRAWAL_REQUESTED)
+											   .collect(Collectors.toList());
+	}
+
+	/**
 	 * Get internship applications to a specific internship according to its index
 	 */
 	public List<InternshipApplication> getApplications(int internshipIndex) {
@@ -30,6 +39,14 @@ public class InternshipApplicationManager {
 			if (a.getApplicationIndex() == applicationIndex) return a;
 		}
 		return null;
+	}
+
+	/**
+	 * Remove internship applicaton according to its index
+	 * Used when an application is approved for withdrawal
+	 */
+	public void removeApplication(int applicationIndex) {
+		repo.remove
 	}
 
 	/**
@@ -60,7 +77,6 @@ public class InternshipApplicationManager {
 			}
 		}
 	}
-	
 
 	/**
 	 * Returns application status of certain application through repo
@@ -68,43 +84,4 @@ public class InternshipApplicationManager {
 	public ApplicationStatus getApplicationStatus(InternshipApplication application, Repository repo) {
 		return repo.getApplicationStatus(application);
 	}
-
-	public void acceptApplication(){}
-
-	public void loadApplication() {
-		// TODO - implement InternshipApplicationManager.loadApplication
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param s
-	 */
-	public void listStudentApplied(Student s) {
-		// TODO - implement InternshipApplicationManager.listStudentApplied
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param a The internship application to withdraw
-	 */
-	public void requestWithdrawal(InternshipApplication a) {
-		// TODO - implement InternshipApplicationManager.requestWithdrawal
-		throw new UnsupportedOperationException();
-	}
-
-	public void acceptWithdrawal(InternshipApplication app){
-		// 
-	}
-	public void rejectWithdrawal() {
-		// TODO - implement InternshipApplicationManager.rejectWithdrawal
-		throw new UnsupportedOperationException();
-	}
-
-	public void checkIfAlreadyAccepted() {
-		// TODO - implement InternshipApplicationManager.checkIfAlreadyAccepted
-		throw new UnsupportedOperationException();
-	}
-
 }

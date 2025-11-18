@@ -9,20 +9,20 @@ public enum InternshipStatus {
 	/**
 	 * The internship has not been updated by the career center staff
 	 */
-	Pending,
+	PENDING,
 
 	/**
 	 * The internship has been approved
 	 */
-	Approved,
+	APPROVED,
 
 	/**
 	 * The internship has been rejected
 	 */
-	Rejected,
+	REJECTED,
 
 	/**
 	 * The internship has been filled by a student (after it has been approved)
 	 */
-	Filled
+	FILLED
 }

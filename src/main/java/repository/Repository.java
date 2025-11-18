@@ -37,6 +37,17 @@ public class Repository {
 	public List<Internship> 		   getPendingInternships() 	   {return pendingInternships;}
 	public List<Company> 			   getCompanies() 			   {return companies;}
 
+	/**
+	 * Get internship application according to application index
+	 * Returns null if not found
+	 */
+	public InternshipApplication getInternshipApplication(int applicationIndex) {
+		for (InternshipApplication a : applications) {
+			if (a.getApplicationIndex() == applicationIndex) return a;
+		}
+		return null;
+	}
+
 	public void addCompany(Company co) {companies.add(co);}
 
 	/**
@@ -73,6 +84,14 @@ public class Repository {
 	 */
 	public void addApplication(InternshipApplication application){
 		applications.add(application);
+	}
+
+	/**
+	 * Remove internship application according to application index if it exists
+	 */
+	public void removeApplication(int applicationIndex) {
+		InternshipApplication a = getInternshipApplication(applicationIndex);
+		if (a) applications.remove(a);
 	}
 
 	/* 
