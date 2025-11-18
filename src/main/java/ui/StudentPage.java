@@ -2,14 +2,14 @@ package ui;
 import java.util.*;
 
 import enums.InternshipLevel;
-import model.Internship;
-import model.InternshipApplication;
 import repository.Repository;
 import service.AccountManager;
 import service.InternshipApplicationManager;
 import service.InternshipManager;
+import model.*;
 
-public class StudentPage extends UserPage {
+public class StudentPage implements UserInterface<Student> {
+	public final int MAX_OPTION = 6;
 	private InternshipManager 			 internMgr;
 	private InternshipApplicationManager appMgr;
 	private Scanner		   				 sc;
@@ -21,7 +21,7 @@ public class StudentPage extends UserPage {
 	}
 
 	@Override
-	public void display() {
+	public int display(Student studentAcc, Repository repo) {
 		System.out.print(
 			"-------------------------------\n" +
 			"|                             |\n" +
@@ -37,12 +37,36 @@ public class StudentPage extends UserPage {
 			"6. Logout		           	    \n" +
 										   "\n"
 		);
+
+		int option = -1;
+        outer: while (true) {
+            try {
+                System.out.print("\nEnter option: ");
+                option = Integer.parseInt(sc.nextLine());
+            }
+            catch (NumberFormatException e) {}
+
+            switch (option) {
+                case 1 -> viewInternships(studentAcc.getYear(), studentAcc.getMajor());
+                case 2 -> {
+                    InternshipApplication application  = applyInternship(studentAcc.getYear(), studentAcc.getUserID(), studentAcc.getName());
+                    studentAcc.addApplication(application);
+                }
+				case 3 -> viewApplications(studentAcc.getApplications(), repo);
+				case 4 -> acceptInternship();
+				case 5 -> withdrawApplication();
+                case 6 -> {
+					return 6;
+				}
+				default -> System.out.print("Please enter a valid option (1-" + MAX_OPTION + "): ");
+            }
+        }
 	}
 	
 	/* 
 	 * Displays internship information by index, title, internship level, company name and description
 	 */
-	public void display(List<Internship> display_list) {
+	public void displayInternships(List<Internship> display_list) {
 		if (display_list == null)
 		for (Internship internship : display_list){
 			System.out.println("Index: " + internship.getIndex() + ", Internship Title: " + internship.getTitle() + ", Internship Level: " + internship.getInternshipLevel() + ", Company Name: " + internship.getCompanyName());
@@ -57,7 +81,7 @@ public class StudentPage extends UserPage {
 	public void viewInternships(int yearOfStudy, String major) {
 		List<Internship> display_list = internMgr.getInternships(yearOfStudy, major);
 		if (display_list.size() == 0) {System.out.println("No internships available.");}
-		else display(display_list);
+		else displayInternships(display_list);
 	}
 
 	/**

@@ -51,7 +51,6 @@ public class InternshipApplicationManager {
 	 * @param student 
 	 */
 	public void viewInternshipApplied(Student student){
-		Repository repo = new Repository();  
 		List<InternshipApplication> apps = repo.getInternshipApplications();
 
 		System.out.println("Internships Applied by " + student.getName());

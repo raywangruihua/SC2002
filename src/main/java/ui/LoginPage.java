@@ -4,12 +4,13 @@ import java.util.Scanner;
 import service.AccountManager;
 import forms.Registration;
 import model.Account;
+import repository.Repository;
 
 /**
  * The start page of the app
  * Filepath for student and staff account csv must be entered before starting the app
  */
-public class LoginPage implements UserInterface {
+public class LoginPage {
 	public final int MAX_OPTION = 3;
 
 	private AccountManager accMgr;
@@ -20,7 +21,7 @@ public class LoginPage implements UserInterface {
 		this.sc 	= sc;
 	}
 
-	public void display() {	
+	public Account display() {	
 		System.out.print(
 			"----------------------\n" +
 			"|                    |\n" +
@@ -32,6 +33,30 @@ public class LoginPage implements UserInterface {
 			"2. Register		   \n" +
 			"3. Exit			   \n"
 		);
+		int option = -1;
+        outer: while (true) {
+            try {
+                System.out.print("\nEnter option: ");
+                option = Integer.parseInt(sc.nextLine());
+            }
+            catch (NumberFormatException e) {}
+
+            switch (option) {
+                case 1  -> {
+                    try {
+                        Account acc = login();
+						return acc;
+                    }
+                    catch (Exception e) {
+                        System.out.print(e.getMessage());
+                    }
+                }
+                case 2  -> register();
+                case 3  -> System.exit(0);
+                default -> System.out.println("Please enter a valid option (1-" + MAX_OPTION + ")");
+            }
+		}
+
 	}
 
 	/**

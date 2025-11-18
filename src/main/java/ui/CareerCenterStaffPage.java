@@ -2,13 +2,18 @@ package ui;
 
 import java.util.Scanner;
 
+import enums.InternshipLevel;
 import model.Account;
+import model.CareerCenterStaff;
 import model.Internship;
+import model.InternshipApplication;
+import repository.Repository;
 import service.AccountManager;
 import service.InternshipApplicationManager;
 import service.InternshipManager;
 
-public class CareerCenterStaffPage extends UserPage {
+public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
+	public final int MAX_OPTION = 11;
 	private AccountManager				 accMgr;
 	private InternshipManager			 internMgr;
 	private InternshipApplicationManager appMgr;
@@ -21,7 +26,7 @@ public class CareerCenterStaffPage extends UserPage {
 		this.sc 	   = sc;
 	}
 
-	public void display() {
+	public int display(CareerCenterStaff staffAcc, Repository repo) {
 		System.out.print(
 			"----------------------------------------------\n" +
 			"|                          			      |\n" +
@@ -41,6 +46,40 @@ public class CareerCenterStaffPage extends UserPage {
 			"10. Generate    Report							\n" +
 			"11. Logout									   \n"
 		);
+
+		int option = -1;
+        outer: while (true) {
+            try {
+                System.out.print("\nEnter option: ");
+                option = Integer.parseInt(sc.nextLine());
+            }
+            catch (NumberFormatException e) {}
+
+            switch (option) {
+                case 1 -> viewAccounts();
+                case 2 -> {
+                    System.out.print("Enter User ID: ");
+                    String userid = sc.nextLine();
+					acceptAccount(userid);
+				}
+				case 3 -> {
+                    System.out.print("Enter User ID: ");
+                    String userid = sc.nextLine();
+					rejectAccount(userid);
+				}
+				case 4 -> viewInternships();
+				case 5 -> approveInternship();
+                case 6 -> rejectInternship();
+				case 7 -> viewWithdrawals();
+				case 8 -> acceptWithdrawal();
+				case 9 -> rejectWithdrawal();
+				case 10 -> generateReport();
+				case 11 -> {
+					return 11;
+				}
+				default -> System.out.print("Please enter a valid option (1-" + MAX_OPTION + "): ");
+            }
+        }
 	}
 	/**
 	 * View Accounts (pending or approved) done via Account Manager
@@ -67,9 +106,22 @@ public class CareerCenterStaffPage extends UserPage {
 		internMgr.viewInternships();
 	}
 
-	public void approveInternship(int index) {
-		internMgr.setInternshipStatus(index, enums.InternshipStatus.Approved);
+	public void approveInternship() {
+		int index = -1;
+		while (true) {
+			try {
+				System.out.print("Enter internship index: ");
+				index = Integer.parseInt(sc.nextLine());
+				break;
+			}
+			catch (NumberFormatException e) {}
+		}
+
+		if (!internMgr.checkInternshipExists(index)) {System.out.println("Internship does not exist!");}
+		else {
+			internMgr.setInternshipStatus(index, enums.InternshipStatus.Approved);
         System.out.println("Internship " + index + " approved.");
+		}
 	}
 
 	public void rejectInternship() {
@@ -87,7 +139,7 @@ public class CareerCenterStaffPage extends UserPage {
 		throw new UnsupportedOperationException();
 	}
 
-	public void rejectWithdrawal(int appIndex) {
+	public void rejectWithdrawal() {
 		// TODO - implement CareerCenterStaffPage.generateReport
 		throw new UnsupportedOperationException();
 	}

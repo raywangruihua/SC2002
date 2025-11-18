@@ -3,12 +3,15 @@ package ui;
 import java.util.Scanner;
 import model.Internship;
 import model.InternshipApplication;
+import repository.Repository;
 import service.CompanyManager;
 import service.InternshipApplicationManager;
 import service.InternshipManager;
 import forms.InternshipCreation;
+import model.CareerCenterStaff;
+import model.CompanyRep;
 
-public class CompanyRepPage extends UserPage {
+public class CompanyRepPage implements UserInterface<CompanyRep> {
 	public final int MAX_OPTION = 7;
 
 	private InternshipManager 			 internMgr;
@@ -23,7 +26,7 @@ public class CompanyRepPage extends UserPage {
 		this.sc 	   = sc;
 	}
 
-	public void display() {
+	public int display(CompanyRep repAcc, Repository repo) {
 		System.out.print(
 			"----------------------------------------------\n" +
 			"|                                            |\n" +
@@ -39,6 +42,80 @@ public class CompanyRepPage extends UserPage {
 			"6. Reject  Application                        \n" +
 			"7. Logout                                     \n"
 		);
+
+		int option = -1;
+        while (true) {
+            try {
+                System.out.print("\nEnter option: ");
+                option = Integer.parseInt(sc.nextLine());
+            }
+            catch (NumberFormatException e) {}
+
+            switch (option) {
+                case 1 -> createInternship(repAcc.getCompanyName());
+                case 2 -> viewInternships(repAcc.getCompanyName());
+                case 3 -> {
+                    while (true) {
+                        try {
+                            System.out.print("Enter internship index: ");
+                            option = Integer.parseInt(sc.nextLine());
+                            toggleInternship(option);
+                            break;
+                        }
+                        catch (NumberFormatException e) {
+                            System.out.println("Invalid input format.");
+                        }
+                        catch (NullPointerException e)  {
+                            System.out.println("Internship " + option + " does not exist.");
+                            break;
+                        }
+                    }
+                }
+                case 4 -> {
+                    while (true) {
+                        try {
+                            System.out.print("Enter internship index: ");
+                            option = Integer.parseInt(sc.nextLine());
+                            viewApplications(option);
+                            break;
+                        }
+                        catch (NumberFormatException e) {
+                            System.out.println("Invalid input format.");
+                        }
+                    }
+                }
+                case 5 -> {
+                    while (true) {
+                        try {
+                            System.out.print("Enter application index: ");
+                            option = Integer.parseInt(sc.nextLine());
+                            approveApplication(option);
+                            break;
+                        }
+                        catch (NumberFormatException e) {
+                            System.out.println("Invalid input format.");
+                        }
+                    }
+                }
+                case 6 -> {
+                    while (true) {
+                        try {
+                            System.out.print("Enter application index: ");
+                            option = Integer.parseInt(sc.nextLine());
+                            rejectApplication(option);
+                            break;
+                        }
+                        catch (NumberFormatException e) {
+                            System.out.println("Invalid input format.");
+                        }
+                    }
+                }
+                case 7 -> {
+					return 7;
+				}
+                default -> System.out.print("Please enter a valid option (1-" + MAX_OPTION + "): ");
+            }
+        }
 	}
 
 	/**

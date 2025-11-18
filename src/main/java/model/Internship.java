@@ -44,6 +44,10 @@ public class Internship {
 		this.visibility 			= visibility;
 		this.index 					= index;
 	}
+
+	/*
+	 * title, desc, level, major, openDate, closeDate, companyName, slots
+	 */
 	
 	@Override
 	public String toString() {
@@ -75,7 +79,7 @@ public class Internship {
 	 * adds application to list of applications received
 	 */
 	public void addApplication(InternshipApplication application){
-		applicationsReceived.add(application);
+		applicationsReceived.add(application.getApplicationIndex());
 	}
 	/*
 	 * change InternshipStatus from pending to approve or reject

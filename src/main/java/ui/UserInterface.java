@@ -1,12 +1,14 @@
 package ui;
 
+import model.Account;
+import repository.Repository;
+
 /**
  * Interface class for command line display interface
  */
-public interface UserInterface {
+public interface UserInterface <T extends Account> {
 	/**
-	 * All user interfaces must implement a display to show all menu options
+	 * All user interfaces must implement a display to show and implement all menu options
 	 */
-	abstract void display();
-
+	abstract int display(T userAcct, Repository repo);
 }

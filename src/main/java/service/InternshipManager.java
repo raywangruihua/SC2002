@@ -151,7 +151,7 @@ public class InternshipManager {
 	 */
 	public InternshipApplication applyInternship(int index, String id, String name) {
 		Internship internship = repo.getInternshipByIndex(index);
-		InternshipApplication application = new InternshipApplication(id, name, internship.getTitle());
+		InternshipApplication application = new InternshipApplication(index, internship.getTitle(), internship.getIndex(), id, name, ApplicationStatus.Pending);
 
 		// add application to repo
 		repo.addApplication(application);
@@ -162,6 +162,7 @@ public class InternshipManager {
 		// return application to add to student's list of pending applications
 		return application;
 	}
+
 	// Reject an application and mark with rejected status
 	public void rejectApplication(InternshipApplication a) {
 		if (a != null) {

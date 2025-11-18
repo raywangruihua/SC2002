@@ -30,6 +30,7 @@ public class Student extends Account {
 
 	public int 	  getYear()  {return yearOfStudy;}
 	public String getMajor() {return major;}
+	public List<InternshipApplication> getApplications() {return applications;}
 
 	/**
 	 * 
@@ -43,46 +44,10 @@ public class Student extends Account {
 		}
 	}
 
-	/**
-	 * Student applies for internship through User Interface and adds to list of pending applications
+		/**
+	 * Add application to list of applications 
 	 */
-	public void applyInternship(int index, Repository repo) {
-		if (applications.size() > 3){
-			System.out.println("Application Limit Exceeded");
-		}
-		else {
-			StudentPage ui = new StudentPage();
-			InternshipApplication application = ui.applyInternship(index, yearOfStudy, getUserID(), getName(), repo);
-
-			// add application to pending
-			applications.add(application);
-		}
-	}
-
-	/**
-	 * 
-	 * @param a
-	 */
-	public void withdrawApplication(InternshipApplication a) {
-		// TODO - implement Student.withdrawApplication
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * Student views applications applied through User Interface
-	 */
-	public void viewApplications(Repository repo) {
-		// TODO - implement Student.viewApplications
-		StudentPage ui = new StudentPage();
-		ui.viewApplications(applications, repo);
-	}
-	
-	/*
-	 * Student views internships available for application through User Interface
-	 */
-	public void viewInternships(Repository repo){
-		StudentPage ui = new StudentPage();
-		ui.viewInternships(yearOfStudy, major, repo);
+	public void addApplication(InternshipApplication a) {
+		applications.add(a);
 	}
 }
-
