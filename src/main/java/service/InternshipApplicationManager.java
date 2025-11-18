@@ -46,7 +46,7 @@ public class InternshipApplicationManager {
 	 * Used when an application is approved for withdrawal
 	 */
 	public void removeApplication(int applicationIndex) {
-		repo.remove
+		repo.removeApplication(applicationIndex);
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class InternshipApplicationManager {
 	/**
 	 * Returns application status of certain application through repo
 	 */
-	public ApplicationStatus getApplicationStatus(InternshipApplication application, Repository repo) {
+	public ApplicationStatus getApplicationStatus(InternshipApplication application) {
 		return repo.getApplicationStatus(application);
 	}
 

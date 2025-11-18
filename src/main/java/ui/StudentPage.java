@@ -21,7 +21,7 @@ public class StudentPage implements UserInterface<Student> {
 	}
 
 	@Override
-	public int display(Student studentAcc, Repository repo) {
+	public void display(Student studentAcc) {
 		System.out.print(
 			"-------------------------------\n" +
 			"|                             |\n" +
@@ -52,11 +52,11 @@ public class StudentPage implements UserInterface<Student> {
                     InternshipApplication application  = applyInternship(studentAcc.getYear(), studentAcc.getUserID(), studentAcc.getName());
                     studentAcc.addApplication(application);
                 }
-				case 3 -> viewApplications(studentAcc.getApplications(), repo);
+				case 3 -> viewApplications(studentAcc.getApplications());
 				case 4 -> acceptInternship();
 				case 5 -> withdrawApplication();
                 case 6 -> {
-					return 6;
+					break;
 				}
 				default -> System.out.print("Please enter a valid option (1-" + MAX_OPTION + "): ");
             }
@@ -114,14 +114,14 @@ public class StudentPage implements UserInterface<Student> {
 	/**
 	 * Displays all student applications and statuses given student has applied 
 	 */
-	public void viewApplications(List<InternshipApplication> applications, Repository repo) {
+	public void viewApplications(List<InternshipApplication> applications) {
 		if (applications.size() == 0){
 			System.out.println("No Internship Applications");
 		}
 		else {
 			for (InternshipApplication application: applications){
 				System.out.println("All Internship Applications");
-				System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + appMgr.getApplicationStatus(application, repo));
+				System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + appMgr.getApplicationStatus(application));
 			}
 		}
 		System.out.println();

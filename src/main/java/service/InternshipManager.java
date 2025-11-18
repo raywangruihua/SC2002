@@ -112,7 +112,7 @@ public class InternshipManager {
 	public void rejectInternship(int index) {
 		Internship internship = getInternship(index);
         if (internship != null) {
-            internship.setStatus(InternshipStatus.Rejected);
+            internship.setStatus(InternshipStatus.REJECTED);
         }
 	}
 
