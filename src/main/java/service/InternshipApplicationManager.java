@@ -116,7 +116,7 @@ public class InternshipApplicationManager {
 	 * accept withdrawal for application 
 	 * @param application
 	 */
-	public void acceptWithdrawal(InternshipApplication application){
+	public void approveWithdrawal(InternshipApplication application){
 		if (!application.getWithdrawalRequested()){
 			System.out.println("No withdrawal requested.");
 			return; 

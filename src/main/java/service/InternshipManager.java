@@ -129,21 +129,78 @@ public class InternshipManager {
 
 	/**
 	 * Request withdrawal for an application by student
-	 * @param a The internship application to withdraw
+	 * @param application The internship application to withdraw
 	 */
-	public void requestWithdrawal(InternshipApplication a) {
-		if (a != null) {
-            a.setApplicationStatus(ApplicationStatus.WITHDRAWAL_REQUESTED);
-        }
+	public void requestWithdrawal(InternshipApplication application) {
+		if (!(application.getAccepted())){
+			System.out.println("Use InternshipApplicationManager instead.");
+			return;
+		}
+		if (application.getWithdrawalRequested()){
+			System.out.println("Withdrawal request has already been submitted for this application.");
+			return;
+		}
+		ApplicationStatus currentStatus = application.getStatus();
+		switch (currentStatus){
+			case Unsuccessful -> {
+				System.out.println("Withdrawal request failed. Application is already unsuccessful.");
+			}
+			case Successful -> {
+				System.out.println("Application has already been withdrawn.");
+			}
+			default -> {
+				application.setWithdrawalRequested(true);
+				System.out.println("Withdrawal request submitted.");
+			}
+		}
+	}
+
+	/**
+	 * Approve a withdrawal request for an application accepted by student
+	 * @param application
+	 */
+	public void approveWithdrawal(InternshipApplication application, Repository repo) {
+		if (application.getWithdrawalRequested()){
+			System.out.println("No withdrawal request submitted.");
+			return;
+		}
+		
+		if (!application.getAccepted()){
+			System.out.println("Use InternshipApplicationManager instead.");
+			return;
+		}
+
+		int index = application.getInternshipIndex();
+		Internship internship = repo.getInternshipByIndex(index);
+
+		application.setApplicationStatus(ApplicationStatus.Withdrawn);
+		internship.incrementSlots(1);
+
+		if (internship.getStatus() == InternshipStatus.FILLED){
+			internship.setStatus(InternshipStatus.APPROVED);
+		}
+
+		application.setApplicationStatus(ApplicationStatus.Withdrawn);
+		application.setWithdrawalRequested(false);
+
+		System.out.println("Withdrawal approved. Placement is withdrawn.");
 	}
 
 	/**
 	 * 
-	 * @param a The internship application to reject withdrawal for
+	 * @param application The internship application to reject withdrawal for
 	 */
-	public void rejectWithdrawal(InternshipApplication a) {
-		// TODO - implement InternshipManager.rejectWithdrawal
-		throw new UnsupportedOperationException();
+	public void rejectWithdrawal(InternshipApplication application) {
+		if (!application.getWithdrawalRequested()){
+			System.out.println("No withdrawal request.");
+			return;
+		}
+		if (!application.getAccepted()){
+			System.out.println("Use InternshipApplicationManager instead.");
+			return;
+		}
+		application.setWithdrawalRequested(false);
+		System.out.println("Withdrawal rejected.");
 	}
 
 	/**
@@ -169,12 +226,7 @@ public class InternshipManager {
             a.setApplicationStatus(ApplicationStatus.Unsuccessful);
         }
 	}
-	// Approve a withdrawal request and mark as withdrawn
-	public void approveWithdrawal(InternshipApplication a) {
-		if (a != null) {
-            a.setApplicationStatus(ApplicationStatus.Successful);
-        }
-	}
+	
    // Retrieve withdrawal status of a given application
 	public ApplicationStatus getWithdrawalStatus(InternshipApplication a) {
 		return a != null ? a.getStatus() : null;

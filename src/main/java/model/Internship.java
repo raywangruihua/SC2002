@@ -76,6 +76,14 @@ public class Internship {
 
 	public void toggleVisibility() {visibility = !visibility;}
 
+	/**
+	 * increase num of slots by 1 
+	 * @param addedSlots no of slots to be added
+	 */
+	public void incrementSlots(int addedSlots){
+		slots = slots + addedSlots; 
+	}
+
 	/*
 	 * adds application to list of applications received
 	 */
@@ -97,6 +105,5 @@ public class Internship {
     public List<Integer> getApplicationsReceived() { return applicationsReceived; }
     public boolean isVisibility() { return visibility; }
     public boolean isApprovalStatus() { return status == InternshipStatus.Approved; }
-		
 
 }
