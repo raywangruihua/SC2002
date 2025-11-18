@@ -61,26 +61,20 @@ public class InternshipHubApp {
 
     public static void student() {
         Student studentAcc = (Student) acc;
-        int choice = studentPage.display(studentAcc, repo);
-        if (choice == 6){
-            login();
-        }
+        studentPage.display(studentAcc);
+        login();
     }
 
     public static void companyRep() {
         CompanyRep repAcc = (CompanyRep) acc;
-        int choice = repPage.display(repAcc, repo);
-        if (choice == 7){
-            login();
-        }
+        repPage.display(repAcc);
+        login();
     }
 
     public static void careerCenterStaff() {
         CareerCenterStaff staffAcc = (CareerCenterStaff) acc;
-        int choice = staffPage.display(staffAcc, repo);
-        if (choice == 11){
-            login();
-        }
+        staffPage.display(staffAcc);
+        login();
     }
 
     public static void main(String[] args) {

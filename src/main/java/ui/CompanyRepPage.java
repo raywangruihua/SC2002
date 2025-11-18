@@ -26,7 +26,7 @@ public class CompanyRepPage implements UserInterface<CompanyRep> {
 		this.sc 	   = sc;
 	}
 
-	public int display(CompanyRep repAcc, Repository repo) {
+	public void display(CompanyRep repAcc) {
 		System.out.print(
 			"----------------------------------------------\n" +
 			"|                                            |\n" +
@@ -111,7 +111,7 @@ public class CompanyRepPage implements UserInterface<CompanyRep> {
                     }
                 }
                 case 7 -> {
-					return 7;
+					break;
 				}
                 default -> System.out.print("Please enter a valid option (1-" + MAX_OPTION + "): ");
             }

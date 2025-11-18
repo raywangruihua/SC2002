@@ -3,9 +3,11 @@ package ui;
 import java.util.Scanner;
 
 import enums.InternshipLevel;
+import enums.InternshipStatus;
 import model.*;
 import repository.Repository;
 import service.*;
+import util.Sort;
 
 public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 	public final int MAX_OPTION = 11;
@@ -21,7 +23,7 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 		this.sc 	   = sc;
 	}
 
-	public int display(CareerCenterStaff staffAcc, Repository repo) {
+	public void display(CareerCenterStaff staffAcc) {
 		System.out.print(
 			"----------------------------------------------\n" +
 			"|                                            |\n" +
@@ -70,7 +72,7 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 				case 9 ->  rejectWithdrawal();
 				case 10 -> generateReport();
 				case 11 -> {
-					return 11;
+					break;
 				}
 				default -> System.out.print("Please enter a valid option (1-" + MAX_OPTION + "): ");
             }
@@ -114,7 +116,7 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 
 		if (!internMgr.checkInternshipExists(index)) {System.out.println("Internship does not exist!");}
 		else {
-			internMgr.setInternshipStatus(index, enums.InternshipStatus.Approved);
+			internMgr.setInternshipStatus(index, InternshipStatus.APPROVED);
         	System.out.println("Internship " + index + " approved.");
 		}
 	}
@@ -132,7 +134,7 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 
 		if (!internMgr.checkInternshipExists(index)) {System.out.println("Internship does not exist!");}
 		else {
-			internMgr.setInternshipStatus(index, enums.InternshipStatus.Rejected);
+			internMgr.setInternshipStatus(index, InternshipStatus.REJECTED);
         	System.out.println("Internship " + index + " rejected.");
 		}
 	}
@@ -149,8 +151,21 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 	 * 
 	 * @see Repository
 	 */
-	public void acceptWithdrawal(int index) {
-		appMgr.removeApplication(index);
+	public void acceptWithdrawal() {
+		int index = -1;
+		while (true) {
+			try {
+				System.out.print("Enter internship index: ");
+				index = Integer.parseInt(sc.nextLine());
+				break;
+			}
+			catch (NumberFormatException e) {}
+		}
+
+		if (!internMgr.checkInternshipExists(index)) {System.out.println("Internship does not exist!");}
+		else{
+			appMgr.removeApplication(index);
+		}
 	}
 
 	public void rejectWithdrawal() {
