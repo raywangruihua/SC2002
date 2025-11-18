@@ -1,6 +1,7 @@
 package forms;
 
 import java.util.Scanner;
+
 import model.CompanyRep;
 import model.Company;
 import service.AccountManager;

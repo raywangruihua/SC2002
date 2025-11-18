@@ -37,7 +37,6 @@ public class Repository {
 	public List<Internship> 		   getPendingInternships() 	   {return pendingInternships;}
 	public List<Company> 			   getCompanies() 			   {return companies;}
 
-
 	public void addCompany(Company co) {companies.add(co);}
 
 	/**
