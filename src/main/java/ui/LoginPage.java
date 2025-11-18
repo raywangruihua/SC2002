@@ -11,6 +11,7 @@ import model.Account;
  */
 public class LoginPage implements UserInterface {
 	public final int MAX_OPTION = 3;
+
 	private AccountManager accMgr;
 	private Scanner 	   sc;
 
@@ -48,7 +49,7 @@ public class LoginPage implements UserInterface {
 		String password = sc.nextLine();
 
 		switch (accMgr.checkValid(userID, password)) {
-			case Valid : return getAccount(userID);
+			case Valid : return accMgr.getAccount(userID);
 			case IncorrectPassword : {
 				throw new IllegalArgumentException("Incorrect password\n");
 			}
@@ -58,21 +59,6 @@ public class LoginPage implements UserInterface {
 			default : {
 				throw new IllegalArgumentException("Something went wrong\n");
 			}
-		}
-	}
-	
-	/*
-	 * Returns account based on userID
-	 */
-	public Account getAccount(String userID){
-		if (userID.matches("^U\\\\d{7}[A-Z]$")){
-			return accMgr.getAccount(userID);
-		}
-		else if (userID.contains("@ntu.edu.sg")){
-			return accMgr.getAccount(userID);
-		}
-		else {
-			return accMgr.getAccount(userID);
 		}
 	}
 

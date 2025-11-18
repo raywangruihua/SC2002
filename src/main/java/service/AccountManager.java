@@ -177,12 +177,13 @@ public class AccountManager {
 			System.out.println("No pending account found with userID " + userID +".");
 		}
 	}
+
 	/**
 	 * Returns account based on UserID
 	 */
-	public Account getAccount(String userID){
-		for (Account account: accounts){
-			if (account.getUserID().equals(userID)){
+	public Account getAccount(String userID) throws IllegalArgumentException {
+		for (Account account: accounts) {
+			if (account.getUserID().equals(userID)) {
 				return account;
 			}
 		}

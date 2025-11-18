@@ -63,9 +63,8 @@ public class Repository {
 	 * Returns list of internships to display for students
 	 */
 	public List<Internship> getDisplayInternships(int yearOfStudy, String major){
-		Sort sort =  new Sort();
-		List<Internship> display_list = sort.sortByMajor(internships, major);
-		display_list = sort.sortByYearOfStudy(display_list, yearOfStudy);
+		List<Internship> display_list = Sort.sortByMajor(internships, major);
+		display_list = Sort.sortByYearOfStudy(display_list, yearOfStudy);
 		return display_list;
 	}
 

@@ -43,6 +43,7 @@ public class StudentPage extends UserPage {
 	 * Displays internship information by index, title, internship level, company name and description
 	 */
 	public void display(List<Internship> display_list) {
+		if (display_list == null)
 		for (Internship internship : display_list){
 			System.out.println("Index: " + internship.getIndex() + ", Internship Title: " + internship.getTitle() + ", Internship Level: " + internship.getInternshipLevel() + ", Company Name: " + internship.getCompanyName());
 			System.out.println("Description: " + internship.getDescription());
@@ -55,7 +56,8 @@ public class StudentPage extends UserPage {
 	 */
 	public void viewInternships(int yearOfStudy, String major) {
 		List<Internship> display_list = internMgr.getInternships(yearOfStudy, major);
-		display(display_list);
+		if (display_list.size() == 0) {System.out.println("No internships available.");}
+		else display(display_list);
 	}
 
 	/**
@@ -63,13 +65,16 @@ public class StudentPage extends UserPage {
 	 */
 	public InternshipApplication applyInternship(int yearOfStudy, String id, String name) {
 		int index = -1;
-		while (!internMgr.checkInternshipExists(index)) {
+		while (true) {
 			try {
 				System.out.print("Enter internship index: ");
 				index = Integer.parseInt(sc.nextLine());
+				break;
 			}
 			catch (NumberFormatException e) {}
 		}
+
+		if (!internMgr.checkInternshipExists(index)) {System.out.println("Internship does not exist!"); return null;}
 
 		if ((internMgr.getInternshipLevel(index) != InternshipLevel.Basic) && ((yearOfStudy == 1) || (yearOfStudy == 2))){
 			throw new IllegalArgumentException("Application Unaccepted");

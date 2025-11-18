@@ -55,7 +55,7 @@ public class InternshipHubApp {
                         break outer;
                     }
                     catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.print(e.getMessage());
                     }
                 }
                 case 2  -> loginPage.register();
@@ -64,6 +64,7 @@ public class InternshipHubApp {
             }
         }
 
+        System.out.println();
         /// After successful login, check which account type has logged in
         if      (acc instanceof Student)           student();
         else if (acc instanceof CompanyRep)        companyRep();
@@ -86,6 +87,7 @@ public class InternshipHubApp {
             switch (option) {
                 case 1 -> studentPage.viewInternships(studentAcc.getYear(), studentAcc.getMajor());
                 case 2 -> studentPage.applyInternship(studentAcc.getYear(), studentAcc.getUserID(), studentAcc.getName());
+                case 6 -> login();
             }
         }
     }
@@ -114,7 +116,9 @@ public class InternshipHubApp {
                             repPage.toggleInternship(option);
                             break;
                         }
-                        catch (NumberFormatException e) {}
+                        catch (NumberFormatException e) {
+                            System.out.println("Invalid input format.");
+                        }
                         catch (NullPointerException e)  {
                             System.out.println("Internship " + option + " does not exist.");
                             break;
@@ -129,7 +133,9 @@ public class InternshipHubApp {
                             repPage.viewApplications(option);
                             break;
                         }
-                        catch (NumberFormatException e) {}
+                        catch (NumberFormatException e) {
+                            System.out.println("Invalid input format.");
+                        }
                     }
                 }
                 case 5 -> {
@@ -140,7 +146,9 @@ public class InternshipHubApp {
                             repPage.approveApplication(option);
                             break;
                         }
-                        catch (NumberFormatException e) {}
+                        catch (NumberFormatException e) {
+                            System.out.println("Invalid input format.");
+                        }
                     }
                 }
                 case 6 -> {
@@ -151,15 +159,12 @@ public class InternshipHubApp {
                             repPage.rejectApplication(option);
                             break;
                         }
-                        catch (NumberFormatException e) {}
+                        catch (NumberFormatException e) {
+                            System.out.println("Invalid input format.");
+                        }
                     }
                 }
-                /// Proper handling of logout?
-                case 7 -> {
-                    repAcc = null;
-                    acc = null;
-                    login();
-                }
+                case 7 -> login();
                 default -> System.out.print("Please enter a valid option (1-" + repPage.MAX_OPTION + "): ");
             }
         }
