@@ -26,7 +26,9 @@ public enum ApplicationStatus {
 	/**
 	 * student requests for withdrawnal
 	 */
-	WITHDRAWAL_REQUESTED
+	WITHDRAWAL_REQUESTED,
+
+	Withdrawn
 
 
 }
