@@ -23,6 +23,16 @@ public class InternshipHubApp {
     private static final String STAFF_ACCOUNTS_PATH       = "StaffAccounts.csv";
     private static final String COMPANY_REP_ACCOUNTS_PATH = "CompanyRepAccounts.csv";
 
+    private static final String INTERNSHIPS_PATH          = "Internships.csv";
+    private static final String APPLICATIONS_PATH         = "applications.csv";
+
+    private static Repository repo = new Repository(
+        INTERNSHIPS_PATH, 
+        APPLICATIONS_PATH, 
+        INTERNSHIPS_PATH, 
+        STUDENT_ACCOUNTS_PATH
+    );
+    
     private static AccountManager               accMgr      = new AccountManager(STUDENT_ACCOUNTS_PATH, STAFF_ACCOUNTS_PATH, COMPANY_REP_ACCOUNTS_PATH);
     /// Future implementation : Save repository offline
     private static Repository                   repo        = new Repository();

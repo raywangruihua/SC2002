@@ -9,6 +9,7 @@ import model.InternshipApplication;
 import model.Company;
 import service.InternshipApplicationManager;
 import service.InternshipManager;
+import util.CSVHandler;
 import util.Sort;
 
 /**
@@ -25,8 +26,20 @@ public class Repository {
 	private List<Internship> 			pendingInternships;
 	private List<Company>				companies;
 
+	private List<Student>               students;
+    private CSVHandler                  csvHandler;
+    private String                      internshipFilePath;
+    private String                      studentFilePath;
+
 	public Repository(String internshipsFilepath, String applicationsFilepath, String pendingInternshipsFilepath) {
-		this.internships 		= new ArrayList<>();
+		this.internshipFilePath = internshipsFilepath;
+        this.studentFilePath = studentFilePath;
+        
+        this.csvHandler = new CSVHandler();
+
+        this.students = csvHandler.readStudents(studentFilePath);
+        this.internships = csvHandler.readInternships(internshipFilePath);
+
 		this.applications 		= new ArrayList<>();
 		this.pendingInternships = new ArrayList<>();
 		this.companies 			= new ArrayList<>();
@@ -86,5 +99,24 @@ public class Repository {
 		}
 		throw new IllegalArgumentException("Application with internship title " + application.getInternshipTitle() + " not found.");
 	}
+
+	public void saveAll() {
+        csvHandler.writeStudents(studentFilePath, this.students);
+        
+        List<Internship> allInternships = new ArrayList<>(this.internships);
+        allInternships.addAll(this.pendingInternships);
+        
+        csvHandler.writeInternships(internshipFilePath, allInternships);
+        System.out.println("Repository saved to file.");
+    }
+
+    public void addStudent(Student s) {
+        this.students.add(s);
+        saveAll(); 
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
 
 }

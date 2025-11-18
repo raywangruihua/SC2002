@@ -87,6 +87,15 @@ public class Internship {
 	public void setStatus(InternshipStatus status) {
 		this.status = status;
 	}
+
+    public int getNumSlots() { return slots; }
+    public LocalDate getOpenDate() { return openDate; }
+    public LocalDate getClosingData() { return closingDate; }
+    public InternshipStatus getStatus() { return status; }
+    public List<String> getCompanyRepresentatives() { return companyRepresentatives; }
+    public List<Integer> getApplicationsReceived() { return applicationsReceived; }
+    public boolean isVisibility() { return visibility; }
+    public boolean isApprovalStatus() { return status == InternshipStatus.Approved; }
 		
 
 }
