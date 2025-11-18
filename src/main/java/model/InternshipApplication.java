@@ -13,6 +13,8 @@ public class InternshipApplication {
 	private String			  studentID;
 	private String			  studentName;
 	private ApplicationStatus status;
+	private boolean           withdrawalRequested;
+	private boolean			  accepted; 
 
 	public InternshipApplication(int index, String title, int internIndex, String id, String name, ApplicationStatus status) {
 		this.applicationIndex = index;
@@ -21,6 +23,8 @@ public class InternshipApplication {
 		this.studentID 		  = id;
 		this.studentName 	  = name;
 		this.status 		  = status;
+		this.withdrawalRequested = false; 
+		this.accepted = false; 
 	}
 
 	public String 			 getStudentID() 	   {return studentID;}
@@ -29,7 +33,8 @@ public class InternshipApplication {
 	public int				 getInternshipIndex()  {return internshipIndex;}
 	public int				 getApplicationIndex() {return applicationIndex;}
 	public ApplicationStatus getStatus() 		   {return status;}
-
+	public boolean 			 getWithdrawalRequested(){return withdrawalRequested;} 
+	public boolean	         getAccepted()			{return accepted;} 
 	@Override
 	public String toString() {
 		return "Application number: " 	+ applicationIndex +
@@ -39,4 +44,6 @@ public class InternshipApplication {
 	}
 
 	public void setApplicationStatus(ApplicationStatus status) {this.status = status;}
+	public void setWithdrawalRequested(boolean withdrawalRequested){this.withdrawalRequested = withdrawalRequested;}
+	public void setAccepted(boolean accepted){this.accepted = accepted;}
 }
