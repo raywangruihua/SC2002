@@ -1,6 +1,7 @@
 package ui;
 import java.util.*;
 
+import enums.ApplicationStatus;
 import enums.InternshipLevel;
 import repository.Repository;
 import service.AccountManager;
@@ -53,8 +54,8 @@ public class StudentPage implements UserInterface<Student> {
                     studentAcc.addApplication(application);
                 }
 				case 3 -> viewApplications(studentAcc.getApplications(), repo);
-				case 4 -> acceptInternship();
-				case 5 -> withdrawApplication();
+				case 4 -> acceptInternship(studentAcc, repo);
+				case 5 -> withdrawApplication(studentAcc, repo);
                 case 6 -> {
 					return 6;
 				}
@@ -67,7 +68,9 @@ public class StudentPage implements UserInterface<Student> {
 	 * Displays internship information by index, title, internship level, company name and description
 	 */
 	public void displayInternships(List<Internship> display_list) {
-		if (display_list == null)
+		if (display_list == null){
+			System.out.println("No internships available.");
+		}
 		for (Internship internship : display_list){
 			System.out.println("Index: " + internship.getIndex() + ", Internship Title: " + internship.getTitle() + ", Internship Level: " + internship.getInternshipLevel() + ", Company Name: " + internship.getCompanyName());
 			System.out.println("Description: " + internship.getDescription());
@@ -127,14 +130,116 @@ public class StudentPage implements UserInterface<Student> {
 		System.out.println();
 	}
 
-	public void acceptInternship() {
-		// TODO - implement StudentPage.acceptInternship
-		throw new UnsupportedOperationException();
+	public void acceptInternship(Student studentAcc, Repository repo){
+		List<InternshipApplication> applications = studentAcc.getApplications();
+		if (applications == null){
+			System.out.println("You have no applications to access.");
+			return;
+		}
+
+		System.out.println("Internship Applications: ");
+		
+		int canAccept = 0; 
+
+		for (int i = 0; i < applications.size(); i++){
+			InternshipApplication app = applications.get(i);
+			ApplicationStatus status = appMgr.getApplicationStatus(app, repo);
+			if (status == ApplicationStatus.Successful){
+				canAccept += 1; 
+			}
+			System.out.println("[" + i + 1 + "]");
+			System.out.println("Internship Title     : " + app.getInternshipTitle());
+			System.out.println("Status               : " + status);
+			System.out.println("Accepted             : " + (app.getAccepted() ? "Yes" : "No"));
+			System.out.println("Withdrawal Requested : " + (app.getWithdrawalRequested() ? "Yes" : "No"));
+			System.out.println();
+		}
+		
+		if (canAccept <= 0){
+			System.out.println("No internships can be accepted.");
+			return;
+		}
+
+		int choice = -1; 
+		while (true){
+			try{
+				System.out.println("Enter the index of the application: ");
+				choice = sc.nextInt();
+				if ((choice < 1) && (choice > applications.size() + 1)){
+					System.out.println("Invaid index. Try again.");
+				} else {
+					break; 
+				}
+			} catch (NumberFormatException e){
+				System.out.println("Please enter a valid number.")
+			}
+		}
+
+		choice -= 1; 
+		
+		InternshipApplication selected = applications.get(choice);
+		ApplicationStatus status = appMgr.getApplicationStatus(selected, repo);
+
+		if (selected.getAccepted()){
+			System.out.println("Application is already successful.");
+			return;
+		}
+		if (status != ApplicationStatus.Successful){
+			System.out.println("Only successful applicants can be accepted,");
+			return;
+		}
+
+		internMgr.acceptPlacement(selected);
 	}
 
-	public void withdrawApplication() {
-		// TODO - implement StudentPage.withdrawApplication
-		throw new UnsupportedOperationException();
+	public void withdrawApplication(Student studentAcc, Repository repo) {
+		List<InternshipApplication> applications = studentAcc.getApplications();
+		if (applications == null){
+			System.out.println("You have no applications to withdraw.");
+		}
+		System.out.println("Your applications:");
+		for (int i = 0; i < applications.size(); i++) {
+			InternshipApplication app = applications.get(i);
+			ApplicationStatus status = appMgr.getApplicationStatus(app, repo);
+	
+			System.out.println("[" + i+1 + "]");
+			System.out.println("Internship Title     : " + app.getInternshipTitle());
+			System.out.println("Status               : " + status);
+			System.out.println("Accepted             : " + (app.getAccepted() ? "Yes" : "No"));
+			System.out.println("Withdrawal Requested : " + (app.getWithdrawalRequested() ? "Yes" : "No"));
+			System.out.println();
+		}
+		int choice = -1; 
+		while (true){
+			try{
+				System.out.println("Enter the index of the application: ");
+				choice = sc.nextInt();
+				if ((choice < 1) && (choice > applications.size() + 1)){
+					System.out.println("Invaid index. Try again.");
+				} else {
+					break; 
+				}
+			} catch (NumberFormatException e){
+				System.out.println("Please enter a valid number.")
+			}
+		}
+
+		choice -= 1; 
+
+		InternshipApplication selected = applications.get(choice);
+
+		if (selected.getStatus() == ApplicationStatus.Withdrawn){
+			System.out.println("This application has already been withdrawn.");
+			return;
+		}
+		if (selected.getWithdrawalRequested()){
+			System.out.println("A withdrawal request has already been made.");
+		}
+		if (selected.getAccepted()){
+			internMgr.requestWithdrawal(selected);
+		} else {
+			appMgr.requestWithdrawal(selected);
+		}
 	}
 
 	/**
