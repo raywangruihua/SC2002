@@ -96,6 +96,13 @@ public class Internship {
 	public void setStatus(InternshipStatus status) {
 		this.status = status;
 	}
+	/**
+	 * change the visibility 
+	 * @param visibility 
+	 */
+	public void setVisibility(boolean visibility){
+		this.visibility = visibility;
+	}
 
     public int getNumSlots() { return slots; }
     public LocalDate getOpenDate() { return openDate; }
@@ -103,7 +110,7 @@ public class Internship {
     public InternshipStatus getStatus() { return status; }
     public List<String> getCompanyRepresentatives() { return companyRepresentatives; }
     public List<Integer> getApplicationsReceived() { return applicationsReceived; }
-    public boolean isVisibility() { return visibility; }
+    public boolean getVisibility() { return visibility; }
     public boolean isApprovalStatus() { return status == InternshipStatus.Approved; }
 
 }

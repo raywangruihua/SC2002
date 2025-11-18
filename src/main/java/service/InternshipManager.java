@@ -58,9 +58,9 @@ public class InternshipManager {
 	}
 
 
-	public void toggleVisibility() {
-		// TODO - implement InternshipManager.toggleVisibility
-		throw new UnsupportedOperationException();
+	public void toggleVisibility(int internshipIndex) {
+		Internship internship = repo.getInternshipByIndex(internshipIndex);
+		internship.setVisibility(!(internship.getVisibility()));
 	}
 
 	// Print all internships (for staff UI)
