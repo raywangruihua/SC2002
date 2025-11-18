@@ -7,18 +7,20 @@ import enums.ApplicationStatus;
  * Each application has an application number for easy lookup
  */
 public class InternshipApplication {
-	private String			  studentID;
-	private String			  studentName;
+	private int 			  applicationIndex;
 	private String 			  internshipTitle;
 	private int				  internshipIndex;
-	private int 			  applicationIndex;
+	private String			  studentID;
+	private String			  studentName;
 	private ApplicationStatus status;
 
-	public InternshipApplication(String studentID, String studentName, String internshipTitle){
-		this.studentID 		 = studentID;
-		this.studentName 	 = studentName;
-		this.internshipTitle = internshipTitle;
-		this.status 		 = ApplicationStatus.Pending;
+	public InternshipApplication(int index, String title, int internIndex, String id, String name, ApplicationStatus status) {
+		this.applicationIndex = index;
+		this.internshipTitle  = title;
+		this.internshipIndex  = internIndex;
+		this.studentID 		  = id;
+		this.studentName 	  = name;
+		this.status 		  = status;
 	}
 
 	public String 			 getStudentID() 	   {return studentID;}

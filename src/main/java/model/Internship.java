@@ -6,8 +6,12 @@ import java.time.LocalDate;
 import enums.InternshipLevel;
 import enums.InternshipStatus;
 
+/**
+ * Internship class
+ * Each internship created has a unique index assigned to it
+ */
 public class Internship {
-
+	private int 						index; 
 	private String 						title;
 	private String 						description;
 	private InternshipLevel 			internshipLevel;
@@ -19,24 +23,26 @@ public class Internship {
 	private int							slots;
 	private List<String> 				companyRepresentatives;
 	// private boolean 					approvalStatus;
-	private List<InternshipApplication> applicationsReceived;
+	/// Access applications received via application index
+	private List<Integer> 				applicationsReceived;
 	private boolean 					visibility;
-	private int 						index; 
 
-	public Internship(String title, String desc, InternshipLevel lvl, String major, LocalDate openDate, LocalDate closeDate, String companyName, int slots) {
+	public Internship(int index, String title, String desc, InternshipLevel internshipLevel, String major,
+					  LocalDate openDate, LocalDate closeDate, InternshipStatus status, String companyName,
+					  int slots, List<String> reps, List<Integer> apps, boolean visibility) {
 		this.title 					= title;
 		this.description 			= desc;
-		this.internshipLevel 		= lvl;
+		this.internshipLevel 		= internshipLevel;
 		this.preferredMajor 		= major;
 		this.openDate 				= openDate;
 		this.closingDate 			= closeDate;
-		this.status 				= InternshipStatus.Pending;
+		this.status 				= status;
 		this.companyName 			= companyName;
 		this.slots					= slots;
-		this.companyRepresentatives = new ArrayList<String>();
-		this.applicationsReceived   = new ArrayList<InternshipApplication>();
-		this.visibility 			= false;
-		this.index 					= -1;
+		this.companyRepresentatives = reps;
+		this.applicationsReceived   = apps;
+		this.visibility 			= visibility;
+		this.index 					= index;
 	}
 	
 	@Override

@@ -16,27 +16,28 @@ public class CompanyRepPage extends UserPage {
 	private CompanyManager				 coMgr;
 	private Scanner 					 sc;
 
-	public CompanyRepPage(InternshipManager internMgr, InternshipApplicationManager appMgr, Scanner sc) {
+	public CompanyRepPage(InternshipManager internMgr, InternshipApplicationManager appMgr, CompanyManager coMgr, Scanner sc) {
 		this.internMgr = internMgr;
 		this.appMgr    = appMgr;
+		this.coMgr	   = coMgr;
 		this.sc 	   = sc;
 	}
 
 	public void display() {
 		System.out.print(
 			"----------------------------------------------\n" +
-			"|                          			      |\n" +
+			"|                                            |\n" +
 			"|   Company Representative Internship Hub    |\n" +
-			"|                            				  |\n" +
+			"|                                            |\n" +
 			"----------------------------------------------\n" +
-										   				  "\n" +
-			"1. Create  Internship						   \n" +
-			"2. View 	Internships						   \n" +
-			"3. Toggle  Internship						   \n" +
-			"4. View    Applications					   \n" +
-			"5. Approve Application						   \n" +
-			"6. Reject  Application						   \n" +
-			"7. Logout									   \n"
+			                                              "\n" +
+			"1. Create  Internship                         \n" +
+			"2. View    Internships                        \n" +
+			"3. Toggle  Internship                         \n" +
+			"4. View    Applications                       \n" +
+			"5. Approve Application                        \n" +
+			"6. Reject  Application                        \n" +
+			"7. Logout                                     \n"
 		);
 	}
 

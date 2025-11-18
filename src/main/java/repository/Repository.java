@@ -25,7 +25,7 @@ public class Repository {
 	private List<Internship> 			pendingInternships;
 	private List<Company>				companies;
 
-	public Repository() {
+	public Repository(String internshipsFilepath, String applicationsFilepath, String pendingInternshipsFilepath) {
 		this.internships 		= new ArrayList<>();
 		this.applications 		= new ArrayList<>();
 		this.pendingInternships = new ArrayList<>();

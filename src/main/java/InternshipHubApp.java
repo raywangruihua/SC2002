@@ -19,10 +19,11 @@ import repository.Repository;
  * Users can login or register for an account
  */
 public class InternshipHubApp {
-    private static final String STUDENT_ACCOUNTS_PATH = "StudentAccounts.csv";
-    private static final String STAFF_ACCOUNTS_PATH   = "StaffAccounts.csv";
+    private static final String STUDENT_ACCOUNTS_PATH     = "StudentAccounts.csv";
+    private static final String STAFF_ACCOUNTS_PATH       = "StaffAccounts.csv";
+    private static final String COMPANY_REP_ACCOUNTS_PATH = "CompanyRepAccounts.csv";
 
-    private static AccountManager               accMgr      = new AccountManager(STUDENT_ACCOUNTS_PATH, STAFF_ACCOUNTS_PATH);
+    private static AccountManager               accMgr      = new AccountManager(STUDENT_ACCOUNTS_PATH, STAFF_ACCOUNTS_PATH, COMPANY_REP_ACCOUNTS_PATH);
     /// Future implementation : Save repository offline
     private static Repository                   repo        = new Repository();
     /// Managers have access to repo
@@ -34,7 +35,7 @@ public class InternshipHubApp {
     private static LoginPage                    loginPage   = new LoginPage(accMgr, sc);
     private static StudentPage                  studentPage = new StudentPage(internMgr, appMgr, sc);
     private static CareerCenterStaffPage        staffPage   = new CareerCenterStaffPage(accMgr, internMgr, appMgr, sc);
-    private static CompanyRepPage               repPage     = new CompanyRepPage(internMgr, appMgr, sc);
+    private static CompanyRepPage               repPage     = new CompanyRepPage(internMgr, appMgr, coMgr, sc);
     private static Account                      acc;
 
     public static void login() {
@@ -100,7 +101,7 @@ public class InternshipHubApp {
         int option = -1;
         while (true) {
             try {
-                System.out.print("Enter option: ");
+                System.out.print("\nEnter option: ");
                 option = Integer.parseInt(sc.nextLine());
             }
             catch (NumberFormatException e) {}

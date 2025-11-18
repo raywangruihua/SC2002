@@ -30,10 +30,11 @@ public class AccountManager {
 	 * @param studentsFilepath Filepath of student accounts csv
 	 * @param staffsFilepath Filepath of staff accounts csv
 	 */
-	public AccountManager(String studentsFilepath, String staffsFilepath) {
+	public AccountManager(String studentsFilepath, String staffsFilepath, String companyRepsFilepath) {
 		accounts = new ArrayList<>();
 		accounts.addAll(Read.readStudentAccountsCSV(studentsFilepath));
 		accounts.addAll(Read.readStaffAccountsCSV(staffsFilepath));
+		accounts.addAll(Read.readCompanyRepAccountsCSV(companyRepsFilepath));
 
 		pending = new ArrayList<>();
 	}
