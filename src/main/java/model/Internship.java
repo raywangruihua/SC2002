@@ -73,7 +73,6 @@ public class Internship {
 	public String 		    getCompanyName() 	 {return companyName;}
 	public int 			    getIndex() 			 {return index;}
 	public InternshipStatus getStatus()			 {return status;}
-
 	public void toggleVisibility() {visibility = !visibility;}
 
 	/**

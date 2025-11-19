@@ -60,7 +60,7 @@ public class InternshipManager {
 
 	public void toggleVisibility(int internshipIndex) {
 		Internship internship = repo.getInternshipByIndex(internshipIndex);
-		internship.setVisibility(!(internship.getVisibility()));
+		internship.setVisibility(!(internship.isVisibility()));
 	}
 
 	// Print all internships (for staff UI)

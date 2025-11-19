@@ -146,7 +146,25 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 	 * View application withdrawals
 	 */
 	public void viewWithdrawals() {
-		for (InternshipApplication a : appMgr.getWithdrawals()) System.out.println(a);
+		List<InternshipApplication> withdrawals = appMgr.getWithdrawals();
+
+		if (withdrawals.isEmpty()){
+			System.out.println("There are no withdrawal requests at the moment.");
+			return;
+		}
+
+		System.out.println("Pending Withdrawal Requests:");
+		for (int i = 0; i < withdrawals.size(); i ++){
+			InternshipApplication app = withdrawals.get(i);
+			System.out.println("[" + (i + 1) + "]");
+			System.out.println("  Application ID    : " + app.getApplicationIndex());
+			System.out.println("  Student ID        : " + app.getStudentID());
+			System.out.println("  Internship Index  : " + app.getInternshipIndex());
+			System.out.println("  Internship Title  : " + app.getInternshipTitle());
+			System.out.println("  Status            : " + app.getStatus());
+			System.out.println("  Accepted          : " + (app.getAccepted() ? "Yes" : "No"));
+			System.out.println();
+		}
 	}
 
 	/**
@@ -155,25 +173,76 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 	 * @see Repository
 	 */
 	public void acceptWithdrawal() {
-		int index = -1;
-		while (true) {
-			try {
-				System.out.print("Enter internship index: ");
-				index = Integer.parseInt(sc.nextLine());
-				break;
-			}
-			catch (NumberFormatException e) {}
+		List<InternshipApplication> withdrawals = appMgr.getWithdrawals();
+
+		if (withdrawals.isEmpty()){
+			System.out.println("There are no withdrawal requests at the moment.");
+			return;
 		}
 
-		if (!internMgr.checkInternshipExists(index)) {System.out.println("Internship does not exist!");}
-		else{
-			appMgr.removeApplication(index);
+		viewWithdrawals();
+
+		int choice = -1; 
+		while (true){
+			try{
+				System.out.print("Enter the withdrawal request index to approve.");
+				choice = Integer.parseInt(sc.nextLine());
+
+				if (choice < 1 || choice > withdrawals.size()){
+					System.out.println("Invalid index. Try again.");
+				} else {
+					break; 
+				}
+			} catch (NumberFormatException e){
+				System.out.println("Please enter a valid number.");
+			}
 		}
+
+		InternshipApplication selected = withdrawals.get(choice - 1);
+
+		if (selected.getAccepted()){
+			internMgr.approveWithdrawal(selected);
+		} else {
+			appMgr.approveWithdrawal(selected);
+		}
+		System.out.println("Withdrawal approved for application ID: " + selected.getApplicationIndex());
 	}
 
 	public void rejectWithdrawal() {
-		// TODO - implement CareerCenterStaffPage.generateReport
-		throw new UnsupportedOperationException();
+		List<InternshipApplication> withdrawals = appMgr.getWithdrawals();
+
+		if (withdrawals.isEmpty()){
+			System.out.println("There are no withdrawal requests at the moment.");
+			return;
+		}
+
+		viewWithdrawals();
+
+		int choice = -1; 
+		while (true){
+			try{
+				System.out.print("Enter the withdrawal request index to reject.");
+				choice = Integer.parseInt(sc.nextLine());
+
+				if (choice < 1 || choice > withdrawals.size()){
+					System.out.println("Invalid index. Try again.");
+				} else {
+					break; 
+				}
+			} catch (NumberFormatException e){
+				System.out.println("Please enter a valid number.");
+			}
+
+			InternshipApplication selected = withdrawals.get(choice -1);
+
+			if (selected.getAccepted()){
+				internMgr.rejectWithdrawal(selected);
+			} else {
+				appMgr.rejectWithdrawal(selected);
+			}
+			System.out.println("Withdrawal rejected for application ID: " + selected.getApplicationIndex());
+		}
+
 	}
 
 	/**
