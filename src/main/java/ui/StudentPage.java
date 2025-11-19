@@ -96,7 +96,7 @@ public class StudentPage implements UserInterface<Student> {
 			try {
 				System.out.print("Enter internship index: ");
 				index = Integer.parseInt(sc.nextLine());
-				break;S
+				break;
 			}
 			catch (NumberFormatException e) {}
 		}
@@ -171,7 +171,7 @@ public class StudentPage implements UserInterface<Student> {
 					break; 
 				}
 			} catch (NumberFormatException e){
-				System.out.println("Please enter a valid number.")
+				System.out.println("Please enter a valid number.");
 			}
 		}
 
@@ -220,7 +220,7 @@ public class StudentPage implements UserInterface<Student> {
 					break; 
 				}
 			} catch (NumberFormatException e){
-				System.out.println("Please enter a valid number.")
+				System.out.println("Please enter a valid number.");
 			}
 		}
 

@@ -11,6 +11,7 @@ import service.InternshipApplicationManager;
 import service.InternshipManager;
 import util.CSVHandler;
 import util.Sort;
+import model.Student;
 
 /**
  * Repository class stores all pending internships, internships and internships applications
@@ -104,7 +105,7 @@ public class Repository {
 	 */
 	public void removeApplication(int applicationIndex) {
 		InternshipApplication a = getInternshipApplication(applicationIndex);
-		if (a) applications.remove(a);
+		applications.remove(a);
 	}
 
 	/* 
