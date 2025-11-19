@@ -89,43 +89,14 @@ public class InternshipApplicationManager {
 	 * @param application
 	 */
 	public void requestWithdrawal(InternshipApplication application){
-		if (application.getAccepted()){
-			System.out.println("Use InternshipManager for accepted placements.");
-			return;
-		}
-		if (application.getWithdrawalRequested()){
-			System.out.println("Withdrawal request has already been submitted for this application.");
-			return;
-		}
-		ApplicationStatus currentStatus = application.getStatus();
-		switch (currentStatus){
-			case Unsuccessful -> {
-				System.out.println("Withdrawal request failed. Application is already unsuccessful.");
-			}
-			case Withdrawn -> {
-				System.out.println("Application has already been withdrawn.");
-			}
-			default -> {
-				application.setWithdrawalRequested(true);
-				System.out.println("Withdrawal request submitted.");
-			}
-		}
+		application.setWithdrawalRequested(true);
 	}
 	/**
 	 * accept withdrawal for application 
 	 * @param application
 	 */
 	public void approveWithdrawal(InternshipApplication application){
-		if (!application.getWithdrawalRequested()){
-			System.out.println("No withdrawal requested.");
-			return; 
-		}
-		if (application.getAccepted()){
-			System.out.println("Use InternshipManager for accepted placements.");
-		}
 		application.setApplicationStatus((ApplicationStatus.Withdrawn));
-		application.setWithdrawalRequested(false);
-		System.out.println("Withdrawal request approved.");
 	}
 
 	/**
@@ -133,15 +104,7 @@ public class InternshipApplicationManager {
 	 * @param application
 	 */
 	public void rejectWithdrawal(InternshipApplication application){
-		if (!application.getWithdrawalRequested()){
-			System.out.println("No withdrawal requested.");
-		}
-		if (application.getAccepted()){
-			System.out.println("Use InternshipManager for accepted placements.");
-			return;
-		}
 		application.setWithdrawalRequested(false);
-		System.out.println("Withdrawal request rejected.");
 	}
 
 	public void autoWithdrawApplications(Student student, InternshipApplication acceptedApplication){

@@ -230,19 +230,23 @@ public class StudentPage implements UserInterface<Student> {
 		choice -= 1; 
 
 		InternshipApplication selected = applications.get(choice);
-
+		if (selected.getStatus() == ApplicationStatus.Unsuccessful){
+			System.out.println("Application cannot be withdrawn as it is unsuccessful.");
+			return;
+		}
 		if (selected.getStatus() == ApplicationStatus.Withdrawn){
 			System.out.println("This application has already been withdrawn.");
 			return;
 		}
 		if (selected.getWithdrawalRequested()){
 			System.out.println("A withdrawal request has already been made.");
+			return;
 		}
 		if (selected.getAccepted()){
 			internMgr.requestWithdrawal(selected);
 		} else {
 			appMgr.requestWithdrawal(selected);
 		}
+		System.out.println("Withdrawal request submitted.");
 	}
-
 }

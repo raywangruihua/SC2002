@@ -136,45 +136,15 @@ public class InternshipManager {
 	 * Request withdrawal for an application by student
 	 * @param application The internship application to withdraw
 	 */
-	public void requestWithdrawal(InternshipApplication application) {
-		if (!(application.getAccepted())){
-			System.out.println("Use InternshipApplicationManager instead.");
-			return;
-		}
-		if (application.getWithdrawalRequested()){
-			System.out.println("Withdrawal request has already been submitted for this application.");
-			return;
-		}
-		ApplicationStatus currentStatus = application.getStatus();
-		switch (currentStatus){
-			case Unsuccessful -> {
-				System.out.println("Withdrawal request failed. Application is already unsuccessful.");
-			}
-			case Successful -> {
-				System.out.println("Application has already been withdrawn.");
-			}
-			default -> {
-				application.setWithdrawalRequested(true);
-				System.out.println("Withdrawal request submitted.");
-			}
-		}
+	public void requestWithdrawal(InternshipApplication application){
+		application.setWithdrawalRequested(true);
 	}
 
 	/**
 	 * Approve a withdrawal request for an application accepted by student
 	 * @param application
 	 */
-	public void approveWithdrawal(InternshipApplication application) {
-		if (application.getWithdrawalRequested()){
-			System.out.println("No withdrawal request submitted.");
-			return;
-		}
-		
-		if (!application.getAccepted()){
-			System.out.println("Use InternshipApplicationManager instead.");
-			return;
-		}
-
+	public void approveWithdrawal(InternshipApplication application){
 		int index = application.getInternshipIndex();
 		Internship internship = repo.getInternshipByIndex(index);
 
@@ -186,9 +156,6 @@ public class InternshipManager {
 		}
 
 		application.setApplicationStatus(ApplicationStatus.Withdrawn);
-		application.setWithdrawalRequested(false);
-
-		System.out.println("Withdrawal approved. Placement is withdrawn.");
 	}
 
 	/**
@@ -196,16 +163,7 @@ public class InternshipManager {
 	 * @param application The internship application to reject withdrawal for
 	 */
 	public void rejectWithdrawal(InternshipApplication application) {
-		if (!application.getWithdrawalRequested()){
-			System.out.println("No withdrawal request.");
-			return;
-		}
-		if (!application.getAccepted()){
-			System.out.println("Use InternshipApplicationManager instead.");
-			return;
-		}
 		application.setWithdrawalRequested(false);
-		System.out.println("Withdrawal rejected.");
 	}
 
 	/**
