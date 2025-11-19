@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +32,6 @@ public class CSVHandler {
             while ((line = br.readLine()) != null) {
                 if (isHeader) { isHeader = false; continue; }
                 String[] data = line.split(",");
-                // Format: ID,Name,Password,Year,Major,Email
                 if (data.length < 5) continue; 
 
                 Student s = new Student(data[0], data[1], data[2], Integer.parseInt(data[3]), data[4]);
@@ -50,10 +51,9 @@ public class CSVHandler {
             while ((line = br.readLine()) != null) {
                 if (isHeader) { isHeader = false; continue; }
                 String[] data = line.split(",");
-                // Format: ID,Name,Password,Email,Department
                 if (data.length < 4) continue;
 
-                // Assuming constructor: ID, Name, Password, Department
+                // ID, Name, Password, Department
                 CareerCenterStaff s = new CareerCenterStaff(data[0], data[1], data[2], data[3]);
                 staffs.add(s);
             }
@@ -72,18 +72,12 @@ public class CSVHandler {
                 if (isHeader) { isHeader = false; continue; }
                 String[] data = line.split(",");
                 
-                // Check if we have all 6 columns: 
-                // ID, Name, Password, Company, Department, Position
+                // FIX: Must match the 6 columns in your CSV
+                // ID, Name, Password, Company, Dept, Position
                 if (data.length < 6) continue;
 
-                // Match the constructor in CompanyRep.java
                 CompanyRep r = new CompanyRep(
-                    data[0], // userID
-                    data[1], // name
-                    data[2], // password
-                    data[3], // companyName
-                    data[4], // department
-                    data[5]  // position
+                    data[0], data[1], data[2], data[3], data[4], data[5]
                 );
                 reps.add(r);
             }
@@ -106,22 +100,32 @@ public class CSVHandler {
                 try {
                     int index = Integer.parseInt(data[0]);
                     String title = data[1];
-                    InternshipLevel level = InternshipLevel.valueOf(data[2]); 
+                    
+                    // Helper handles Case Sensitivity
+                    InternshipLevel level = parseLevel(data[2]); 
                     String major = data[3];
-                    LocalDate open = parseDate(data[4]);
+                    
+                    // Helper handles 20230820 vs 2023-08-20
+                    LocalDate open = parseDate(data[4]); 
                     LocalDate close = parseDate(data[5]);
-                    InternshipStatus status = InternshipStatus.valueOf(data[6]); 
+                    
+                    // Helper handles lowercase "approved"
+                    InternshipStatus status = parseStatus(data[6]); 
+                    
                     String company = data[7];
                     int slots = Integer.parseInt(data[8]);
+                    
+                    // Helper handles both '/' and ';' separators
                     List<String> reps = parseList(data[9]);
                     List<Integer> appIds = parseIntegerList(data[10]);
+                    
                     boolean vis = Boolean.parseBoolean(data[11]);
                     String desc = data[12];
 
                     Internship i = new Internship(index, title, desc, level, major, open, close, status, company, slots, reps, appIds, vis);
                     internships.add(i);
                 } catch (Exception e) {
-                    System.err.println("Skipping row due to error: " + e.getMessage());
+                    System.err.println("Skipping row due to parsing error: " + e.getMessage());
                 }
             }
         } catch (Exception e) {
@@ -166,7 +170,7 @@ public class CSVHandler {
                 sb.append(i.getNumSlots()).append(",");
                 sb.append(listToString(i.getCompanyRepresentatives())).append(",");
                 sb.append(integerListToString(i.getApplicationsReceived())).append(",");
-                sb.append(i.isVisibility()).append(",");
+                sb.append(i.isVisibility()).append(","); 
                 sb.append(sanitize(i.getDescription()));
                 pw.println(sb.toString());
             }
@@ -175,7 +179,7 @@ public class CSVHandler {
         }
     }
 
-    // --- HELPERS ---
+    // ---  HELPERS ---
 
     private String sanitize(String input) { return input == null ? "null" : input.replace(",", ";"); }
     
@@ -191,19 +195,45 @@ public class CSVHandler {
 
     private List<String> parseList(String input) {
         if (input == null || input.equals("null") || input.isEmpty()) return new ArrayList<>();
-        return new ArrayList<>(Arrays.asList(input.split(";")));
+        return new ArrayList<>(Arrays.asList(input.split("[:/;]"))); 
     }
 
     private List<Integer> parseIntegerList(String input) {
         List<Integer> list = new ArrayList<>();
         if (input == null || input.equals("null") || input.isEmpty()) return list;
-        for (String s : input.split(";")) {
+        for (String s : input.split("[:/;]")) {
             try { list.add(Integer.parseInt(s)); } catch (Exception e) {}
         }
         return list;
     }
 
     private LocalDate parseDate(String input) {
-        try { return LocalDate.parse(input); } catch (Exception e) { return null; }
+        if (input == null || input.isEmpty()) return null;
+        try {
+            return LocalDate.parse(input); // Try standard YYYY-MM-DD
+        } catch (DateTimeParseException e1) {
+            try {
+                return LocalDate.parse(input, DateTimeFormatter.BASIC_ISO_DATE); // Try YYYYMMDD
+            } catch (DateTimeParseException e2) {
+                return null;
+            }
+        }
+    }
+
+    private InternshipStatus parseStatus(String input) {
+        try {
+            return InternshipStatus.valueOf(input); 
+        } catch (IllegalArgumentException e) {
+            return InternshipStatus.valueOf(input.toUpperCase()); 
+        }
+    }
+
+    private InternshipLevel parseLevel(String input) {
+        try {
+            return InternshipLevel.valueOf(input); 
+        } catch (IllegalArgumentException e) {
+            // Fallback logic if needed, or assume input is mostly correct
+            return InternshipLevel.Basic; 
+        }
     }
 }

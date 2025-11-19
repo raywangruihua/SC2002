@@ -45,7 +45,12 @@ public class ReportPage {
             }
         }
     }
-
+    /**
+     * idk this sort for what
+     */
+    public void sort() {
+        return;
+    }
     /**
      * Make this look a bit nicer in the future
      */
@@ -205,8 +210,8 @@ public class ReportPage {
             "4. Company name\n" +
             "5. Currently open\n" +
             "6. Applications received\n" +
-            "5. Closing date\n" +
-            "7. Return\n"
+            "7. Closing date\n" +
+            "8. Return\n"
         );
     }
 }
