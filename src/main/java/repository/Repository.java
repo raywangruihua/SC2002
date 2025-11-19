@@ -34,7 +34,6 @@ public class Repository {
 
 	public Repository(String internshipsFilepath, String applicationsFilepath, String pendingInternshipsFilepath) {
 		this.internshipFilePath = internshipsFilepath;
-        this.studentFilePath = studentFilePath;
         
         this.csvHandler = new CSVHandler();
 
@@ -90,7 +89,19 @@ public class Repository {
 	public List<Internship> getDisplayInternships(int yearOfStudy, String major){
 		List<Internship> display_list = Sort.sortByMajor(internships, major);
 		display_list = Sort.sortByYearOfStudy(display_list, yearOfStudy);
+		display_list = showVisible(display_list);
 		return display_list;
+	}
+
+	/* 
+	 * Returns list of visbile internships for viewing
+	 */
+	public static List<Internship> showVisible(List<Internship> internships){
+		List<Internship> visible_list = new ArrayList<>();
+		for (Internship internship: internships){
+			visible_list.add(internship);
+		}
+		return visible_list;
 	}
 
 	/* 

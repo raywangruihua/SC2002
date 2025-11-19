@@ -3,8 +3,6 @@ import java.util.*;
 
 import enums.ApplicationStatus;
 import enums.InternshipLevel;
-import repository.Repository;
-import service.AccountManager;
 import service.InternshipApplicationManager;
 import service.InternshipManager;
 import model.*;
@@ -40,7 +38,7 @@ public class StudentPage implements UserInterface<Student> {
 		);
 
 		int option = -1;
-        outer: while (true) {
+        while (true) {
             try {
                 System.out.print("\nEnter option: ");
                 option = Integer.parseInt(sc.nextLine());
@@ -191,6 +189,7 @@ public class StudentPage implements UserInterface<Student> {
 		}
 
 		internMgr.acceptPlacement(selected);
+		studentAcc.acceptPlacement(selected);
 		appMgr.autoWithdrawApplications(studentAcc, selected);
 
 		System.out.println("Placement accepted successfully.");

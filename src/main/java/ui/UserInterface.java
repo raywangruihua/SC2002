@@ -1,7 +1,6 @@
 package ui;
 
 import model.Account;
-import repository.Repository;
 
 /**
  * Interface class for command line display interface

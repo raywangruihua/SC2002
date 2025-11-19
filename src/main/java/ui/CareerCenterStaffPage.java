@@ -3,7 +3,6 @@ package ui;
 import java.util.List;
 import java.util.Scanner;
 
-import enums.InternshipLevel;
 import enums.InternshipStatus;
 import model.*;
 import repository.Repository;
@@ -46,7 +45,7 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 		);
 
 		int option = -1;
-        outer: while (true) {
+        while (true) {
             try {
                 System.out.print("\nEnter option: ");
                 option = Integer.parseInt(sc.nextLine());
