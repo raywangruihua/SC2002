@@ -149,7 +149,25 @@ public class ReportPage {
             .collect(Collectors.toList());
     }
 
-    
+    /**
+ * Filter internships by minimum number of applications received.
+ * Assumes getApplicationsReceived() returns a List<Integer> of application IDs.
+ */
+public void filterByApplicationsReceived() {
+    System.out.print("\nFiltering Min number of applications received to the MAX, Enter minimum number: ");
+    int tempMin = 0;
+    try {
+        tempMin = Integer.parseInt(sc.nextLine());
+    } catch (NumberFormatException e) {
+        System.out.println("Invalid number format. No filter applied.");
+        return;
+    }
+    final int min = tempMin; // make final copy for lambda use
+    displayList = displayList.stream()
+        .filter(i -> i.getApplicationsReceived() != null && i.getApplicationsReceived().size() >= min)
+        .collect(Collectors.toList());
+}
+
 
 
 
