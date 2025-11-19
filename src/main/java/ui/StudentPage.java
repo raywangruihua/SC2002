@@ -53,9 +53,9 @@ public class StudentPage implements UserInterface<Student> {
                     InternshipApplication application  = applyInternship(studentAcc.getYear(), studentAcc.getUserID(), studentAcc.getName());
                     studentAcc.addApplication(application);
                 }
-				case 3 -> viewApplications(studentAcc.getApplications(), repo);
-				case 4 -> acceptInternship(studentAcc, repo);
-				case 5 -> withdrawApplication(studentAcc, repo);
+				case 3 -> viewApplications(studentAcc.getApplications());
+				case 4 -> acceptInternship(studentAcc);
+				case 5 -> withdrawApplication(studentAcc);
                 case 6 -> {
 					break;
 				}
@@ -96,7 +96,7 @@ public class StudentPage implements UserInterface<Student> {
 			try {
 				System.out.print("Enter internship index: ");
 				index = Integer.parseInt(sc.nextLine());
-				break;
+				break;S
 			}
 			catch (NumberFormatException e) {}
 		}
@@ -130,7 +130,7 @@ public class StudentPage implements UserInterface<Student> {
 		System.out.println();
 	}
 
-	public void acceptInternship(Student studentAcc, Repository repo){
+	public void acceptInternship(Student studentAcc ){
 		List<InternshipApplication> applications = studentAcc.getApplications();
 		if (applications == null){
 			System.out.println("You have no applications to access.");
@@ -143,7 +143,7 @@ public class StudentPage implements UserInterface<Student> {
 
 		for (int i = 0; i < applications.size(); i++){
 			InternshipApplication app = applications.get(i);
-			ApplicationStatus status = appMgr.getApplicationStatus(app, repo);
+			ApplicationStatus status = appMgr.getApplicationStatus(app);
 			if (status == ApplicationStatus.Successful){
 				canAccept += 1; 
 			}
@@ -178,7 +178,7 @@ public class StudentPage implements UserInterface<Student> {
 		choice -= 1; 
 		
 		InternshipApplication selected = applications.get(choice);
-		ApplicationStatus status = appMgr.getApplicationStatus(selected, repo);
+		ApplicationStatus status = appMgr.getApplicationStatus(selected);
 
 		if (selected.getAccepted()){
 			System.out.println("Application is already successful.");
@@ -192,7 +192,7 @@ public class StudentPage implements UserInterface<Student> {
 		internMgr.acceptPlacement(selected);
 	}
 
-	public void withdrawApplication(Student studentAcc, Repository repo) {
+	public void withdrawApplication(Student studentAcc ) {
 		List<InternshipApplication> applications = studentAcc.getApplications();
 		if (applications == null){
 			System.out.println("You have no applications to withdraw.");
@@ -200,7 +200,7 @@ public class StudentPage implements UserInterface<Student> {
 		System.out.println("Your applications:");
 		for (int i = 0; i < applications.size(); i++) {
 			InternshipApplication app = applications.get(i);
-			ApplicationStatus status = appMgr.getApplicationStatus(app, repo);
+			ApplicationStatus status = appMgr.getApplicationStatus(app);
 	
 			System.out.println("[" + i+1 + "]");
 			System.out.println("Internship Title     : " + app.getInternshipTitle());
@@ -240,15 +240,6 @@ public class StudentPage implements UserInterface<Student> {
 		} else {
 			appMgr.requestWithdrawal(selected);
 		}
-	}
-
-	/**
-	 * 
-	 * @param internship
-	 */
-	public void viewInternship(Internship internship) {
-		// TODO - implement StudentPage.viewInternship
-		throw new UnsupportedOperationException();
 	}
 
 }
