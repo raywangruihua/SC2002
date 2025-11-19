@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.List;
 import java.util.Scanner;
 
 import enums.InternshipLevel;
@@ -91,12 +92,14 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 	 */
 	public void acceptAccount(String userID) {
 		accMgr.approveAccount(userID);
+		System.out.print("\nCompany" + userID + "has been approve");
 	}
 	/**
 	 * Reject Account via Account Manager
 	 */
 	public void rejectAccount(String userID) {
 		accMgr.removePending(userID);
+		System.out.print("\nCompany" + userID + "has been Rejected");
 	}
 	// List all internships (pending, approved, rejected)
 	public void viewInternships() {
@@ -179,10 +182,13 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 	 * Can also sort based on the same parameters
 	 * Dynamically filers and sorts a list of internships
 	 * 
+	 * go to report page
 	 * @see Sort
 	 */
 	public void generateReport() {
-		
+		List<Internship> internships = internMgr.getAllInternships();
+        ReportPage reportPage = new ReportPage(internships, sc);
+        reportPage.start();
 	}
 
 }
