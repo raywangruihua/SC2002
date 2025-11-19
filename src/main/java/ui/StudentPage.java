@@ -171,7 +171,7 @@ public class StudentPage implements UserInterface<Student> {
 					break; 
 				}
 			} catch (NumberFormatException e){
-				System.out.println("Please enter a valid number.")
+				System.out.println("Please enter a valid number.");
 			}
 		}
 
@@ -221,7 +221,7 @@ public class StudentPage implements UserInterface<Student> {
 					break; 
 				}
 			} catch (NumberFormatException e){
-				System.out.println("Please enter a valid number.")
+				System.out.println("Please enter a valid number.");
 			}
 		}
 
