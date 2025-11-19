@@ -107,10 +107,9 @@ public class Internship {
     public int getNumSlots() { return slots; }
     public LocalDate getOpenDate() { return openDate; }
     public LocalDate getClosingData() { return closingDate; }
-    public InternshipStatus getStatus() { return status; }
     public List<String> getCompanyRepresentatives() { return companyRepresentatives; }
     public List<Integer> getApplicationsReceived() { return applicationsReceived; }
     public boolean getVisibility() { return visibility; }
-    public boolean isApprovalStatus() { return status == InternshipStatus.Approved; }
+    public boolean isApprovalStatus() { return status == InternshipStatus.APPROVED; }
 
 }
