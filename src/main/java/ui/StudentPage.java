@@ -130,22 +130,31 @@ public class StudentPage implements UserInterface<Student> {
 
 	public void acceptInternship(Student studentAcc ){
 		List<InternshipApplication> applications = studentAcc.getApplications();
-		if (applications == null){
+		if (applications == null || applications.isEmpty()){
 			System.out.println("You have no applications to access.");
 			return;
 		}
 
-		System.out.println("Internship Applications: ");
-		
-		int canAccept = 0; 
+		List<InternshipApplication> acceptable = new ArrayList<>();
 
-		for (int i = 0; i < applications.size(); i++){
-			InternshipApplication app = applications.get(i);
+		for (InternshipApplication app: applications){
 			ApplicationStatus status = appMgr.getApplicationStatus(app);
-			if (status == ApplicationStatus.Successful){
-				canAccept += 1; 
+
+			if (status == ApplicationStatus.Successful && !(app.getAccepted())){
+				acceptable.add(app);
 			}
-			System.out.println("[" + i + 1 + "]");
+		}
+
+		if (acceptable.isEmpty()){
+			System.out.println("No internships can be accepted.");
+			return;
+		}
+		System.out.println("Internship Applications that can be accepted:");
+
+		for (int i = 0; i < acceptable.size(); i++){
+			InternshipApplication app = acceptable.get(i);
+			ApplicationStatus status = appMgr.getApplicationStatus(app);
+			System.out.println("[" + (i + 1) + "]");
 			System.out.println("Internship Title     : " + app.getInternshipTitle());
 			System.out.println("Status               : " + status);
 			System.out.println("Accepted             : " + (app.getAccepted() ? "Yes" : "No"));
@@ -153,11 +162,6 @@ public class StudentPage implements UserInterface<Student> {
 			System.out.println();
 		}
 		
-		if (canAccept <= 0){
-			System.out.println("No internships can be accepted.");
-			return;
-		}
-
 		int choice = -1; 
 		while (true){
 			try{
@@ -170,29 +174,17 @@ public class StudentPage implements UserInterface<Student> {
 				}
 			} catch (NumberFormatException e){
 				System.out.println("Please enter a valid number.");
+				sc.nextLine(); 
 			}
 		}
 
-		choice -= 1; 
-		
-		InternshipApplication selected = applications.get(choice);
-		ApplicationStatus status = appMgr.getApplicationStatus(selected);
-
-		if (selected.getAccepted()){
-			System.out.println("Application is already successful.");
-			return;
-		}
-
-		if (status != ApplicationStatus.Successful){
-			System.out.println("Only successful applicants can be accepted!");
-			return;
-		}
+		InternshipApplication selected = acceptable.get(choice - 1);
 
 		internMgr.acceptPlacement(selected);
 		studentAcc.acceptPlacement(selected);
 		appMgr.autoWithdrawApplications(studentAcc, selected);
 
-		System.out.println("Placement accepted successfully.");
+		System.out.println("Placement accepted successfully. Other applications have been withdrawn.");
 	}
 
 	public void withdrawApplication(Student studentAcc ){
