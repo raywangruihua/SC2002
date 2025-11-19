@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,8 +14,9 @@ import java.util.stream.Collectors;
 import enums.InternshipLevel;
 import enums.InternshipStatus;
 import model.Internship;
-import model.InternshipApplication;
 import model.Student;
+import model.CareerCenterStaff; 
+import model.CompanyRep;        
 
 public class CSVHandler {
 
@@ -30,9 +30,9 @@ public class CSVHandler {
             while ((line = br.readLine()) != null) {
                 if (isHeader) { isHeader = false; continue; }
                 String[] data = line.split(",");
-                if (data.length < 6) continue;
+                // Format: ID,Name,Password,Year,Major,Email
+                if (data.length < 5) continue; 
 
-                // Assumes CSV: StudentID,Name,Password,Year,Major,Email
                 Student s = new Student(data[0], data[1], data[2], Integer.parseInt(data[3]), data[4]);
                 students.add(s);
             }
@@ -42,6 +42,57 @@ public class CSVHandler {
         return students;
     }
 
+    public List<CareerCenterStaff> readStaffs(String filePath) {
+        List<CareerCenterStaff> staffs = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            boolean isHeader = true;
+            while ((line = br.readLine()) != null) {
+                if (isHeader) { isHeader = false; continue; }
+                String[] data = line.split(",");
+                // Format: ID,Name,Password,Email,Department
+                if (data.length < 4) continue;
+
+                // Assuming constructor: ID, Name, Password, Department
+                CareerCenterStaff s = new CareerCenterStaff(data[0], data[1], data[2], data[3]);
+                staffs.add(s);
+            }
+        } catch (Exception e) {
+            System.err.println("Error reading staff: " + e.getMessage());
+        }
+        return staffs;
+    }
+
+    public List<CompanyRep> readCompanyReps(String filePath) {
+        List<CompanyRep> reps = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            boolean isHeader = true;
+            while ((line = br.readLine()) != null) {
+                if (isHeader) { isHeader = false; continue; }
+                String[] data = line.split(",");
+                
+                // Check if we have all 6 columns: 
+                // ID, Name, Password, Company, Department, Position
+                if (data.length < 6) continue;
+
+                // Match the constructor in CompanyRep.java
+                CompanyRep r = new CompanyRep(
+                    data[0], // userID
+                    data[1], // name
+                    data[2], // password
+                    data[3], // companyName
+                    data[4], // department
+                    data[5]  // position
+                );
+                reps.add(r);
+            }
+        } catch (Exception e) {
+            System.err.println("Error reading company reps: " + e.getMessage());
+        }
+        return reps;
+    }
+
     public List<Internship> readInternships(String filePath) {
         List<Internship> internships = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -49,11 +100,7 @@ public class CSVHandler {
             boolean isHeader = true;
             while ((line = br.readLine()) != null) {
                 if (isHeader) { isHeader = false; continue; }
-                
-                // Splitting by comma, but logic needed if description contains commas
                 String[] data = line.split(",");
-                
-                // Strict check for your 13 columns
                 if (data.length < 13) continue; 
 
                 try {
@@ -66,14 +113,10 @@ public class CSVHandler {
                     InternshipStatus status = InternshipStatus.valueOf(data[6]); 
                     String company = data[7];
                     int slots = Integer.parseInt(data[8]);
-                    
                     List<String> reps = parseList(data[9]);
-
                     List<Integer> appIds = parseIntegerList(data[10]);
-
                     boolean vis = Boolean.parseBoolean(data[11]);
                     String desc = data[12];
-
 
                     Internship i = new Internship(index, title, desc, level, major, open, close, status, company, slots, reps, appIds, vis);
                     internships.add(i);
@@ -99,7 +142,7 @@ public class CSVHandler {
                 sb.append(sanitize(s.getPassword())).append(",");
                 sb.append(s.getYearOfStudy()).append(",");
                 sb.append(sanitize(s.getMajor())).append(",");
-                sb.append("email@placeholder.com"); // Placeholder if no getEmail() exists
+                sb.append("email@placeholder.com"); 
                 pw.println(sb.toString());
             }
         } catch (IOException e) {
@@ -109,9 +152,7 @@ public class CSVHandler {
 
     public void writeInternships(String filePath, List<Internship> internships) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
-            // 13 Columns Header
             pw.println("Index,Title,Level,PreferredMajor,OpenDate,CloseDate,Status,CompanyName,Slots,Representatives,ApplicationsReceived,Visibility,Description");
-            
             for (Internship i : internships) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(i.getIndex()).append(",");
@@ -123,13 +164,10 @@ public class CSVHandler {
                 sb.append(i.getStatus()).append(",");
                 sb.append(sanitize(i.getCompanyName())).append(",");
                 sb.append(i.getNumSlots()).append(",");
-                
                 sb.append(listToString(i.getCompanyRepresentatives())).append(",");
                 sb.append(integerListToString(i.getApplicationsReceived())).append(",");
-                
                 sb.append(i.isVisibility()).append(",");
                 sb.append(sanitize(i.getDescription()));
-
                 pw.println(sb.toString());
             }
         } catch (IOException e) {

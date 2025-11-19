@@ -3,9 +3,11 @@ package forms;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList; 
 
 import model.Internship;
 import enums.InternshipLevel;
+import enums.InternshipStatus; 
 
 public class InternshipCreation implements Base<Internship> {
     private Scanner sc;
@@ -23,7 +25,7 @@ public class InternshipCreation implements Base<Internship> {
         String desc = sc.nextLine();
 
         int option;
-        InternshipLevel level;
+        InternshipLevel level = null;
         outer : while (true) {
             try {
                 System.out.print("Enter internship level (1 - Basic, 2 - Intermediate, 3 - Advanced): ");
@@ -40,7 +42,7 @@ public class InternshipCreation implements Base<Internship> {
         System.out.print("Enter preferred major: ");
         String major = sc.nextLine();
 
-        LocalDate openDate;
+        LocalDate openDate = null;
         while (true) {
             try {
                 System.out.print("Enter opening date (YYYY-MM-DD): ");
@@ -50,10 +52,10 @@ public class InternshipCreation implements Base<Internship> {
             catch (DateTimeParseException e) {}
         }
 
-        LocalDate closeDate;
+        LocalDate closeDate = null;
         while (true) {
             try {
-                System.out.print("Enter opening date (YYYY-MM-DD): ");
+                System.out.print("Enter closing date (YYYY-MM-DD): ");
                 closeDate = LocalDate.parse(sc.nextLine());
                 break;
             }
@@ -63,7 +65,7 @@ public class InternshipCreation implements Base<Internship> {
         System.out.print("Enter company name: ");
         String companyName = sc.nextLine();
 
-        int slots;
+        int slots = 0;
         while (true) {
             try {
                 System.out.print("Enter number of slots: ");
@@ -73,6 +75,22 @@ public class InternshipCreation implements Base<Internship> {
             catch (NumberFormatException e) {}
         }
 
-        return new Internship(title, desc, level, major, openDate, closeDate, companyName, slots);
+        // [Fixed] Updated to match Internship.java constructor (13 args)
+        // Providing default values for fields not entered by user
+        return new Internship(
+            -1,                         // Index (Manager will handle this)
+            title, 
+            desc, 
+            level, 
+            major, 
+            openDate, 
+            closeDate, 
+            InternshipStatus.PENDING,   // Default Status
+            companyName, 
+            slots, 
+            new ArrayList<>(),          // Empty list for Reps
+            new ArrayList<>(),          // Empty list for Applications
+            true                        // Default Visibility
+        );
     }
 }

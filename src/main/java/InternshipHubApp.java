@@ -27,15 +27,13 @@ public class InternshipHubApp {
     private static final String APPLICATIONS_PATH         = "applications.csv";
 
     private static Repository repo = new Repository(
-        INTERNSHIPS_PATH, 
-        APPLICATIONS_PATH, 
-        INTERNSHIPS_PATH, 
-        STUDENT_ACCOUNTS_PATH
-    );
+            INTERNSHIPS_PATH, 
+            APPLICATIONS_PATH, 
+            "PendingInternships.csv" // You need a path for pending internships based on Repository.java signature
+        );
     
     private static AccountManager               accMgr      = new AccountManager(STUDENT_ACCOUNTS_PATH, STAFF_ACCOUNTS_PATH, COMPANY_REP_ACCOUNTS_PATH);
     /// Future implementation : Save repository offline
-    private static Repository                   repo        = new Repository();
     /// Managers have access to repo
     private static CompanyManager               coMgr       = new CompanyManager(repo);
     private static InternshipManager            internMgr   = new InternshipManager(repo);
