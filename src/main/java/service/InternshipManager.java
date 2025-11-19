@@ -108,11 +108,6 @@ public class InternshipManager {
 		return internship.getInternshipLevel();
 	}
 
-	public ApplicationStatus addApplicationStatus() {
-		// TODO - implement InternshipManager.addApplicationStatus
-		throw new UnsupportedOperationException();
-	}
-
 	// career staff reject the publish of internships
 	public void rejectInternship(int index) {
 		Internship internship = getInternship(index);
@@ -149,13 +144,12 @@ public class InternshipManager {
 		Internship internship = repo.getInternshipByIndex(index);
 
 		application.setApplicationStatus(ApplicationStatus.Withdrawn);
+		application.setAccepted(false);
 		internship.incrementSlots(1);
 
 		if (internship.getStatus() == InternshipStatus.FILLED){
 			internship.setStatus(InternshipStatus.APPROVED);
 		}
-
-		application.setApplicationStatus(ApplicationStatus.Withdrawn);
 	}
 
 	/**
