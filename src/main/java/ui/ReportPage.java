@@ -117,6 +117,44 @@ public class ReportPage {
         displayList = displayList.stream().filter(i -> i.getPreferedMajor().equalsIgnoreCase(major)).collect(Collectors.toList());
     }
 
+    /**
+     * Filter internships by their level, e.g., "Basic", "Advanced", etc.
+     */
+    public void filterByInternshipLevel() {
+        System.out.print("\nEnter internship level (e.g., Basic, Intermediate, Advanced): ");
+        String level = sc.nextLine();
+        displayList = displayList.stream()
+            .filter(i -> i.getInternshipLevel().name().equalsIgnoreCase(level))
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * Filter internships by the company name.
+     */
+    public void filterByCompanyName() {
+        System.out.print("\nEnter company name: ");
+        String name = sc.nextLine();
+        displayList = displayList.stream()
+            .filter(i -> i.getCompanyName().equalsIgnoreCase(name))
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * Filter internships with status 'approved' and visibility true (currently open).
+     */
+    public void filterByCurrentlyOpen() {
+        System.out.print("\nFiltering visible internships with status 'approved'");
+        displayList = displayList.stream()
+            .filter(i -> i.getStatus().name().equalsIgnoreCase("APPROVED") && i.getVisibility())
+            .collect(Collectors.toList());
+    }
+
+    
+
+
+
+
+
     public void display() {
         System.out.print(
             "-----Report Page------\n" +
