@@ -70,6 +70,11 @@ public class InternshipManager {
             System.out.println(i);
         }
 	}
+	// return all internships (for generate report in CareerCenterStaffPage)
+	public List<Internship> getAllInternships() {
+		return repo.getInternships();
+        
+	}
 
 	/**
 	 * Count the number of internships belonging to a particular company
