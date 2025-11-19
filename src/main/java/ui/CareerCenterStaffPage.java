@@ -24,7 +24,7 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 		this.sc 	   = sc;
 	}
 
-	public void display(CareerCenterStaff staffAcc) {
+	public void display(CareerCenterStaff staffAcc){
 		System.out.print(
 			"----------------------------------------------\n" +
 			"|                                            |\n" +
@@ -79,6 +79,7 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
             }
         }
 	}
+	
 	/**
 	 * View Accounts (pending or approved) done via Account Manager
 	 */

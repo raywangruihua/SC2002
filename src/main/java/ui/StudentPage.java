@@ -185,11 +185,12 @@ public class StudentPage implements UserInterface<Student> {
 			return;
 		}
 		if (status != ApplicationStatus.Successful){
-			System.out.println("Only successful applicants can be accepted,");
+			System.out.println("Only successful applicants can be accepted.");
 			return;
 		}
 
 		internMgr.acceptPlacement(selected);
+		appMgr.autoWithdrawApplications(studentAcc, selected);
 	}
 
 	public void withdrawApplication(Student studentAcc ) {
