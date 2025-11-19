@@ -3,7 +3,7 @@ package ui;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
+import util.Sort;
 import enums.InternshipStatus;
 import model.Internship;
 
@@ -76,7 +76,8 @@ public class ReportPage {
                 case 4 -> filterByCompanyName();
                 case 5 -> filterByCurrentlyOpen();
                 case 6 -> filterByApplicationsReceived();
-                case 7 -> {return;}
+                case 7 -> filterByClosingdate();
+                case 8 -> {return;}
                 default -> System.out.println("Invalid option.");
             }
         }
@@ -145,28 +146,40 @@ public class ReportPage {
     public void filterByCurrentlyOpen() {
         System.out.print("\nFiltering visible internships with status 'approved'");
         displayList = displayList.stream()
-            .filter(i -> i.getStatus().name().equalsIgnoreCase("APPROVED") && i.getVisibility())
+            .filter(i -> i.getStatus().name().equalsIgnoreCase("APPROVED") && i.isVisibility())
             .collect(Collectors.toList());
     }
 
     /**
- * Filter internships by minimum number of applications received.
- * Assumes getApplicationsReceived() returns a List<Integer> of application IDs.
- */
-public void filterByApplicationsReceived() {
-    System.out.print("\nFiltering Min number of applications received to the MAX, Enter minimum number: ");
-    int tempMin = 0;
-    try {
-        tempMin = Integer.parseInt(sc.nextLine());
-    } catch (NumberFormatException e) {
-        System.out.println("Invalid number format. No filter applied.");
-        return;
+     * Filter internships by minimum number of applications received.
+     * Assumes getApplicationsReceived() returns a List<Integer> of application IDs.
+     */
+    public void filterByApplicationsReceived() {
+        System.out.print("\nFiltering Min number of applications received to the MAX, Enter minimum number: ");
+        int tempMin = 0;
+        try {
+            tempMin = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format. No filter applied.");
+            return;
+        }
+        final int min = tempMin; // make final copy for lambda use
+        displayList = displayList.stream()
+            .filter(i -> i.getApplicationsReceived() != null && i.getApplicationsReceived().size() >= min)
+            .collect(Collectors.toList());
     }
-    final int min = tempMin; // make final copy for lambda use
-    displayList = displayList.stream()
-        .filter(i -> i.getApplicationsReceived() != null && i.getApplicationsReceived().size() >= min)
-        .collect(Collectors.toList());
-}
+
+    /**
+     * Sorting internships ByClosingdate in accending order and visibility true (currently open).
+     */
+    public void filterByClosingdate() {
+        System.out.print("\nFiltering internships by closing date accending order'");
+        displayList = displayList.stream()
+            .sorted()
+            .filter(i -> i.isVisibility())
+            .collect(Collectors.toList());
+    }
+
 
 
 
@@ -192,6 +205,7 @@ public void filterByApplicationsReceived() {
             "4. Company name\n" +
             "5. Currently open\n" +
             "6. Applications received\n" +
+            "5. Closing date\n" +
             "7. Return\n"
         );
     }
