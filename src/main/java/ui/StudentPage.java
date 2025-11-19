@@ -166,7 +166,7 @@ public class StudentPage implements UserInterface<Student> {
 				System.out.println("Enter the index of the application: ");
 				choice = sc.nextInt();
 				if ((choice < 1) && (choice > applications.size() + 1)){
-					System.out.println("Invaid index. Try again.");
+					System.out.println("Invalid index. Try again.");
 				} else {
 					break; 
 				}
@@ -184,13 +184,16 @@ public class StudentPage implements UserInterface<Student> {
 			System.out.println("Application is already successful.");
 			return;
 		}
+
 		if (status != ApplicationStatus.Successful){
-			System.out.println("Only successful applicants can be accepted.");
+			System.out.println("Only successful applicants can be accepted!");
 			return;
 		}
 
 		internMgr.acceptPlacement(selected);
 		appMgr.autoWithdrawApplications(studentAcc, selected);
+
+		System.out.println("Placement accepted successfully.");
 	}
 
 	public void withdrawApplication(Student studentAcc ) {

@@ -239,40 +239,25 @@ public class InternshipManager {
 
 	/**
 	 * student accepts a placement for internship
+	 * @application
 	 */
 	public void acceptPlacement(InternshipApplication application){
-		if (application.getAccepted()){
-			System.out.println("You have already accepted this placement.");
-			return;
-		}
-		if (application.getStatus() != ApplicationStatus.Successful){
-			System.out.println("Only successful applicants can be accepted.");
-			return;
-		}
 		int index = application.getInternshipIndex();
 		Internship internship = repo.getInternshipByIndex(index);
-
-		if (internship == null){
-			System.out.println("Error: Internship applicationnt found for this application.");
-			return;
-		}
 		
 		application.setAccepted(true);
 		internship.incrementSlots(-1);
-		
 
 		if (internship.getNumSlots() == 0){
 			internship.setStatus(InternshipStatus.FILLED);
 			for (InternshipApplication app : repo.getInternshipApplications()){
 				if (app != application 
 				   && app.getInternshipIndex() == index
-				   && app.getStatus() == ApplicationStatus.Pending){
+				   && (app.getStatus() == ApplicationStatus.Pending || app.getStatus() == ApplicationStatus.Successful)){
 					app.setApplicationStatus(ApplicationStatus.Unsuccessful);
 				}
 			}
 		}
-			System.out.println("Placement accepted successfully.");
-		}
-		
 	}
+}
 
