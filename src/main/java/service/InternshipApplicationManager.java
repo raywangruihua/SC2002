@@ -17,7 +17,7 @@ public class InternshipApplicationManager {
 	 */
 	public List<InternshipApplication> getWithdrawals() {
 		return repo.getInternshipApplications().stream()
-											   .filter(a -> a.getStatus() == ApplicationStatus.WITHDRAWAL_REQUESTED)
+											   .filter(InternshipApplication::getWithdrawalRequested)
 											   .collect(Collectors.toList());
 	}
 
@@ -116,9 +116,8 @@ public class InternshipApplicationManager {
 
 		for (InternshipApplication app: apps){
 			if (app == acceptedApplication) continue; 
-		
 			status = getApplicationStatus(app);
-
+			
 			if (status == ApplicationStatus.Pending || status == ApplicationStatus.Successful){
 				app.setApplicationStatus(ApplicationStatus.Withdrawn);
 				app.setWithdrawalRequested(false);
