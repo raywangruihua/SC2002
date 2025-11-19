@@ -46,9 +46,9 @@ public class StudentPage implements UserInterface<Student> {
             catch (NumberFormatException e) {}
 
             switch (option) {
-                case 1 -> viewInternships(studentAcc.getYear(), studentAcc.getMajor());
+                case 1 -> viewInternships(studentAcc.getYearOfStudy(), studentAcc.getMajor());
                 case 2 -> {
-                    InternshipApplication application  = applyInternship(studentAcc.getYear(), studentAcc.getUserID(), studentAcc.getName());
+                    InternshipApplication application  = applyInternship(studentAcc.getYearOfStudy(), studentAcc.getUserID(), studentAcc.getName());
                     studentAcc.addApplication(application);
                 }
 				case 3 -> viewApplications(studentAcc.getApplications());

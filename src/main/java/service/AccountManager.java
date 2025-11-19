@@ -1,12 +1,11 @@
 package service;
-
+import util.CSVHandler;
 import java.util.List;
 import java.util.ArrayList;
 import model.Account;
 import model.CareerCenterStaff;
 import model.CompanyRep;
 import model.Student;
-import java.util.Read;
 import enums.LoginStatus;
 
 /**
@@ -32,9 +31,10 @@ public class AccountManager {
 	 */
 	public AccountManager(String studentsFilepath, String staffsFilepath, String companyRepsFilepath) {
 		accounts = new ArrayList<>();
-		accounts.addAll(Read.readStudentAccountsCSV(studentsFilepath));
-		accounts.addAll(Read.readStaffAccountsCSV(staffsFilepath));
-		accounts.addAll(Read.readCompanyRepAccountsCSV(companyRepsFilepath));
+		CSVHandler csvHandler = new CSVHandler();
+		accounts.addAll(csvHandler.readStudents(studentsFilepath));
+        accounts.addAll(csvHandler.readStaffs(staffsFilepath));       // Missing in CSVHandler
+        accounts.addAll(csvHandler.readCompanyReps(companyRepsFilepath)); // Missing in CSVHandler
 
 		pending = new ArrayList<>();
 	}

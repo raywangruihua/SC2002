@@ -28,7 +28,7 @@ public class Student extends Account {
 		this.accepted   = null;
 	}
 
-	public int 	  getYear()  {return yearOfStudy;}
+	public int 	  getYearOfStudy()  {return yearOfStudy;}
 	public String getMajor() {return major;}
 	public List<InternshipApplication> getApplications() {return applications;}
 

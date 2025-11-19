@@ -109,7 +109,7 @@ public class Internship {
     public LocalDate getClosingData() { return closingDate; }
     public List<String> getCompanyRepresentatives() { return companyRepresentatives; }
     public List<Integer> getApplicationsReceived() { return applicationsReceived; }
-    public boolean getVisibility() { return visibility; }
+    public boolean isVisibility() { return visibility; }
     public boolean isApprovalStatus() { return status == InternshipStatus.APPROVED; }
 
 }
