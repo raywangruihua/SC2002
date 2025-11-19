@@ -19,17 +19,19 @@ import repository.*;
  * Users can login or register for an account
  */
 public class InternshipHubApp {
-    private static final String STUDENT_ACCOUNTS_PATH     = "StudentAccounts.csv";
-    private static final String STAFF_ACCOUNTS_PATH       = "StaffAccounts.csv";
-    private static final String COMPANY_REP_ACCOUNTS_PATH = "CompanyRepAccounts.csv";
+	private static final String STUDENT_ACCOUNTS_PATH     = "src/main/resources/StudentAccounts.csv";
+    private static final String STAFF_ACCOUNTS_PATH       = "src/main/resources/StaffAccounts.csv";
+    private static final String COMPANY_REP_ACCOUNTS_PATH = "src/main/resources/CompanyRepAccounts.csv";
 
-    private static final String INTERNSHIPS_PATH          = "Internships.csv";
-    private static final String APPLICATIONS_PATH         = "applications.csv";
+    private static final String INTERNSHIPS_PATH          = "src/main/resources/Internships.csv";
+    private static final String APPLICATIONS_PATH         = "src/main/resources/InternshipApplications.csv";
+    private static final String PENDING_INTERNSHIPS_PATH  = "src/main/resources/PendingInternships.csv";
 
     private static Repository repo = new Repository(
             INTERNSHIPS_PATH, 
             APPLICATIONS_PATH, 
-            "PendingInternships.csv" // You need a path for pending internships based on Repository.java signature
+            PENDING_INTERNSHIPS_PATH,
+            STUDENT_ACCOUNTS_PATH
         );
     
     private static AccountManager               accMgr      = new AccountManager(STUDENT_ACCOUNTS_PATH, STAFF_ACCOUNTS_PATH, COMPANY_REP_ACCOUNTS_PATH);
