@@ -144,4 +144,23 @@ public class InternshipApplicationManager {
 		application.setWithdrawalRequested(false);
 		System.out.println("Withdrawal request rejected.");
 	}
+
+	public void autoWithdrawApplications(Student student, InternshipApplication acceptedApplication){
+		ApplicationStatus status;
+		List<InternshipApplication> apps = student.getApplications();
+		if (apps == null){
+			return;
+		}
+
+		for (InternshipApplication app: apps){
+			if (app == acceptedApplication) continue; 
+		
+			status = getApplicationStatus(app);
+
+			if (status == ApplicationStatus.Pending || status == ApplicationStatus.Successful){
+				app.setApplicationStatus(ApplicationStatus.Withdrawn);
+				app.setWithdrawalRequested(false);
+			}
+		}
+	}
 }
