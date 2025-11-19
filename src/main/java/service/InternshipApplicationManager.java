@@ -3,7 +3,6 @@ package service;
 import java.util.List;
 import java.util.stream.Collectors;
 import enums.ApplicationStatus;
-import model.Internship;
 import model.InternshipApplication;
 import model.Student;
 import repository.Repository;

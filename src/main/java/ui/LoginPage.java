@@ -4,7 +4,6 @@ import java.util.Scanner;
 import service.AccountManager;
 import forms.Registration;
 import model.Account;
-import repository.Repository;
 
 /**
  * The start page of the app
@@ -34,7 +33,7 @@ public class LoginPage {
 			"3. Exit			   \n"
 		);
 		int option = -1;
-        outer: while (true) {
+        while (true) {
             try {
                 System.out.print("\nEnter option: ");
                 option = Integer.parseInt(sc.nextLine());

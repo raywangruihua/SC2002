@@ -1,10 +1,11 @@
 package ui;
+import model.Account;
 
 /** 
  * Base class for user pages subtypes
  * Implements basic user functions
  */
-public abstract class UserPage implements UserInterface {
+public abstract class UserPage implements UserInterface<Account> {
 
 	public abstract void display();
 

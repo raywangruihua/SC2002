@@ -34,7 +34,6 @@ public class Repository {
 
 	public Repository(String internshipsFilepath, String applicationsFilepath, String pendingInternshipsFilepath) {
 		this.internshipFilePath = internshipsFilepath;
-        this.studentFilePath = studentFilePath;
         
         this.csvHandler = new CSVHandler();
 

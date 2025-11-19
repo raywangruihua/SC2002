@@ -15,7 +15,7 @@ public class Student extends Account {
 	private int 						yearOfStudy;
 	private String 						major;
 	private List<InternshipApplication> applications;
-	private Internship 					internship;
+	private InternshipApplication 		accepted;
 
 	/**
 	 * Constructor used when reading student account details from csv file
@@ -25,7 +25,7 @@ public class Student extends Account {
 		this.yearOfStudy  = year;
 		this.major 		  = major;
 		this.applications = new ArrayList<>();
-		this.internship   = null;
+		this.accepted   = null;
 	}
 
 	public int 	  getYear()  {return yearOfStudy;}
@@ -37,14 +37,10 @@ public class Student extends Account {
 	 * @param a
 	 */
 	public void acceptPlacement(InternshipApplication a) {
-		// check
-
-		if (a.getStatus() == ApplicationStatus.Successful) {
-
-		}
+		accepted = a;
 	}
 
-		/**
+	/**
 	 * Add application to list of applications 
 	 */
 	public void addApplication(InternshipApplication a) {
