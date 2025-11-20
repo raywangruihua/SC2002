@@ -56,7 +56,7 @@ public class ReportPage {
     }
     
     /**
-     * Make this look a bit nicer in the future
+     * Displays report of internships
      */
     public void displayReport() {
         System.out.println("-----Internship Report-----");
