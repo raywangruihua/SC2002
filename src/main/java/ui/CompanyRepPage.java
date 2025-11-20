@@ -1,32 +1,27 @@
 package ui;
 
 import java.util.Scanner;
-import model.Internship;
-import model.InternshipApplication;
+import model.*;
 import repository.Repository;
-import service.CompanyManager;
-import service.InternshipApplicationManager;
-import service.InternshipManager;
+import service.*;
 import forms.InternshipCreation;
-import model.CareerCenterStaff;
-import model.CompanyRep;
 
-public class CompanyRepPage implements UserInterface<CompanyRep> {
+public class CompanyRepPage extends UserPage<CompanyRep> {
 	public final int MAX_OPTION = 7;
 
 	private InternshipManager 			 internMgr;
 	private InternshipApplicationManager appMgr;
 	private CompanyManager				 coMgr;
-	private Scanner 					 sc;
 
-	public CompanyRepPage(InternshipManager internMgr, InternshipApplicationManager appMgr, CompanyManager coMgr, Scanner sc) {
+	public CompanyRepPage(CompanyRep acc, AccountManager accMgr, InternshipManager internMgr, InternshipApplicationManager appMgr, CompanyManager coMgr, Scanner sc) {
+		super(acc, accMgr, sc);
 		this.internMgr = internMgr;
 		this.appMgr    = appMgr;
 		this.coMgr	   = coMgr;
-		this.sc 	   = sc;
 	}
 
-	public void display(CompanyRep repAcc) {
+	@Override
+	public void display() {
 		System.out.print(
 			"----------------------------------------------\n" +
 			"|                                            |\n" +
@@ -40,7 +35,8 @@ public class CompanyRepPage implements UserInterface<CompanyRep> {
 			"4. View    Applications                       \n" +
 			"5. Approve Application                        \n" +
 			"6. Reject  Application                        \n" +
-			"7. Logout                                     \n"
+			"7. Change  Password                           \n" +
+			"8. Logout                                     \n"
 		);
 
 		int option = -1;
@@ -52,8 +48,8 @@ public class CompanyRepPage implements UserInterface<CompanyRep> {
             catch (NumberFormatException e) {}
 
             switch (option) {
-                case 1 -> createInternship(repAcc.getCompanyName());
-                case 2 -> viewInternships(repAcc.getCompanyName());
+                case 1 -> createInternship(account.getCompanyName());
+                case 2 -> viewInternships(account.getCompanyName());
                 case 3 -> {
                     while (true) {
                         try {
@@ -110,9 +106,8 @@ public class CompanyRepPage implements UserInterface<CompanyRep> {
                         }
                     }
                 }
-                case 7 -> {
-					break;
-				}
+                case 7 -> super.changePassword();
+				case 8 ->{return;}
                 default -> System.out.print("Please enter a valid option (1-" + MAX_OPTION + "): ");
             }
         }

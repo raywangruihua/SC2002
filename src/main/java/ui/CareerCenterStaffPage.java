@@ -9,21 +9,20 @@ import repository.Repository;
 import service.*;
 import util.Sort;
 
-public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
+public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 	public final int MAX_OPTION = 11;
-	private AccountManager				 accMgr;
+
 	private InternshipManager			 internMgr;
 	private InternshipApplicationManager appMgr;
-	private Scanner						 sc;
 
-	public CareerCenterStaffPage(AccountManager accMgr, InternshipManager internMgr, InternshipApplicationManager appMgr, Scanner sc) {
-		this.accMgr    = accMgr;
+	public CareerCenterStaffPage(CareerCenterStaff acc, AccountManager accMgr, InternshipManager internMgr, InternshipApplicationManager appMgr, Scanner sc) {
+		super(acc, accMgr, sc);
 		this.internMgr = internMgr;
 		this.appMgr    = appMgr;
-		this.sc 	   = sc;
 	}
 
-	public void display(CareerCenterStaff staffAcc){
+	@Override
+	public void display() {
 		System.out.print(
 			"----------------------------------------------\n" +
 			"|                                            |\n" +
@@ -31,21 +30,22 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 			"|                                            |\n" +
 			"----------------------------------------------\n" +
 										   				  "\n" +
-			"1.  View      Company account                  \n" +
-			"2.  Accept    Company account                  \n" +
-			"3.  Reject    Company account                  \n" +
-			"4.  View      Internships                      \n" +
-			"5.  Approve   Internship                       \n" +
-			"6.  Reject    Internship                       \n" +
-			"7.  View      Withdrawal Requests              \n" +
-			"8.  Accept    Withdrawal                       \n" +
-			"9.  Reject    Withdrawal                       \n" +
-			"10. Generate  Report                        \n" +
-			"11. Logout                                    \n"
+			"1.  View      Company account                 \n" +
+			"2.  Accept    Company account                 \n" +
+			"3.  Reject    Company account                 \n" +
+			"4.  View      Internships                     \n" +
+			"5.  Approve   Internship                      \n" +
+			"6.  Reject    Internship                      \n" +
+			"7.  View      Withdrawal Requests             \n" +
+			"8.  Accept    Withdrawal                      \n" +
+			"9.  Reject    Withdrawal                      \n" +
+			"10. Generate  Report                          \n" +
+			"11. Change    Password                        \n" +
+			"12. Logout                                    \n"
 		);
 
 		int option = -1;
-        while (option != 11) {
+        while (option != 12) {
             try {
                 System.out.print("\nEnter option: ");
                 option = Integer.parseInt(sc.nextLine());
@@ -71,9 +71,8 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 				case 8 ->  acceptWithdrawal();
 				case 9 ->  rejectWithdrawal();
 				case 10 -> generateReport();
-				case 11 -> {
-					break;
-				}
+				case 11 -> changePassword();
+				case 12 -> {return;}
 				default -> System.out.print("Please enter a valid option (1-" + MAX_OPTION + "): ");
             }
         }

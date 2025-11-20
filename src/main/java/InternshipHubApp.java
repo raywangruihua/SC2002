@@ -19,13 +19,13 @@ import repository.*;
  * Users can login or register for an account
  */
 public class InternshipHubApp {
-	private static final String STUDENT_ACCOUNTS_PATH     = "src/main/resources/StudentAccounts.csv";
-    private static final String STAFF_ACCOUNTS_PATH       = "src/main/resources/StaffAccounts.csv";
-    private static final String COMPANY_REP_ACCOUNTS_PATH = "src/main/resources/CompanyRepAccounts.csv";
+	private static final String STUDENT_ACCOUNTS_PATH     = "StudentAccounts.csv";
+    private static final String STAFF_ACCOUNTS_PATH       = "StaffAccounts.csv";
+    private static final String COMPANY_REP_ACCOUNTS_PATH = "CompanyRepAccounts.csv";
 
-    private static final String INTERNSHIPS_PATH          = "src/main/resources/Internships.csv";
-    private static final String APPLICATIONS_PATH         = "src/main/resources/InternshipApplications.csv";
-    private static final String PENDING_INTERNSHIPS_PATH  = "src/main/resources/PendingInternships.csv";
+    private static final String INTERNSHIPS_PATH          = "Internships.csv";
+    private static final String APPLICATIONS_PATH         = "InternshipApplications.csv";
+    private static final String PENDING_INTERNSHIPS_PATH  = "PendingInternships.csv";
 
     private static Repository repo = new Repository(
             INTERNSHIPS_PATH, 
@@ -43,9 +43,6 @@ public class InternshipHubApp {
     private static Scanner                      sc          = new Scanner(System.in);
     /// UI pages
     private static LoginPage                    loginPage   = new LoginPage(accMgr, sc);
-    private static StudentPage                  studentPage = new StudentPage(internMgr, appMgr, sc);
-    private static CareerCenterStaffPage        staffPage   = new CareerCenterStaffPage(accMgr, internMgr, appMgr, sc);
-    private static CompanyRepPage               repPage     = new CompanyRepPage(internMgr, appMgr, coMgr, sc);
     private static Account                      acc;
 
     public static void login() {
@@ -61,19 +58,22 @@ public class InternshipHubApp {
 
     public static void student() {
         Student studentAcc = (Student) acc;
-        studentPage.display(studentAcc);
+        StudentPage studentPage = new StudentPage(studentAcc, accMgr, internMgr, appMgr, sc);
+        studentPage.display();
         login();
     }
 
     public static void companyRep() {
         CompanyRep repAcc = (CompanyRep) acc;
-        repPage.display(repAcc);
+        CompanyRepPage repPage = new CompanyRepPage(repAcc, accMgr, internMgr, appMgr, coMgr, sc);
+        repPage.display();
         login();
     }
 
     public static void careerCenterStaff() {
         CareerCenterStaff staffAcc = (CareerCenterStaff) acc;
-        staffPage.display(staffAcc);
+        CareerCenterStaffPage staffPage = new CareerCenterStaffPage(staffAcc, accMgr, internMgr, appMgr, sc);
+        staffPage.display();
         login();
     }
 

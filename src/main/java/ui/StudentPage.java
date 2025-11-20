@@ -3,24 +3,26 @@ import java.util.*;
 
 import enums.ApplicationStatus;
 import enums.InternshipLevel;
+import service.AccountManager;
 import service.InternshipApplicationManager;
 import service.InternshipManager;
 import model.*;
 
-public class StudentPage implements UserInterface<Student> {
+public class StudentPage extends UserPage<Student> {
 	public final int MAX_OPTION = 6;
+
+	private AccountManager				 accMgr;
 	private InternshipManager 			 internMgr;
 	private InternshipApplicationManager appMgr;
-	private Scanner		   				 sc;
 
-	public StudentPage(InternshipManager internMgr, InternshipApplicationManager appMgr, Scanner sc) {
-		this.internMgr = internMgr;
-		this.appMgr	   = appMgr;
-		this.sc		   = sc;
+	public StudentPage(Student studentAcc, AccountManager accMgr, InternshipManager internMgr, InternshipApplicationManager appMgr, Scanner sc) {
+		super(studentAcc, accMgr, sc);
+		this.internMgr  = internMgr;
+		this.appMgr	    = appMgr;
 	}
 
 	@Override
-	public void display(Student studentAcc) {
+	public void display() {
 		System.out.print(
 			"-------------------------------\n" +
 			"|                             |\n" +
@@ -33,7 +35,8 @@ public class StudentPage implements UserInterface<Student> {
 			"3. View Applications	        \n" +
 			"4. Accept Placement		    \n" +
 			"5. Withdraw Applications	    \n" +
-			"6. Logout		           	    \n" +
+			"6. Change password             \n" +
+			"7. Logout		           	    \n" +
 										   "\n"
 		);
 
@@ -46,17 +49,16 @@ public class StudentPage implements UserInterface<Student> {
             catch (NumberFormatException e) {}
 
             switch (option) {
-                case 1 -> viewInternships(studentAcc.getYearOfStudy(), studentAcc.getMajor());
+                case 1 -> viewInternships(account.getYearOfStudy(), account.getMajor());
                 case 2 -> {
-                    InternshipApplication application  = applyInternship(studentAcc.getYearOfStudy(), studentAcc.getUserID(), studentAcc.getName());
-                    studentAcc.addApplication(application);
+                    InternshipApplication application  = applyInternship(account.getYearOfStudy(), account.getUserID(), account.getName());
+                    account.addApplication(application);
                 }
-				case 3 -> viewApplications(studentAcc.getApplications());
-				case 4 -> acceptInternship(studentAcc);
-				case 5 -> withdrawApplication(studentAcc);
-				case 6 -> {
-					break;
-				}
+				case 3 -> viewApplications(account.getApplications());
+				case 4 -> acceptInternship();
+				case 5 -> withdrawApplication(account);
+				case 6 -> super.changePassword();
+				case 7 -> {return;}
 				default -> System.out.print("Please enter a valid option (1-" + MAX_OPTION + "): ");
             }
         }
@@ -148,8 +150,8 @@ public class StudentPage implements UserInterface<Student> {
 		return false;
 	}
 
-	public void acceptInternship(Student studentAcc ){
-		List<InternshipApplication> applications = studentAcc.getApplications();
+	public void acceptInternship(){
+		List<InternshipApplication> applications = account.getApplications();
 		if (applications == null || applications.isEmpty()){
 			System.out.println("You have no applications to access.");
 			return;
@@ -201,14 +203,14 @@ public class StudentPage implements UserInterface<Student> {
 		InternshipApplication selected = acceptable.get(choice - 1);
 
 		internMgr.acceptPlacement(selected);
-		studentAcc.acceptPlacement(selected);
-		appMgr.autoWithdrawApplications(studentAcc, selected);
+		account.acceptPlacement(selected);
+		appMgr.autoWithdrawApplications(account, selected);
 
 		System.out.println("Placement accepted successfully. Other applications have been withdrawn.");
 	}
 
-	public void withdrawApplication(Student studentAcc){
-		List<InternshipApplication> applications = studentAcc.getApplications();
+	public void withdrawApplication(Student account){
+		List<InternshipApplication> applications = account.getApplications();
 		if (applications == null || applications.isEmpty()){
 			System.out.println("You have no applications to withdraw.");
 			return;

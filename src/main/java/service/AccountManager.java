@@ -127,14 +127,14 @@ public class AccountManager {
 	 * @param userID
 	 * @param newPassword
 	 */
-	public void updatePassword(String userID, String newPassword) {
-		// TODO - implement AccountManager.updatePassword
-		for (Account acc: accounts){
+	public void updatePassword(String userID, String newPassword) throws Exception{
+		for (Account acc : accounts){
 			if (acc.getUserID().equals(userID)){
 				acc.setPassword(newPassword);
+				return;
 			}
 		}
-		System.out.println("Account doesn't exist!");
+		throw new Exception("Password could not be changed.");
 	}
 
 	/**
