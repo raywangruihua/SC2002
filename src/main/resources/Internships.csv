@@ -1,4 +1,4 @@
-index,title,internship level,preferred major,open date,close date,status,company name,slots,company representatives,applications received,visibility,description
-1,exampletitle,Basic,cs,20230820,20230921,approved,examplecompany,10,rep1/rep2/rep3,,true,this is an internship
-2,title2,Advanced,ce,20340101,20450101,pending,examplecompany,3,rep1/rep2/rep3,,true,this is internship2
-3,title3,Intermediate,physics,20100101,20200101,approved,company2,6,guy1/guy2,,false,this is another internship
+Index,Title,Level,PreferredMajor,OpenDate,CloseDate,Status,CompanyName,Slots,Representatives,ApplicationsReceived,Visibility,Description
+1,exampletitle,Basic,cs,2023-08-20,2023-09-21,APPROVED,examplecompany,10,rep1;rep2;rep3,1;1;1;1;1,true,this is an internship
+2,title2,Advanced,ce,2034-01-01,2045-01-01,PENDING,examplecompany,3,rep1;rep2;rep3,null,true,this is internship2
+3,title3,Intermediate,physics,2010-01-01,2020-01-01,APPROVED,company2,6,guy1;guy2,null,false,this is another internship

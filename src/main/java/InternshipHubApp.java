@@ -7,7 +7,6 @@ import ui.*;
 import model.*;
 import repository.*;
 
-
 /**
  * Internship Hub App
  * 
@@ -19,14 +18,15 @@ import repository.*;
  * Users can login or register for an account
  */
 public class InternshipHubApp {
-	private static final String STUDENT_ACCOUNTS_PATH     = "StudentAccounts.csv";
-    private static final String STAFF_ACCOUNTS_PATH       = "StaffAccounts.csv";
-    private static final String COMPANY_REP_ACCOUNTS_PATH = "CompanyRepAccounts.csv";
-    private static final String COMPANIES_PATH_STRING     = "Companies.csv";
+    private static final String DATA_PATH = "src/main/resources/";
+	private static final String STUDENT_ACCOUNTS_PATH     = DATA_PATH + "StudentAccounts.csv";
+    private static final String STAFF_ACCOUNTS_PATH       = DATA_PATH + "StaffAccounts.csv";
+    private static final String COMPANY_REP_ACCOUNTS_PATH = DATA_PATH + "CompanyRepAccounts.csv";
+    private static final String COMPANIES_PATH_STRING     = DATA_PATH + "Companies.csv";
 
-    private static final String INTERNSHIPS_PATH          = "Internships.csv";
-    private static final String APPLICATIONS_PATH         = "InternshipApplications.csv";
-    private static final String PENDING_INTERNSHIPS_PATH  = "PendingInternships.csv";
+    private static final String INTERNSHIPS_PATH          = DATA_PATH + "Internships.csv";
+    private static final String APPLICATIONS_PATH         = DATA_PATH + "InternshipApplications.csv";
+    private static final String PENDING_INTERNSHIPS_PATH  = DATA_PATH + "PendingInternships.csv";
 
     private static Repository repo = new Repository(
             INTERNSHIPS_PATH, 

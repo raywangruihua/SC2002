@@ -120,6 +120,13 @@ public class Repository {
 		applications.remove(a);
 	}
 
+	/**
+	 * Remove internship application according to application
+	 */
+	public void removeApplication(InternshipApplication application) {
+		applications.remove(application);
+	}
+
 	/* 
 	 * Returns application status of applications
 	 */
@@ -129,7 +136,8 @@ public class Repository {
 				return a.getStatus();
 			}
 		}
-		throw new IllegalArgumentException("Application with internship title " + application.getInternshipTitle() + " not found.");
+		System.out.println("No applications available");
+		return null;
 	}
 
 	public void saveAll() {
