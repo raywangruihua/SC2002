@@ -51,7 +51,7 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 
 	public void start() {
 		int option = -1;
-        while (option != 12) {
+        while (true) {
 			display();
 
 			while (true) {
@@ -133,6 +133,7 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 		System.out.println("-----Pending Internships-----");
 		for (Internship i : internMgr.getPendingInternships()) {
 			System.out.println(i);
+			System.out.println();
 		}
 	}
 
@@ -236,6 +237,8 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 			appMgr.approveWithdrawal(selected);
 		}
 		System.out.println("Withdrawal approved for application ID: " + selected.getApplicationIndex());
+
+		
 	}
 
 	public void rejectWithdrawal() {
@@ -249,9 +252,9 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 		viewWithdrawals();
 
 		int choice = -1; 
-		while (true){
-			try{
-				System.out.print("Enter the withdrawal request index to reject.");
+		while (true) {
+			try {
+				System.out.print("Enter the withdrawal request index to reject: ");
 				choice = Integer.parseInt(sc.nextLine());
 
 				if (choice < 1 || choice > withdrawals.size()){
@@ -265,7 +268,7 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 
 			InternshipApplication selected = withdrawals.get(choice -1);
 
-			if (selected.getAccepted()){
+			if (selected.getAccepted()) {
 				internMgr.rejectWithdrawal(selected);
 			} else {
 				appMgr.rejectWithdrawal(selected);

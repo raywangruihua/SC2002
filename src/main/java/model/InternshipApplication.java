@@ -35,6 +35,7 @@ public class InternshipApplication {
 	public ApplicationStatus getStatus() 		   {return status;}
 	public boolean 			 getWithdrawalRequested(){return withdrawalRequested;} 
 	public boolean	         getAccepted()			{return accepted;} 
+	
 	@Override
 	public String toString() {
 		return "Application number: " 	+ applicationIndex +

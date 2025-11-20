@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import enums.ApplicationStatus;
 import model.InternshipApplication;
@@ -29,6 +30,15 @@ public class InternshipApplicationManager {
 	public List<InternshipApplication> getApplications(int internshipIndex) {
 		return repo.getInternshipApplications().stream()
 											   .filter(a -> a.getInternshipIndex() == internshipIndex)
+											   .collect(Collectors.toList());
+	}
+
+	/**
+	 * Get all internships applications that belong to a student
+	 */
+	public List<InternshipApplication> getApplications(String studentID) {
+		return repo.getInternshipApplications().stream()
+											   .filter(a -> a.getStudentID().equals(studentID))
 											   .collect(Collectors.toList());
 	}
 

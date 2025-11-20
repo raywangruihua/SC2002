@@ -28,6 +28,7 @@ public abstract class UserPage<T extends Account> implements UserInterface {
 		String newPassword = sc.nextLine();
 		try {
 			accMgr.updatePassword(account.getUserID(), newPassword);
+			System.out.println("Password changed.");
 		}
 		catch (Exception e) {
 			System.out.println(e.getMessage());

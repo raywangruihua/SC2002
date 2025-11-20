@@ -42,7 +42,7 @@ public class StudentPage extends UserPage<Student> {
 
 	public void start() {
 		int option = -1;
-        while (option != 6) {
+        while (true) {
 			display();
 
 			while (true) {
@@ -60,10 +60,10 @@ public class StudentPage extends UserPage<Student> {
                     InternshipApplication application  = applyInternship(account.getYearOfStudy(), account.getUserID(), account.getName());
                     account.addApplication(application);
                 }
-				case 3 -> viewApplications(account.getApplications());
+				case 3 -> viewApplications();
 				case 4 -> acceptInternship();
 				case 5 -> withdrawApplication(account);
-				case 6 -> super.changePassword();
+				case 6 -> changePassword();
 				case 7 -> {return;}
 				default -> System.out.print("Please enter a valid option (1-" + MAX_OPTION + "): ");
             }
@@ -131,15 +131,10 @@ public class StudentPage extends UserPage<Student> {
 	/**
 	 * Displays all student applications and statuses given student has applied 
 	 */
-	public void viewApplications(List<InternshipApplication> applications) {
-		if (applications.size() == 0){
-			System.out.println("No Internship Applications");
-		}
-		else {
-			for (InternshipApplication application: applications){
-				System.out.println("-----Applications-----");
-				System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + appMgr.getApplicationStatus(application));
-			}
+	public void viewApplications() {
+		System.out.println("-----Applications-----");
+		for (InternshipApplication application: appMgr.getApplications(account.getUserID())){
+			System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + appMgr.getApplicationStatus(application));
 		}
 		System.out.println();
 	}
@@ -216,7 +211,7 @@ public class StudentPage extends UserPage<Student> {
 		System.out.println("Placement accepted successfully. Other applications have been withdrawn.");
 	}
 
-	public void withdrawApplication(Student account){
+	public void withdrawApplication(Student account) {
 		List<InternshipApplication> applications = account.getApplications();
 		if (applications == null || applications.isEmpty()){
 			System.out.println("You have no applications to withdraw.");
@@ -253,14 +248,14 @@ public class StudentPage extends UserPage<Student> {
 		while (true){
 			try{
 				System.out.print("Enter the index of the application to withdraw: ");
-            	choice = sc.nextInt();
+            	choice = Integer.parseInt(sc.nextLine());
 
 				if (choice < 1 || choice > withdrawable.size()){
 					System.out.println("Invalid index. Try again.");
 				} else {
 					break;
 				}
-			} catch (InputMismatchException e){
+			} catch (NumberFormatException e){
 				System.out.println("Please enter a valid number.");
 				sc.nextLine();
 			}
