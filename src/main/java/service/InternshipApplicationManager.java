@@ -1,21 +1,25 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
+
 import enums.ApplicationStatus;
 import model.InternshipApplication;
 import model.Student;
 import repository.Repository;
-import java.util.ArrayList;
 
 public class InternshipApplicationManager {
 	private Repository repo;
-
+	
+	/**
+	 * @param repo the shared repository that stores internship application
+	 */
 	public InternshipApplicationManager(Repository repo) {this.repo = repo;}
 
 	/**
-	 * Get all applications with withdrawal requests
+	 * get all internship applications with a requested withdrawal
+	 * @return a list of applications with pending withdrawal requests
 	 */
 	public List<InternshipApplication> getWithdrawals() {
 		return repo.getInternshipApplications().stream()
@@ -25,7 +29,9 @@ public class InternshipApplicationManager {
 	}
 
 	/**
-	 * Get internship applications to a specific internship according to its index
+	 * get internship applications to a specific internship according to its index
+	 * @param internshipIndex the index of the internship
+	 * @return a list of applications for that internship index 
 	 */
 	public List<InternshipApplication> getApplications(int internshipIndex) {
 		return repo.getInternshipApplications().stream()
@@ -34,7 +40,8 @@ public class InternshipApplicationManager {
 	}
 
 	/**
-	 * Get all internships applications that belong to a student
+	 * @param studentID unique ID of the student
+	 * @return a list of applications submitted by the given student
 	 */
 	public List<InternshipApplication> getApplications(String studentID) {
 		return repo.getInternshipApplications().stream()
@@ -43,7 +50,9 @@ public class InternshipApplicationManager {
 	}
 
 	/**
-	 * Get internship application using its index
+	 * returns the internship application with the given application index
+	 * @param applicationIndex the application index 
+	 * @return the corresponding {@link InternshipApplication}, or {@code null} if not found
 	 */
 	public InternshipApplication getApplication(int applicationIndex) {
 		for (InternshipApplication a : repo.getInternshipApplications()) {
@@ -53,29 +62,32 @@ public class InternshipApplicationManager {
 	}
 
 	/**
-	 * Remove internship applicaton according to its index
-	 * Used when an application is approved for withdrawal
+	 * removes an internship application with the given application index from the repository
+	 * used when an application is approved for withdrawal
+	 * @param applicationIndex the index of the application to remove 
 	 */
 	public void removeApplication(int applicationIndex) {
 		repo.removeApplication(applicationIndex);
 	}
 
 	/**
-	 * Accept the student's internship application 
+	 * approves a student's internship application by setting status to successful
+	 * @param applicationIndex the index of the application to approve
 	 */
 	public void approveApplication(int applicationIndex) {
 		getApplication(applicationIndex).setApplicationStatus(ApplicationStatus.Successful);
 	}
 
 	/**
-	 * Reject the student's internship application 
+	 * reject the student's application 
+	 * @param applicationIndex
 	 */
 	public void rejectApplication(int applicationIndex) {
 		getApplication(applicationIndex).setApplicationStatus(ApplicationStatus.Unsuccessful);		
 	}
 
 	/**
-	 * View list of internships applied by a student
+	 * view list of internships applied by a student
 	 * @param student 
 	 */
 	public void viewInternshipApplied(Student student){
@@ -90,7 +102,9 @@ public class InternshipApplicationManager {
 	}
 
 	/**
-	 * Returns application status of certain application through repo
+	 * returns application status of certain application through repo
+	 * @param application
+	 * @return the application status of the application
 	 */
 	public ApplicationStatus getApplicationStatus(InternshipApplication application) {
 		return repo.getApplicationStatus(application);
@@ -98,7 +112,7 @@ public class InternshipApplicationManager {
 
 	/**
 	 * student requests withdrawal for an application not yet accepted
-	 * @param application
+	 * @param application to be withdrawn
 	 */
 	public void requestWithdrawal(InternshipApplication application){
 		application.setWithdrawalRequested(true);
@@ -122,13 +136,17 @@ public class InternshipApplicationManager {
 	}
 
 	/**
-	 * reject withdrawal for application 
-	 * @param application
+	 * reject student's request to withdraw
+	 * @param application the application for which withdrawal is requested
 	 */
 	public void rejectWithdrawal(InternshipApplication application){
 		application.setWithdrawalRequested(false);
 	}
 
+	/**
+	 * auto-withdraw student's application when accepted internship
+	 * @param application the student has accepted
+	 */
 	public void autoWithdrawApplications(Student student, InternshipApplication acceptedApplication){
 		ApplicationStatus status;
 		List<InternshipApplication> apps = student.getApplications();
