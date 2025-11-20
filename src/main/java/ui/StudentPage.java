@@ -38,10 +38,10 @@ public class StudentPage implements UserInterface<Student> {
 		);
 
 		int option = -1;
-        while (true) {
+        while (option != 6) {
             try {
                 System.out.print("\nEnter option: ");
-                option = Integer.parseInt(sc.nextLine());
+                option = sc.nextInt();
             }
             catch (NumberFormatException e) {}
 
@@ -54,7 +54,7 @@ public class StudentPage implements UserInterface<Student> {
 				case 3 -> viewApplications(studentAcc.getApplications());
 				case 4 -> acceptInternship(studentAcc);
 				case 5 -> withdrawApplication(studentAcc);
-                case 6 -> {
+				case 6 -> {
 					break;
 				}
 				default -> System.out.print("Please enter a valid option (1-" + MAX_OPTION + "): ");
@@ -187,7 +187,7 @@ public class StudentPage implements UserInterface<Student> {
 			try{
 				System.out.println("Enter the index of the application: ");
 				choice = sc.nextInt();
-				if ((choice < 1) && (choice > applications.size() + 1)){
+				if ((choice < 1) || (choice > applications.size())){
 					System.out.println("Invalid index. Try again.");
 				} else {
 					break; 
@@ -251,9 +251,10 @@ public class StudentPage implements UserInterface<Student> {
 				} else {
 					break;
 				}
-			} catch (InputMismatchException e){}
+			} catch (InputMismatchException e){
 				System.out.println("Please enter a valid number.");
-				sc.nextLine(); 
+				sc.nextLine();
+			}
 		}
 		InternshipApplication selected = withdrawable.get(choice - 1);
 		if (selected.getAccepted()){

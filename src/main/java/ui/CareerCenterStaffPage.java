@@ -45,7 +45,7 @@ public class CareerCenterStaffPage implements UserInterface<CareerCenterStaff> {
 		);
 
 		int option = -1;
-        while (true) {
+        while (option != 11) {
             try {
                 System.out.print("\nEnter option: ");
                 option = Integer.parseInt(sc.nextLine());

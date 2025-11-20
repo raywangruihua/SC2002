@@ -44,7 +44,7 @@ public class CompanyRepPage implements UserInterface<CompanyRep> {
 		);
 
 		int option = -1;
-        while (true) {
+        while (option != 7) {
             try {
                 System.out.print("\nEnter option: ");
                 option = Integer.parseInt(sc.nextLine());
