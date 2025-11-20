@@ -29,7 +29,10 @@ public class CSVHandler {
             boolean isHeader = true;
             while ((line = br.readLine()) != null) {
                 if (isHeader) { isHeader = false; continue; }
-                String[] data = line.split(",");
+                
+                String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                for(int i=0; i<data.length; i++) data[i] = clean(data[i]);
+
                 if (data.length < 5) continue; 
 
                 Student s = new Student(data[0], data[1], data[2], Integer.parseInt(data[3]), data[4]);
@@ -48,7 +51,11 @@ public class CSVHandler {
             boolean isHeader = true;
             while ((line = br.readLine()) != null) {
                 if (isHeader) { isHeader = false; continue; }
-                String[] data = line.split(",");
+                
+                // FIX: Regex split
+                String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                for(int i=0; i<data.length; i++) data[i] = clean(data[i]);
+
                 if (data.length < 4) continue;
 
                 // ID, Name, Password, Department
@@ -68,10 +75,11 @@ public class CSVHandler {
             boolean isHeader = true;
             while ((line = br.readLine()) != null) {
                 if (isHeader) { isHeader = false; continue; }
-                String[] data = line.split(",");
                 
-                // FIX: Must match the 6 columns in your CSV
-                // ID, Name, Password, Company, Dept, Position
+                // FIX: Regex split
+                String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                for(int i=0; i<data.length; i++) data[i] = clean(data[i]);
+                
                 if (data.length < 6) continue;
 
                 CompanyRep r = new CompanyRep(
@@ -92,28 +100,27 @@ public class CSVHandler {
             boolean isHeader = true;
             while ((line = br.readLine()) != null) {
                 if (isHeader) { isHeader = false; continue; }
-                String[] data = line.split(",");
+                
+                String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                for(int i=0; i<data.length; i++) data[i] = clean(data[i]);
+
                 if (data.length < 13) continue; 
 
                 try {
                     int index = Integer.parseInt(data[0]);
                     String title = data[1];
                     
-                    // Helper handles Case Sensitivity
                     InternshipLevel level = parseLevel(data[2]); 
                     String major = data[3];
                     
-                    // Helper handles 20230820 vs 2023-08-20
                     LocalDate open = parseDate(data[4]); 
                     LocalDate close = parseDate(data[5]);
                     
-                    // Helper handles lowercase "approved"
                     InternshipStatus status = parseStatus(data[6]); 
                     
                     String company = data[7];
                     int slots = Integer.parseInt(data[8]);
                     
-                    // Helper handles both '/' and ';' separators
                     List<String> reps = parseList(data[9]);
                     List<Integer> appIds = parseIntegerList(data[10]);
                     
@@ -139,7 +146,11 @@ public class CSVHandler {
             boolean isHeader = true;
             while ((line = br.readLine()) != null) {
                 if (isHeader) {isHeader = false; continue;}
-                String [] data = line.split(",");
+                
+                // FIX: Regex split
+                String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                for(int i=0; i<data.length; i++) data[i] = clean(data[i]);
+
                 if (data.length < 2) continue;
 
                 try {
@@ -159,7 +170,7 @@ public class CSVHandler {
         return companies;
     }
 
-    // --- WRITE METHODS ---
+    // --- WRITE METHODS (Unchanged) ---
 
     public void writeStudents(String filePath, List<Student> students) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
@@ -203,6 +214,40 @@ public class CSVHandler {
             e.printStackTrace();
         }
     }
+    
+    public void writeStaffs(String filePath, List<CareerCenterStaff> staffs) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
+            pw.println("ID,Name,Password,Department");
+            for (CareerCenterStaff s : staffs) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(sanitize(s.getUserID())).append(",");
+                sb.append(sanitize(s.getName())).append(",");
+                sb.append(sanitize(s.getPassword())).append(",");
+                sb.append(sanitize(s.getDepartment()));
+                pw.println(sb.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeCompanyReps(String filePath, List<CompanyRep> reps) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
+            pw.println("ID,Name,Password,CompanyName,Department,Position");
+            for (CompanyRep r : reps) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(sanitize(r.getUserID())).append(",");
+                sb.append(sanitize(r.getName())).append(",");
+                sb.append(sanitize(r.getPassword())).append(",");
+                sb.append(sanitize(r.getCompanyName())).append(",");
+                sb.append(sanitize(r.getDepartment())).append(",");
+                sb.append(sanitize(r.getPosition()));
+                pw.println(sb.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void writeCompanies(String filepath, List<Company> companies) {
         try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(filepath)))) {
@@ -222,6 +267,13 @@ public class CSVHandler {
     }
 
     // ---  HELPERS ---
+
+    private String clean(String input) {
+        if (input != null && input.startsWith("\"") && input.endsWith("\"")) {
+            return input.substring(1, input.length() - 1);
+        }
+        return input;
+    }
 
     private String sanitize(String input) { return input == null ? "null" : input.replace(",", ";"); }
     
@@ -252,10 +304,10 @@ public class CSVHandler {
     private LocalDate parseDate(String input) {
         if (input == null || input.isEmpty()) return null;
         try {
-            return LocalDate.parse(input); // Try standard YYYY-MM-DD
+            return LocalDate.parse(input); 
         } catch (DateTimeParseException e1) {
             try {
-                return LocalDate.parse(input, DateTimeFormatter.BASIC_ISO_DATE); // Try YYYYMMDD
+                return LocalDate.parse(input, DateTimeFormatter.BASIC_ISO_DATE); 
             } catch (DateTimeParseException e2) {
                 return null;
             }
@@ -274,7 +326,6 @@ public class CSVHandler {
         try {
             return InternshipLevel.valueOf(input); 
         } catch (IllegalArgumentException e) {
-            // Fallback logic if needed, or assume input is mostly correct
             return InternshipLevel.Basic; 
         }
     }

@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 import enums.ApplicationStatus;
 import enums.InternshipLevel;
@@ -17,6 +18,8 @@ public class InternshipManager {
 
 	public Internship getInternship(int index) {
 		for (Internship i : repo.getInternships()) if (i.getIndex() == index) return i;
+        // Also check pending list
+        for (Internship i : repo.getPendingInternships()) if (i.getIndex() == index) return i;
 		return null;
 	}
 
@@ -47,13 +50,43 @@ public class InternshipManager {
 
 	public boolean checkInternshipExists(int index) {
 		for (Internship i : repo.getInternships()) if (i.getIndex() == index) return true;
+        // FIX: Must also check pending list
+        for (Internship i : repo.getPendingInternships()) if (i.getIndex() == index) return true;
 		return false;
 	}
 
+    /**
+     * FIX: Auto-generate ID and submit to pending list
+     * Replaces the old direct 'createInternship' call to ensure valid IDs
+     */
+    public void submitInternship(Internship newInternship) {
+        int maxId = 0;
+        
+        // 1. Check existing active internships
+        for (Internship i : repo.getInternships()) {
+            if (i.getIndex() > maxId) maxId = i.getIndex();
+        }
+        
+        // 2. Check pending internships
+        for (Internship i : repo.getPendingInternships()) {
+            if (i.getIndex() > maxId) maxId = i.getIndex();
+        }
+        
+        // 3. Assign new Auto-Increment ID
+        int newId = maxId + 1;
+        newInternship.setIndex(newId);
+        
+        // 4. Save to Repository
+        repo.createInternship(newInternship);
+        repo.saveAll();
+        
+        System.out.println("SUCCESS: Internship submitted with new Index: " + newId);
+        System.out.println("Please wait for Career Center Staff to approve it.");
+    }
+
 	/**
 	 * External users should call this method instead of accessing repo directly for encapsulation
-	 * 
-	 * @param i
+	 * * @param i
 	 */
 	public void createInternship(Internship i) {repo.createInternship(i);}
 
@@ -80,8 +113,9 @@ public class InternshipManager {
 	}
 	// return all internships (for generate report in CareerCenterStaffPage)
 	public List<Internship> getAllInternships() {
-		return repo.getInternships();
-        
+        List<Internship> all = new ArrayList<>(repo.getInternships());
+        all.addAll(repo.getPendingInternships());
+		return all;
 	}
 
 	/**
@@ -95,8 +129,7 @@ public class InternshipManager {
 	}
 
 	/**
-	 * 
-	 * @param i
+	 * * @param i
 	 */
 	public void addInternship(Internship i) {
 		repo.getInternships().add(i);
@@ -112,7 +145,8 @@ public class InternshipManager {
 	 * Returns internship level of internship by index 
 	 */
 	public InternshipLevel getInternshipLevel(int index) {
-		Internship internship = repo.getInternshipByIndex(index);
+		Internship internship = getInternship(index); // Updated to use the smarter getInternship
+        if (internship == null) return InternshipLevel.Basic; // Fallback
 		return internship.getInternshipLevel();
 	}
 
@@ -120,19 +154,51 @@ public class InternshipManager {
 	public void rejectInternship(int index) {
 		Internship internship = getInternship(index);
         if (internship != null) {
-            internship.setStatus(InternshipStatus.REJECTED);
+            setInternshipStatus(index, InternshipStatus.REJECTED);
         }
 	}
 
 	/**
 	 * Set the status (eg. approved, rejected, pending) for an internship
+     * FIX: Moves approved internships from Pending -> Active list
 	 * @param i
 	 */
 	public void setInternshipStatus(int index, InternshipStatus status) {
-		Internship internship = getInternship(index);
-        if (internship != null) {
-            internship.setStatus(status);
+		Internship target = null;
+        boolean isPending = false;
+        
+        // Check pending list first
+        for (Internship i : repo.getPendingInternships()) {
+            if (i.getIndex() == index) {
+                target = i;
+                isPending = true;
+                break;
+            }
         }
+        
+        // If not in pending, check active
+        if (target == null) {
+             target = getInternship(index);
+        }
+        
+        if (target == null) {
+            System.out.println("Internship not found.");
+            return;
+        }
+
+        target.setStatus(status);
+        
+        // LOGIC FIX: Move from Pending to Active if Approved
+        if (isPending && status == InternshipStatus.APPROVED) {
+            repo.getPendingInternships().remove(target);
+            repo.getInternships().add(target);
+        }
+        // Remove if Rejected
+        else if (isPending && status == InternshipStatus.REJECTED) {
+            repo.getPendingInternships().remove(target);
+        }
+        
+        repo.saveAll();
 	}
 
 	/**
@@ -141,6 +207,7 @@ public class InternshipManager {
 	 */
 	public void requestWithdrawal(InternshipApplication application){
 		application.setWithdrawalRequested(true);
+        repo.saveAll(); // Added Save
 	}
 
 	/**
@@ -165,14 +232,15 @@ public class InternshipManager {
 		}
 		
 		repo.getInternshipApplications().remove(application);
+        repo.saveAll(); // Added Save
 	}
 
 	/**
-	 * 
-	 * @param application The internship application to reject withdrawal for
+	 * * @param application The internship application to reject withdrawal for
 	 */
 	public void rejectWithdrawal(InternshipApplication application) {
 		application.setWithdrawalRequested(false);
+        repo.saveAll(); // Added Save
 	}
 
 	/**
@@ -180,13 +248,19 @@ public class InternshipManager {
 	 */
 	public InternshipApplication applyInternship(int index, String id, String name) {
 		Internship internship = repo.getInternshipByIndex(index);
-		InternshipApplication application = new InternshipApplication(index, internship.getTitle(), internship.getIndex(), id, name, ApplicationStatus.Pending);
+        
+        // Generate Unique Application ID based on list size
+        int appId = repo.getInternshipApplications().size() + 1;
+        
+		InternshipApplication application = new InternshipApplication(appId, internship.getTitle(), internship.getIndex(), id, name, ApplicationStatus.Pending);
 
 		// add application to repo
 		repo.addApplication(application);
 		// add application to internship
 		internship.addApplication(application);
 		System.out.println("Application Successful");
+        
+        repo.saveAll(); // Added Save
 
 		// return application to add to student's list of pending applications
 		return application;
@@ -196,6 +270,7 @@ public class InternshipManager {
 	public void rejectApplication(InternshipApplication a) {
 		if (a != null) {
             a.setApplicationStatus(ApplicationStatus.Unsuccessful);
+            repo.saveAll();
         }
 	}
 	
@@ -225,6 +300,6 @@ public class InternshipManager {
 				}
 			}
 		}
+        repo.saveAll(); // Added Save
 	}
 }
-
