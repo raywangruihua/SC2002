@@ -154,8 +154,9 @@ public class InternshipManager {
 		Student student = repo.getStudentByID(application.getStudentID());
 		if (student != null){
 			student.getApplications().remove(application);
+			student.acceptPlacement(null);
 		}
-		student.acceptPlacement(null);
+		
 		repo.getInternshipApplications().remove(application);
 	}
 
