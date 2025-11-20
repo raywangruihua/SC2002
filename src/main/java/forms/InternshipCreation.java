@@ -14,7 +14,7 @@ public class InternshipCreation {
     private String companyName;
     private String repName;
 
-    // FIX: This is the constructor your CompanyRepPage is looking for
+    // This is the constructor your CompanyRepPage is looking for
     public InternshipCreation(Scanner sc, String companyName, String repName) {
         this.sc = sc;
         this.companyName = companyName;
@@ -35,7 +35,7 @@ public class InternshipCreation {
             String levelStr = sc.nextLine();
             InternshipLevel level = InternshipLevel.Basic;
             try {
-                // Capitalize first letter to match Enum (e.g., "basic" -> "Basic")
+                // Capitalize first letter to match Enum
                 level = InternshipLevel.valueOf(levelStr.substring(0, 1).toUpperCase() + levelStr.substring(1).toLowerCase());
             } catch (Exception e) {
                 System.out.println("Invalid level. Defaulting to Basic.");

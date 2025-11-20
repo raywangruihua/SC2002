@@ -55,10 +55,6 @@ public class InternshipManager {
 		return false;
 	}
 
-    /**
-     * FIX: Auto-generate ID and submit to pending list
-     * Replaces the old direct 'createInternship' call to ensure valid IDs
-     */
     public void submitInternship(Internship newInternship) {
         int maxId = 0;
         
@@ -159,7 +155,7 @@ public class InternshipManager {
 
 	/**
 	 * Set the status (eg. approved, rejected, pending) for an internship
-     * FIX: Moves approved internships from Pending -> Active list
+     * Moves approved internships from Pending -> Active list
 	 * @param i
 	 */
 	public void setInternshipStatus(int index, InternshipStatus status) {
@@ -187,7 +183,7 @@ public class InternshipManager {
 
         target.setStatus(status);
         
-        // LOGIC FIX: Move from Pending to Active if Approved
+        // Move from Pending to Active if Approved
         if (isPending && status == InternshipStatus.APPROVED) {
             repo.getPendingInternships().remove(target);
             repo.getInternships().add(target);

@@ -18,6 +18,11 @@ import enums.InternshipLevel;
 import enums.InternshipStatus;
 import model.*;       
 
+/**
+ * Util class that reads and writes
+ * 
+ */
+
 public class CSVHandler {
 
     // --- READ METHODS ---
@@ -170,7 +175,7 @@ public class CSVHandler {
         return companies;
     }
 
-    // --- WRITE METHODS (Unchanged) ---
+    // --- WRITE METHODS ---
 
     public void writeStudents(String filePath, List<Student> students) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
