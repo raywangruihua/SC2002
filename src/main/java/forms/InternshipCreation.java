@@ -3,16 +3,21 @@ package forms;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList; 
+import java.util.ArrayList;
 
 import model.Internship;
+import service.CompanyManager;
 import enums.InternshipLevel;
 import enums.InternshipStatus; 
 
 public class InternshipCreation implements Base<Internship> {
+    private String  companyName;
+    private CompanyManager coMgr;
     private Scanner sc;
 
-    public InternshipCreation(Scanner sc) {
+    public InternshipCreation(String companyName, CompanyManager coMgr, Scanner sc) {
+        this.companyName = companyName;
+        this.coMgr = coMgr;
         this.sc = sc;
     }
 
@@ -62,9 +67,6 @@ public class InternshipCreation implements Base<Internship> {
             catch (DateTimeParseException e) {}
         }
 
-        System.out.print("Enter company name: ");
-        String companyName = sc.nextLine();
-
         int slots = 0;
         while (true) {
             try {
@@ -88,7 +90,7 @@ public class InternshipCreation implements Base<Internship> {
             InternshipStatus.PENDING,   // Default Status
             companyName, 
             slots, 
-            new ArrayList<>(),          // Empty list for Reps
+            coMgr.getCompany(companyName).getEmployees(),          // Empty list for Reps
             new ArrayList<>(),          // Empty list for Applications
             true                        // Default Visibility
         );

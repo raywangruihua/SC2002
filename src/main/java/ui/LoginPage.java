@@ -2,6 +2,7 @@ package ui;
 
 import java.util.Scanner;
 import service.AccountManager;
+import service.CompanyManager;
 import forms.Registration;
 import model.Account;
 
@@ -13,11 +14,13 @@ public class LoginPage {
 	public final int MAX_OPTION = 3;
 
 	private AccountManager accMgr;
+	private CompanyManager companyManager;
 	private Scanner 	   sc;
 
-	public LoginPage(AccountManager accMgr, Scanner sc) {
-		this.accMgr = accMgr;
-		this.sc 	= sc;
+	public LoginPage(AccountManager accMgr, CompanyManager companyManager, Scanner sc) {
+		this.accMgr 		= accMgr;
+		this.companyManager = companyManager;
+		this.sc 			= sc;
 	}
 
 	public Account display() {	

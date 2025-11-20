@@ -22,6 +22,7 @@ public class InternshipHubApp {
 	private static final String STUDENT_ACCOUNTS_PATH     = "StudentAccounts.csv";
     private static final String STAFF_ACCOUNTS_PATH       = "StaffAccounts.csv";
     private static final String COMPANY_REP_ACCOUNTS_PATH = "CompanyRepAccounts.csv";
+    private static final String COMPANIES_PATH_STRING     = "Companies.csv";
 
     private static final String INTERNSHIPS_PATH          = "Internships.csv";
     private static final String APPLICATIONS_PATH         = "InternshipApplications.csv";
@@ -31,7 +32,8 @@ public class InternshipHubApp {
             INTERNSHIPS_PATH, 
             APPLICATIONS_PATH, 
             PENDING_INTERNSHIPS_PATH,
-            STUDENT_ACCOUNTS_PATH
+            STUDENT_ACCOUNTS_PATH,
+            COMPANIES_PATH_STRING
         );
     
     private static AccountManager               accMgr      = new AccountManager(STUDENT_ACCOUNTS_PATH, STAFF_ACCOUNTS_PATH, COMPANY_REP_ACCOUNTS_PATH);
@@ -42,7 +44,7 @@ public class InternshipHubApp {
     private static InternshipApplicationManager appMgr      = new InternshipApplicationManager(repo);
     private static Scanner                      sc          = new Scanner(System.in);
     /// UI pages
-    private static LoginPage                    loginPage   = new LoginPage(accMgr, sc);
+    private static LoginPage                    loginPage   = new LoginPage(accMgr, coMgr, sc);
     private static Account                      acc;
 
     public static void login() {
@@ -72,7 +74,7 @@ public class InternshipHubApp {
 
     public static void careerCenterStaff() {
         CareerCenterStaff staffAcc = (CareerCenterStaff) acc;
-        CareerCenterStaffPage staffPage = new CareerCenterStaffPage(staffAcc, accMgr, internMgr, appMgr, sc);
+        CareerCenterStaffPage staffPage = new CareerCenterStaffPage(staffAcc, accMgr, sc, internMgr, appMgr, coMgr);
         staffPage.display();
         login();
     }

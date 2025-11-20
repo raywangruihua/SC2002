@@ -1,5 +1,7 @@
 package ui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,15 +12,17 @@ import service.*;
 import util.Sort;
 
 public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
-	public final int MAX_OPTION = 11;
+	public final int MAX_OPTION = 12;
 
 	private InternshipManager			 internMgr;
 	private InternshipApplicationManager appMgr;
+	private CompanyManager				 coMgr;
 
-	public CareerCenterStaffPage(CareerCenterStaff acc, AccountManager accMgr, InternshipManager internMgr, InternshipApplicationManager appMgr, Scanner sc) {
+	public CareerCenterStaffPage(CareerCenterStaff acc, AccountManager accMgr, Scanner sc, InternshipManager internMgr, InternshipApplicationManager appMgr, CompanyManager coMgr) {
 		super(acc, accMgr, sc);
 		this.internMgr = internMgr;
 		this.appMgr    = appMgr;
+		this.coMgr	   = coMgr;
 	}
 
 	@Override
@@ -30,12 +34,12 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 			"|                                            |\n" +
 			"----------------------------------------------\n" +
 										   				  "\n" +
-			"1.  View      Company account                 \n" +
-			"2.  Accept    Company account                 \n" +
-			"3.  Reject    Company account                 \n" +
-			"4.  View      Internships                     \n" +
-			"5.  Approve   Internship                      \n" +
-			"6.  Reject    Internship                      \n" +
+			"1.  View      Pending Accounts                \n" +
+			"2.  Accept    Pending Account                 \n" +
+			"3.  Reject    Pending Account                 \n" +
+			"4.  View      Pending Internships             \n" +
+			"5.  Approve   Pending Internship              \n" +
+			"6.  Reject    Pending Internship              \n" +
 			"7.  View      Withdrawal Requests             \n" +
 			"8.  Accept    Withdrawal                      \n" +
 			"9.  Reject    Withdrawal                      \n" +
@@ -64,7 +68,7 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
                     String userid = sc.nextLine();
 					rejectAccount(userid);
 				}
-				case 4 ->  viewInternships();
+				case 4 ->  viewPendingInternships();
 				case 5 ->  approveInternship();
                 case 6 ->  rejectInternship();
 				case 7 ->  viewWithdrawals();
@@ -79,30 +83,50 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 	}
 	
 	/**
-	 * View Accounts (pending or approved) done via Account Manager
+	 * View pending Company Representative Accounts
 	 */
 	public void viewAccounts() {
-		System.out.print("\nAll Accounts");
-		accMgr.printAccounts();
+		System.out.println("\n-----Pending Accounts-----");
+		for (Account acc : accMgr.getPendingAccounts()) {
+			System.out.println(acc);
+		}
 	}
 
 	/**
-	 * Approve Account via Account Manager
+	 * Approve Company Representative Account
+	 * Adds employee name to exisitng company
+	 * If company does not exist, creates new company
 	 */
 	public void acceptAccount(String userID) {
+		CompanyRep acc = accMgr.getPendingAccount(userID);
+		String companyName = acc.getCompanyName();
+		String name = acc.getName();
+
 		accMgr.approveAccount(userID);
-		System.out.print("\nCompany" + userID + "has been approve");
+
+        /// Check if company already exists
+        /// If not, add the new company to repository
+        Company company = coMgr.getCompany(companyName);
+        if (company == null) {
+            company = new Company(companyName, 0, new ArrayList<>(Arrays.asList(name)));
+            coMgr.addCompany(company);
+        }
+        /// Add new employee to company
+        coMgr.addNewEmployee(name, companyName);
 	}
 	/**
 	 * Reject Account via Account Manager
 	 */
 	public void rejectAccount(String userID) {
 		accMgr.removePending(userID);
-		System.out.print("\nCompany" + userID + "has been Rejected");
 	}
-	// List all internships (pending, approved, rejected)
-	public void viewInternships() {
-		internMgr.viewInternships();
+	
+	// View pending Internships
+	public void viewPendingInternships() {
+		System.out.println("-----Pending Internships-----");
+		for (Internship i : internMgr.getPendingInternships()) {
+			System.out.println(i);
+		}
 	}
 
 	public void approveInternship() {

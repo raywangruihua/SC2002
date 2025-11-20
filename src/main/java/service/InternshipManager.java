@@ -30,6 +30,13 @@ public class InternshipManager {
 	}
 
 	/**
+	 * Get all pending internships
+	 */
+	public List<Internship> getPendingInternships() {
+		return repo.getPendingInternships();
+	}
+
+	/**
 	 * Get approved internships according to company
 	 */
 	public List<Internship> getApprovedInternships(String companyName) {

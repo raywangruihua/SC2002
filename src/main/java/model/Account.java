@@ -60,6 +60,6 @@ public abstract class Account {
 
 	@Override
 	public String toString() {
-		return "UserID: " + getUserID() + ", Name: " + getName() + ", Password: " + getPassword();
+		return "UserID: " + getUserID() + ", Name: " + getName();
 	}
 }

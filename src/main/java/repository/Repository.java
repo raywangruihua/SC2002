@@ -32,14 +32,15 @@ public class Repository {
     private String                      internshipFilePath;
     private String                      studentFilePath;
 
-    public Repository(String internshipsFilepath, String applicationsFilepath, String pendingInternshipsFilepath, String studentFilePath) {
+    public Repository(String internshipsFilepath, String applicationsFilepath, String pendingInternshipsFilepath, String studentFilePath, String companiesFilePath) {
         this.internshipFilePath = internshipsFilepath;
-        this.studentFilePath = studentFilePath; 
+        this.studentFilePath = studentFilePath;
         
         this.csvHandler = new CSVHandler();
 
         this.students = csvHandler.readStudents(studentFilePath);
         this.internships = csvHandler.readInternships(internshipFilePath);
+		this.companies = csvHandler.readCompanies(companiesFilePath);
 
         this.applications = new ArrayList<>();
         this.pendingInternships = new ArrayList<>();

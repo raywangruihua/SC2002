@@ -3,7 +3,6 @@ package service;
 
 import repository.Repository;
 import model.Company;
-import model.CompanyRep;
 
 
 /**
@@ -37,8 +36,8 @@ public class CompanyManager {
      * @param acc
      * @param companyName
      */
-    public void addNewEmployee(CompanyRep acc, String companyName) {
+    public void addNewEmployee(String employee, String companyName) {
         Company company = getCompany(companyName);
-        company.addEmployee(acc);
+        company.addEmployee(employee);
     }
 }

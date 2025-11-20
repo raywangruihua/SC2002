@@ -7,7 +7,7 @@ import service.*;
 import forms.InternshipCreation;
 
 public class CompanyRepPage extends UserPage<CompanyRep> {
-	public final int MAX_OPTION = 7;
+	public final int MAX_OPTION = 8;
 
 	private InternshipManager 			 internMgr;
 	private InternshipApplicationManager appMgr;
@@ -127,7 +127,7 @@ public class CompanyRepPage extends UserPage<CompanyRep> {
 	public void createInternship(String companyName) {
 		if (coMgr.getNumInternships(companyName) >= 5) System.out.println("\nNumber of internships exceeded.");
 
-		InternshipCreation form = new InternshipCreation(sc);
+		InternshipCreation form = new InternshipCreation(companyName, coMgr, sc);
 		internMgr.createInternship(form.submit());
 		coMgr.incrementInternships(companyName);
 		System.out.println("Internship submitted for approval.");

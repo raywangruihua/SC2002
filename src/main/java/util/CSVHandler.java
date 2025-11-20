@@ -1,6 +1,7 @@
 package util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,10 +16,7 @@ import java.util.stream.Collectors;
 
 import enums.InternshipLevel;
 import enums.InternshipStatus;
-import model.Internship;
-import model.Student;
-import model.CareerCenterStaff; 
-import model.CompanyRep;        
+import model.*;       
 
 public class CSVHandler {
 
@@ -134,6 +132,33 @@ public class CSVHandler {
         return internships;
     }
 
+    public List<Company> readCompanies(String companiesFilePath) {
+        List<Company> companies = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(companiesFilePath))) {
+            String line;
+            boolean isHeader = true;
+            while ((line = br.readLine()) != null) {
+                if (isHeader) {isHeader = false; continue;}
+                String [] data = line.split(",");
+                if (data.length < 2) continue;
+
+                try {
+                    String companyName = data[0];
+                    int numInternships = Integer.parseInt(data[1]);
+                    List<String> employees = parseList(data[2]);
+
+                    Company newCompany = new Company(companyName, numInternships, employees);
+                    companies.add(newCompany);
+                } catch (Exception e) {
+                    System.err.println("Skipping row due to parsing error: " + e.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error reading companies: " + e.getMessage());
+        }
+        return companies;
+    }
+
     // --- WRITE METHODS ---
 
     public void writeStudents(String filePath, List<Student> students) {
@@ -172,6 +197,23 @@ public class CSVHandler {
                 sb.append(integerListToString(i.getApplicationsReceived())).append(",");
                 sb.append(i.isVisibility()).append(","); 
                 sb.append(sanitize(i.getDescription()));
+                pw.println(sb.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeCompanies(String filepath, List<Company> companies) {
+        try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(filepath)))) {
+            pw.println("Company Name,Number of Internships,Employees");
+            for (Company c : companies) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(c.getName()).append(",");
+                sb.append(c.getNumInternships()).append(",");
+                for (String employee : c.getEmployees()) {
+                    sb.append(employee).append(";");
+                }
                 pw.println(sb.toString());
             }
         } catch (IOException e) {

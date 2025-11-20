@@ -9,7 +9,7 @@ import service.InternshipManager;
 import model.*;
 
 public class StudentPage extends UserPage<Student> {
-	public final int MAX_OPTION = 6;
+	public final int MAX_OPTION = 7;
 
 	private AccountManager				 accMgr;
 	private InternshipManager 			 internMgr;

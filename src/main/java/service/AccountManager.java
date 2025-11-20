@@ -39,6 +39,24 @@ public class AccountManager {
 		pending = new ArrayList<>();
 	}
 
+	/**
+	 * Get all pending accounts
+	 * @return
+	 */
+	public List<Account> getPendingAccounts() {
+		return pending;
+	}
+
+	/**
+	 * Get pending Company Representative account
+	 */
+	public CompanyRep getPendingAccount(String userID) {
+		for (Account acc : pending) {
+			if (acc.getUserID().equals(userID) && acc instanceof CompanyRep) return (CompanyRep) acc;
+		}
+		return null;
+	}
+
 	public void printAccounts() {
 		for (Account acc : accounts) {
 			System.out.println(acc);

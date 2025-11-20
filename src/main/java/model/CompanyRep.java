@@ -18,4 +18,11 @@ public class CompanyRep extends Account {
 	}
 
 	public String getCompanyName() {return companyName;}
+	public String getDepartment()  {return department;}
+	public String getPosition()	   {return position;}
+
+	@Override
+	public String toString() {
+		return "UserID: " + getUserID() + " Name: " + getName() + " Company: " + getCompanyName() + " Department: " + getDepartment() + " Positon: " + getPosition();
+	}
 }

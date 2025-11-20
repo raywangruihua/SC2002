@@ -1,8 +1,6 @@
 package model;
 
 import java.util.List;
-import java.util.ArrayList;
-
 
 /**
  * Company class
@@ -15,19 +13,19 @@ import java.util.ArrayList;
 public class Company {
     private String           name;
     private int              numInternships;
-    private List<CompanyRep> employees;
+    private List<String>     employees;
 
-    public Company(String name) {
-        this.name      = name;
-        numInternships = 0; 
-        employees      = new ArrayList<CompanyRep>(); 
+    public Company(String name, int numInternships, List<String> employees) {
+        this.name           = name;
+        this.numInternships = numInternships;
+        this.employees      = employees;
     }
 
     public String           getName()           {return name;}
     public int              getNumInternships() {return numInternships;}
-    public List<CompanyRep> getEmployees()      {return employees;}
+    public List<String>     getEmployees()      {return employees;}
 
-    public void addEmployee(CompanyRep acc) {employees.add(acc);}
-    public void incrementInternships()      {numInternships++;}
-    public void decrementInternships()      {numInternships--;}
+    public void addEmployee(String employee) {employees.add(employee);}
+    public void incrementInternships()       {numInternships++;}
+    public void decrementInternships()       {numInternships--;}
 }
