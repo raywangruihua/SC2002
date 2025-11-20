@@ -90,8 +90,7 @@ public class LoginPage {
         accMgr.register(form.submit());
         System.out.println("Account submitted for approval.");
     }
-    
-    // --- HELPER METHOD ---
+
     private String getNonEmptyInput(String prompt) {
         String input = "";
         while (input.isEmpty()) {
