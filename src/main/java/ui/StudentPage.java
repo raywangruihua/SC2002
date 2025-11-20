@@ -48,7 +48,7 @@ public class StudentPage extends UserPage<Student> {
 			while (true) {
 				try {
 					System.out.print("\nEnter option: ");
-					option = Integer.parseInt(sc.nextLine());
+					option = sc.nextInt();
 					break;
 				}
 				catch (NumberFormatException e) {}
@@ -112,7 +112,7 @@ public class StudentPage extends UserPage<Student> {
 	    while (true) {
 	        try {
 	            System.out.print("Enter internship index: ");
-	            index = Integer.parseInt(sc.nextLine());
+	            index = sc.nextInt();
 	            break;
 	        }
 	        catch (NumberFormatException e) {}
@@ -141,9 +141,14 @@ public class StudentPage extends UserPage<Student> {
 	 * Displays all student applications and statuses given student has applied 
 	 */
 	public void viewApplications() {
-		System.out.println("-----Applications-----");
-		for (InternshipApplication application: appMgr.getApplications(account.getUserID())){
-			System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + appMgr.getApplicationStatus(application));
+		if (appMgr.getApplications(account.getUserID()).size() == 0){
+			System.out.println("No applications");
+		}
+		else{
+			System.out.println("-----Applications-----");
+			for (InternshipApplication application: appMgr.getApplications(account.getUserID())){
+				System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + appMgr.getApplicationStatus(application));
+			}
 		}
 		System.out.println();
 	}
@@ -257,7 +262,7 @@ public class StudentPage extends UserPage<Student> {
 		while (true){
 			try{
 				System.out.print("Enter the index of the application to withdraw: ");
-            	choice = Integer.parseInt(sc.nextLine());
+            	choice = sc.nextInt();
 
 				if (choice < 1 || choice > withdrawable.size()){
 					System.out.println("Invalid index. Try again.");

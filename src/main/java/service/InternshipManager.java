@@ -230,7 +230,7 @@ public class InternshipManager {
 			student.acceptPlacement(null);
 		}
 		
-		repo.getInternshipApplications().remove(application);
+		repo.removeApplication(application);
         repo.saveAll(); // Added Save
 	}
 

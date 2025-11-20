@@ -118,7 +118,7 @@ public class InternshipApplicationManager {
 			student.getApplications().remove(application);
 		}
 		
-		repo.getInternshipApplications().remove(application);
+		repo.removeApplication(application);
 	}
 
 	/**

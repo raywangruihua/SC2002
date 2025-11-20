@@ -50,4 +50,8 @@ public class Student extends Account {
 	public boolean hasAcceptedPlacement(){
 		return (accepted != null);
 	}
+
+	public void removeApplication(InternshipApplication a){
+		this.applications.remove(a);
+	}
 }
