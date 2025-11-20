@@ -24,16 +24,18 @@ public class ReportPage {
     }
 
     public void start() {
-        display();
-
         int option = -1;
         while (true) {
-            try {
-                System.out.print("\nEnter option: ");
-                option = Integer.parseInt(sc.nextLine());
-                break;
+            display();
+
+            while (true) {
+                try {
+                    System.out.print("\nEnter option: ");
+                    option = Integer.parseInt(sc.nextLine());
+                    break;
+                }
+                catch (NumberFormatException e) {System.out.println("Invalid input.");}
             }
-            catch (NumberFormatException e) {System.out.println("Invalid input.");}
 
             switch (option) {
                 case 1 -> displayReport();
@@ -45,34 +47,42 @@ public class ReportPage {
             }
         }
     }
+
     /**
      * idk this sort for what
      */
     public void sort() {
         return;
     }
+    
     /**
      * Make this look a bit nicer in the future
      */
     public void displayReport() {
-        for (Internship i : displayList) {System.out.println(i);}
+        System.out.println("-----Internship Report-----");
+        if (displayList.size() == 0) {System.out.println("No internships found.");}
+        for (Internship i : displayList) {
+            System.out.println(i);
+            System.out.println();
+        }
     }
 
     /**
      * Filter list based on user input
      */
     public void filter() {
-        System.out.println("\n-----Filter by-----");
-        displayOptions();
-
         int option = -1;
         while (true) {
-            try {
-                System.out.print("\nEnter option: ");
-                option = Integer.parseInt(sc.nextLine());
-                break;
+            System.out.println("\n-----Filter by-----");
+            displayOptions();
+            while (true) {
+                try {
+                    System.out.print("\nEnter option: ");
+                    option = Integer.parseInt(sc.nextLine());
+                    break;
+                }
+                catch (NumberFormatException e) {System.out.println("Invalid input.");}
             }
-            catch (NumberFormatException e) {System.out.println("Invalid input.");}
 
             switch (option) {
                 case 1 -> filterByStatus();
@@ -105,15 +115,15 @@ public class ReportPage {
                 break;
             }
             catch (NumberFormatException e) {System.out.println("Invalid input.");}
+        }
 
-            switch (option) {
-                case 1 -> displayList = displayList.stream().filter(i -> i.getStatus() == InternshipStatus.PENDING).collect(Collectors.toList());
-                case 2 -> displayList = displayList.stream().filter(i -> i.getStatus() == InternshipStatus.APPROVED).collect(Collectors.toList());
-                case 3 -> displayList = displayList.stream().filter(i -> i.getStatus() == InternshipStatus.REJECTED).collect(Collectors.toList());
-                case 4 -> displayList = displayList.stream().filter(i -> i.getStatus() == InternshipStatus.FILLED).collect(Collectors.toList());
-                case 5 -> {return;}
-                default -> System.out.println("Invalid option.");
-            }
+        switch (option) {
+            case 1 -> displayList = displayList.stream().filter(i -> i.getStatus() == InternshipStatus.PENDING).collect(Collectors.toList());
+            case 2 -> displayList = displayList.stream().filter(i -> i.getStatus() == InternshipStatus.APPROVED).collect(Collectors.toList());
+            case 3 -> displayList = displayList.stream().filter(i -> i.getStatus() == InternshipStatus.REJECTED).collect(Collectors.toList());
+            case 4 -> displayList = displayList.stream().filter(i -> i.getStatus() == InternshipStatus.FILLED).collect(Collectors.toList());
+            case 5 -> {return;}
+            default -> System.out.println("Invalid option.");
         }
     }
 

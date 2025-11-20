@@ -288,8 +288,7 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 	 * @see Sort
 	 */
 	public void generateReport() {
-		List<Internship> internships = internMgr.getAllInternships();
-        ReportPage reportPage = new ReportPage(internships, sc);
+        ReportPage reportPage = new ReportPage(internMgr.getInternships(), sc);
         reportPage.start();
 	}
 

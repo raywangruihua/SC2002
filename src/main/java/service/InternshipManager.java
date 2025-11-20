@@ -111,11 +111,10 @@ public class InternshipManager {
             System.out.println(i);
         }
 	}
-	// return all internships (for generate report in CareerCenterStaffPage)
-	public List<Internship> getAllInternships() {
-        List<Internship> all = new ArrayList<>(repo.getInternships());
-        all.addAll(repo.getPendingInternships());
-		return all;
+
+	// Return all internships
+	public List<Internship> getInternships() {
+		return repo.getInternships();
 	}
 
 	/**

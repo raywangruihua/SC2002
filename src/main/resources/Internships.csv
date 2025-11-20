@@ -1,2 +1,4 @@
 index,title,internship level,preferred major,open date,close date,status,company name,slots,company representatives,applications received,visibility,description
 1,exampletitle,Basic,cs,20230820,20230921,approved,examplecompany,10,rep1/rep2/rep3,,true,this is an internship
+2,title2,Advanced,ce,20340101,20450101,pending,examplecompany,3,rep1/rep2/rep3,,true,this is internship2
+3,title3,Intermediate,physics,20100101,20200101,approved,company2,6,guy1/guy2,,false,this is another internship
