@@ -24,9 +24,8 @@ public enum ApplicationStatus {
 	Unsuccessful,
 
 	/**
-	 * student requests for withdrawnal
+	 * student withdrawns from application or internship
 	 */
-	WITHDRAWAL_REQUESTED,
 
 	Withdrawn
 
