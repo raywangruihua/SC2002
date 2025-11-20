@@ -101,8 +101,14 @@ public class StudentPage implements UserInterface<Student> {
 
 		if (!internMgr.checkInternshipExists(index)) {System.out.println("Internship does not exist!"); return null;}
 
-		if ((internMgr.getInternshipLevel(index) != InternshipLevel.Basic) && ((yearOfStudy == 1) || (yearOfStudy == 2))){
-			throw new IllegalArgumentException("Application Unaccepted");
+		else if ((internMgr.getInternshipLevel(index) != InternshipLevel.Basic) && ((yearOfStudy == 1) || (yearOfStudy == 2))){
+			System.out.println("Internship level too high for student."); 
+			return null;
+		}
+
+		else if (checkApplied(name, index) == true){
+			System.out.println("Student already applied for internship."); 
+			return null;
 		}
 
 		else {
@@ -127,6 +133,19 @@ public class StudentPage implements UserInterface<Student> {
 			}
 		}
 		System.out.println();
+	}
+
+	/**
+	 * Checks whether internship to apply exists in student applied internships
+	 */
+	public boolean checkApplied(String name, int index) {
+		List<InternshipApplication> applications = appMgr.getApplications(index);
+		for (InternshipApplication application : applications){
+			if(application.getStudentName().equals(name)){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void acceptInternship(Student studentAcc ){
