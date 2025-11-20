@@ -29,26 +29,30 @@ public class StudentPage extends UserPage<Student> {
 			"|   Student Internship Hub    |\n" +
 			"|                             |\n" +
 			"-------------------------------\n" +
-										"\n" +
+										   "\n" +
 			"1. View Internships		    \n" +
 			"2. Apply Internships		    \n" +
 			"3. View Applications	        \n" +
 			"4. Accept Placement		    \n" +
 			"5. Withdraw Applications	    \n" +
 			"6. Change password             \n" +
-			"7. Logout		           	    \n" +
-										"\n"
+			"7. Logout		           	    \n"
 		);
 	}
 
 	public void start() {
 		int option = -1;
         while (option != 6) {
-            try {
-                System.out.print("\nEnter option: ");
-                option = sc.nextInt();
-            }
-            catch (NumberFormatException e) {}
+			display();
+
+			while (true) {
+				try {
+					System.out.print("\nEnter option: ");
+					option = Integer.parseInt(sc.nextLine());
+					break;
+				}
+				catch (NumberFormatException e) {}
+			}
 
             switch (option) {
                 case 1 -> viewInternships(account.getYearOfStudy(), account.getMajor());
@@ -84,6 +88,7 @@ public class StudentPage extends UserPage<Student> {
 	 * Retrieves all internships student can apply for through internshipmanager
 	 */
 	public void viewInternships(int yearOfStudy, String major) {
+		System.out.println("-----Internships-----");
 		List<Internship> display_list = internMgr.getInternships(yearOfStudy, major);
 		if (display_list.size() == 0) {System.out.println("No internships available.");}
 		else displayInternships(display_list);
@@ -132,7 +137,7 @@ public class StudentPage extends UserPage<Student> {
 		}
 		else {
 			for (InternshipApplication application: applications){
-				System.out.println("All Internship Applications");
+				System.out.println("-----Applications-----");
 				System.out.println("Internship Title: " + application.getInternshipTitle() + ", Application Status: " + appMgr.getApplicationStatus(application));
 			}
 		}

@@ -44,6 +44,7 @@ public class CompanyRepPage extends UserPage<CompanyRep> {
 		int option = -1;
         while (option != 7) {
 			display();
+			
 			while (true) {
 				try {
 					System.out.print("\nEnter option: ");
@@ -161,9 +162,11 @@ public class CompanyRepPage extends UserPage<CompanyRep> {
 	 * View applications for internship chosen
 	 */
 	public void viewApplications(int internshipIndex) {
+		System.out.println("-----Applications-----");
 		for (InternshipApplication a : appMgr.getApplications(internshipIndex)) {
 			System.out.println(a);
 		}
+		System.out.println();
 	}
 
 	/**
