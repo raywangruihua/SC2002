@@ -18,7 +18,7 @@ import repository.*;
  * Users can login or register for an account
  */
 public class InternshipHubApp {
-    private static final String DATA_PATH = "src/main/resources/";
+    private static final String DATA_PATH = "";
 	private static final String STUDENT_ACCOUNTS_PATH     = DATA_PATH + "StudentAccounts.csv";
     private static final String STAFF_ACCOUNTS_PATH       = DATA_PATH + "StaffAccounts.csv";
     private static final String COMPANY_REP_ACCOUNTS_PATH = DATA_PATH + "CompanyRepAccounts.csv";
