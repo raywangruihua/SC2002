@@ -40,20 +40,14 @@ public class ReportPage {
             switch (option) {
                 case 1 -> displayReport();
                 case 2 -> filter();
-                case 3 -> sort();
-                case 4 -> displayList = originalList;
-                case 5 -> {return;}
+                case 3 -> displayList = originalList;
+                case 4 -> {return;}
                 default -> System.out.println("Invalid option.");
             }
         }
     }
 
-    /**
-     * idk this sort for what
-     */
-    public void sort() {
-        return;
-    }
+    
     
     /**
      * Displays report of internships
@@ -206,9 +200,8 @@ public class ReportPage {
             "-----Report Page------\n" +
             "1. Display report\n" +
             "2. Filter\n" +
-            "3. Sort\n" +
-            "4. Reset\n" +
-            "5. Return\n"
+            "3. Reset\n" +
+            "4. Return\n"
         );
     }
 
