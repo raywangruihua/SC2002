@@ -43,10 +43,7 @@ public class StudentPage implements UserInterface<Student> {
                 System.out.print("\nEnter option: ");
                 option = Integer.parseInt(sc.nextLine());
             }
-            catch (NumberFormatException e) {
-				System.out.println("Please enter a valid option (1-" + MAX_OPTION);
-				continue;
-			}
+            catch (NumberFormatException e) {}
 
             switch (option) {
                 case 1 -> viewInternships(studentAcc.getYearOfStudy(), studentAcc.getMajor());
@@ -58,7 +55,7 @@ public class StudentPage implements UserInterface<Student> {
 				case 4 -> acceptInternship(studentAcc);
 				case 5 -> withdrawApplication(studentAcc);
                 case 6 -> {
-					return;
+					break;
 				}
 				default -> System.out.print("Please enter a valid option (1-" + MAX_OPTION + "): ");
             }
@@ -187,18 +184,17 @@ public class StudentPage implements UserInterface<Student> {
 		
 		int choice = -1; 
 		while (true){
-			System.out.println("Enter the index of the application");
-			String line = sc.nextLine();
-			try {
-				choice = Integer.parseInt(line);
-			} catch (NumberFormatException e) {
+			try{
+				System.out.println("Enter the index of the application: ");
+				choice = sc.nextInt();
+				if ((choice < 1) && (choice > applications.size() + 1)){
+					System.out.println("Invalid index. Try again.");
+				} else {
+					break; 
+				}
+			} catch (NumberFormatException e){
 				System.out.println("Please enter a valid number.");
-				continue;
-			}
-			if (choice < 1 || choice > acceptable.size()) {
-				System.out.println("Invalud index. Try again.");
-			} else {
-				break;
+				sc.nextLine(); 
 			}
 		}
 
@@ -246,20 +242,18 @@ public class StudentPage implements UserInterface<Student> {
 		}
 		int choice = -1; 
 		while (true){
-			System.out.print("Enter the index of the application to withdraw: ");
-            String line = sc.nextLine();
 			try{
-				choice = Integer.parseInt(line);
-			} catch (NumberFormatException e){
+				System.out.print("Enter the index of the application to withdraw: ");
+            	choice = sc.nextInt();
+
+				if (choice < 1 || choice > withdrawable.size()){
+					System.out.println("Invalid index. Try again.");
+				} else {
+					break;
+				}
+			} catch (InputMismatchException e){}
 				System.out.println("Please enter a valid number.");
-				continue;
-			}
-			
-			if (choice < 1 || choice > withdrawable.size()){
-				System.out.println("Invalid index. Try again.");
-			} else {
-				break;
-			}
+				sc.nextLine(); 
 		}
 		InternshipApplication selected = withdrawable.get(choice - 1);
 		if (selected.getAccepted()){
