@@ -61,21 +61,21 @@ public class InternshipHubApp {
     public static void student() {
         Student studentAcc = (Student) acc;
         StudentPage studentPage = new StudentPage(studentAcc, accMgr, internMgr, appMgr, sc);
-        studentPage.display();
+        studentPage.start();
         login();
     }
 
     public static void companyRep() {
         CompanyRep repAcc = (CompanyRep) acc;
         CompanyRepPage repPage = new CompanyRepPage(repAcc, accMgr, internMgr, appMgr, coMgr, sc);
-        repPage.display();
+        repPage.start();
         login();
     }
 
     public static void careerCenterStaff() {
         CareerCenterStaff staffAcc = (CareerCenterStaff) acc;
         CareerCenterStaffPage staffPage = new CareerCenterStaffPage(staffAcc, accMgr, sc, internMgr, appMgr, coMgr);
-        staffPage.display();
+        staffPage.start();
         login();
     }
 

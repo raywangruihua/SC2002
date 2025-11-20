@@ -29,7 +29,7 @@ public class StudentPage extends UserPage<Student> {
 			"|   Student Internship Hub    |\n" +
 			"|                             |\n" +
 			"-------------------------------\n" +
-										   "\n" +
+										"\n" +
 			"1. View Internships		    \n" +
 			"2. Apply Internships		    \n" +
 			"3. View Applications	        \n" +
@@ -37,9 +37,11 @@ public class StudentPage extends UserPage<Student> {
 			"5. Withdraw Applications	    \n" +
 			"6. Change password             \n" +
 			"7. Logout		           	    \n" +
-										   "\n"
+										"\n"
 		);
+	}
 
+	public void start() {
 		int option = -1;
         while (option != 6) {
             try {

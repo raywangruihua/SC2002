@@ -47,14 +47,21 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 			"11. Change    Password                        \n" +
 			"12. Logout                                    \n"
 		);
+	}
 
+	public void start() {
 		int option = -1;
         while (option != 12) {
-            try {
-                System.out.print("\nEnter option: ");
-                option = Integer.parseInt(sc.nextLine());
-            }
-            catch (NumberFormatException e) {}
+			display();
+
+			while (true) {
+				try {
+					System.out.print("\nEnter option: ");
+					option = Integer.parseInt(sc.nextLine());
+					break;
+				}
+				catch (NumberFormatException e) {System.out.println("Invalid input.");}
+			}
 
             switch (option) {
                 case 1 -> viewAccounts();

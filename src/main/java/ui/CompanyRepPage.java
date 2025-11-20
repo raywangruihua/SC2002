@@ -38,14 +38,20 @@ public class CompanyRepPage extends UserPage<CompanyRep> {
 			"7. Change  Password                           \n" +
 			"8. Logout                                     \n"
 		);
+	}
 
+	public void start() {
 		int option = -1;
         while (option != 7) {
-            try {
-                System.out.print("\nEnter option: ");
-                option = Integer.parseInt(sc.nextLine());
-            }
-            catch (NumberFormatException e) {}
+			display();
+			while (true) {
+				try {
+					System.out.print("\nEnter option: ");
+					option = Integer.parseInt(sc.nextLine());
+					break;
+				}
+				catch (NumberFormatException e) {}
+			}
 
             switch (option) {
                 case 1 -> createInternship(account.getCompanyName());
