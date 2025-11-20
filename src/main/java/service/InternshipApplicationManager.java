@@ -92,12 +92,22 @@ public class InternshipApplicationManager {
 	public void requestWithdrawal(InternshipApplication application){
 		application.setWithdrawalRequested(true);
 	}
+
 	/**
 	 * accept withdrawal for application 
 	 * @param application
 	 */
 	public void approveWithdrawal(InternshipApplication application){
 		application.setApplicationStatus((ApplicationStatus.Withdrawn));
+		
+		String studentID = application.getStudentID();
+		Student student = repo.getStudentByID(studentID);
+
+		if(student != null){
+			student.getApplications().remove(application);
+		}
+		
+		repo.getInternshipApplications().remove(application);
 	}
 
 	/**

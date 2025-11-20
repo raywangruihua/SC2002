@@ -46,4 +46,8 @@ public class Student extends Account {
 	public void addApplication(InternshipApplication a) {
 		applications.add(a);
 	}
+
+	public boolean hasAcceptedPlacement(){
+		return (accepted != null);
+	}
 }

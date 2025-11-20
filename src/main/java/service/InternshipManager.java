@@ -7,6 +7,7 @@ import enums.InternshipLevel;
 import enums.InternshipStatus;
 import model.Internship;
 import model.InternshipApplication;
+import model.Student;
 import repository.Repository;
 
 public class InternshipManager {
@@ -146,10 +147,16 @@ public class InternshipManager {
 		application.setApplicationStatus(ApplicationStatus.Withdrawn);
 		application.setAccepted(false);
 		internship.incrementSlots(1);
-
 		if (internship.getStatus() == InternshipStatus.FILLED){
 			internship.setStatus(InternshipStatus.APPROVED);
 		}
+
+		Student student = repo.getStudentByID(application.getStudentID());
+		if (student != null){
+			student.getApplications().remove(application);
+		}
+
+		repo.getInternshipApplications().remove(application);
 	}
 
 	/**

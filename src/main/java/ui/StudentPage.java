@@ -187,7 +187,7 @@ public class StudentPage implements UserInterface<Student> {
 		System.out.println("Placement accepted successfully. Other applications have been withdrawn.");
 	}
 
-	public void withdrawApplication(Student studentAcc ){
+	public void withdrawApplication(Student studentAcc){
 		List<InternshipApplication> applications = studentAcc.getApplications();
 		if (applications == null || applications.isEmpty()){
 			System.out.println("You have no applications to withdraw.");

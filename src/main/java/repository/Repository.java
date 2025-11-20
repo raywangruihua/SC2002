@@ -150,4 +150,12 @@ public class Repository {
         return students;
     }
 
+	public Student getStudentByID(String id){
+		for (Student s : students){
+			if (s.getUserID().equals(id)){
+				return s; 
+			}
+		}
+		return null;
+	}
 }
