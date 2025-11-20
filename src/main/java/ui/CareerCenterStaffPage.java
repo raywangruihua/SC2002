@@ -136,7 +136,9 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 			System.out.println();
 		}
 	}
-
+	/**
+	 * Approves internship created by companyrep
+	 */
 	public void approveInternship() {
 		int index = -1;
 		while (true) {
@@ -154,7 +156,9 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
         	System.out.println("Internship " + index + " approved.");
 		}
 	}
-
+	/**
+	 * Rejects internship created by companyrep
+	 */
 	public void rejectInternship() {
 		int index = -1;
 		while (true) {
@@ -240,7 +244,9 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 
 		
 	}
-
+	/**
+	 * Rejects withdrawal
+	 */
 	public void rejectWithdrawal() {
 		List<InternshipApplication> withdrawals = appMgr.getWithdrawals();
 
