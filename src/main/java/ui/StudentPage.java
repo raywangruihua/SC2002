@@ -221,7 +221,6 @@ public class StudentPage implements UserInterface<Student> {
 			if (status != ApplicationStatus.Unsuccessful && status != ApplicationStatus.Withdrawn && !app.getWithdrawalRequested()){
 				withdrawable.add(app);
 			}
-			return;
 		}
 
 		if (withdrawable.isEmpty()){
