@@ -122,7 +122,7 @@ public class StudentPage extends UserPage<Student> {
 	        System.out.println("Internship does not exist!"); 
 	        return null;
 	    }
-	    // Logic Check: Year 1/2 cannot apply for Intermediate/Advanced
+	    //Year 1/2 cannot apply for Intermediate/Advanced
 	    else if ((internMgr.getInternshipLevel(index) != InternshipLevel.Basic) && ((yearOfStudy == 1) || (yearOfStudy == 2))){
 	        System.out.println("Internship level too high for student."); 
 	        return null;
