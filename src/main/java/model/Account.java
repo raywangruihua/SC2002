@@ -1,9 +1,6 @@
 package model;
 
 /**
- * Base class for account subtypes
- * Implements basic account features inherited by subtypes
- * 
  * @see Student
  * @see CareerCenterStaff
  * @see CompanyRep
@@ -11,9 +8,9 @@ package model;
 public abstract class Account {
 
 	/**
-	 * @param userID   Fixed at account creation
-	 * @param name     Name of account holder should not change
-	 * @param password Password can be changed when required
+	 * @param userID   
+	 * @param name     
+	 * @param password 
 	 */
 	private final String userID;
 	private final String name;
@@ -22,9 +19,7 @@ public abstract class Account {
     private static final int MAX_ATTEMPTS = 3;
 
 	/**
-	 * Initial account csv files do not provide a password
-	 * Password can be changed after default account creation for students and staff
-	 * @param password Default password is ""
+	 * @param password Default password is "password"
 	 */
 	public Account(String userID, String name, String password) {
 		this.userID   = userID;
