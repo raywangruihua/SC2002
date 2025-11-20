@@ -95,6 +95,10 @@ public class Internship {
 	public void setStatus(InternshipStatus status) {
 		this.status = status;
 	}
+	
+	public void setIndex(int index) {
+	    this.index = index;
+	}
 	/**
 	 * change the visibility 
 	 * @param visibility 

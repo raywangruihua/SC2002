@@ -1,98 +1,93 @@
 package forms;
 
-import java.util.Scanner;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-import model.Internship;
-import service.CompanyManager;
 import enums.InternshipLevel;
-import enums.InternshipStatus; 
+import enums.InternshipStatus;
+import model.Internship;
 
-public class InternshipCreation implements Base<Internship> {
-    private String  companyName;
-    private CompanyManager coMgr;
+public class InternshipCreation {
     private Scanner sc;
+    private String companyName;
+    private String repName;
 
-    public InternshipCreation(String companyName, CompanyManager coMgr, Scanner sc) {
-        this.companyName = companyName;
-        this.coMgr = coMgr;
+    // FIX: This is the constructor your CompanyRepPage is looking for
+    public InternshipCreation(Scanner sc, String companyName, String repName) {
         this.sc = sc;
+        this.companyName = companyName;
+        this.repName = repName;
     }
 
-    @Override
     public Internship submit() {
-        System.out.print("\nEnter internship title: ");
-        String title  = sc.nextLine();
+        try {
+            System.out.println("\n--- Create New Internship ---");
+            
+            System.out.print("Enter Internship Title: ");
+            String title = sc.nextLine();
 
-        System.out.print("Enter short description: ");
-        String desc = sc.nextLine();
+            System.out.print("Enter Description (e.g. Python, Java): ");
+            String description = sc.nextLine();
 
-        int option;
-        InternshipLevel level = null;
-        outer : while (true) {
+            System.out.print("Enter Internship Level (Basic/Intermediate/Advanced): ");
+            String levelStr = sc.nextLine();
+            InternshipLevel level = InternshipLevel.Basic;
             try {
-                System.out.print("Enter internship level (1 - Basic, 2 - Intermediate, 3 - Advanced): ");
-                option = Integer.parseInt(sc.nextLine());
-                switch (option) {
-                    case 1 : level = InternshipLevel.Basic;        break outer;
-                    case 2 : level = InternshipLevel.Intermediate; break outer;
-                    case 3 : level = InternshipLevel.Advanced;     break outer;
+                // Capitalize first letter to match Enum (e.g., "basic" -> "Basic")
+                level = InternshipLevel.valueOf(levelStr.substring(0, 1).toUpperCase() + levelStr.substring(1).toLowerCase());
+            } catch (Exception e) {
+                System.out.println("Invalid level. Defaulting to Basic.");
+            }
+
+            System.out.print("Enter Preferred Major: ");
+            String major = sc.nextLine();
+
+            int slots = 0;
+            while (true) {
+                try {
+                    System.out.print("Enter Number of Slots: ");
+                    slots = Integer.parseInt(sc.nextLine());
+                    if (slots > 0 && slots <= 10) break;
+                    System.out.println("Slots must be between 1 and 10.");
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter a valid number.");
                 }
             }
-            catch (NumberFormatException e) {}
-        }
-        
-        System.out.print("Enter preferred major: ");
-        String major = sc.nextLine();
 
-        LocalDate openDate = null;
-        while (true) {
-            try {
-                System.out.print("Enter opening date (YYYY-MM-DD): ");
-                openDate = LocalDate.parse(sc.nextLine());
-                break;
-            }
-            catch (DateTimeParseException e) {}
-        }
+            // Auto-set dates for simplicity (Open: Now, Close: +1 Month)
+            LocalDate openDate = LocalDate.now();
+            LocalDate closeDate = openDate.plusMonths(1);
 
-        LocalDate closeDate = null;
-        while (true) {
-            try {
-                System.out.print("Enter closing date (YYYY-MM-DD): ");
-                closeDate = LocalDate.parse(sc.nextLine());
-                break;
-            }
-            catch (DateTimeParseException e) {}
-        }
+            // Create Reps List containing the current user
+            List<String> reps = new ArrayList<>();
+            reps.add(repName);
 
-        int slots = 0;
-        while (true) {
-            try {
-                System.out.print("Enter number of slots: ");
-                slots = Integer.parseInt(sc.nextLine());
-                break;
-            }
-            catch (NumberFormatException e) {}
-        }
+            // Create Empty Applications List
+            List<Integer> appIds = new ArrayList<>();
 
-        // [Fixed] Updated to match Internship.java constructor (13 args)
-        // Providing default values for fields not entered by user
-        return new Internship(
-            -1,                         // Index (Manager will handle this)
-            title, 
-            desc, 
-            level, 
-            major, 
-            openDate, 
-            closeDate, 
-            InternshipStatus.PENDING,   // Default Status
-            companyName, 
-            slots, 
-            coMgr.getCompany(companyName).getEmployees(),          // Empty list for Reps
-            new ArrayList<>(),          // Empty list for Applications
-            true                        // Default Visibility
-        );
+            // Create the Internship Object
+            // Index is set to -1 here; InternshipManager.submitInternship() will fix it later
+            return new Internship(
+                -1, 
+                title, 
+                description, 
+                level, 
+                major, 
+                openDate, 
+                closeDate, 
+                InternshipStatus.PENDING, 
+                companyName, 
+                slots, 
+                reps, 
+                appIds, 
+                true // Default Visibility: true
+            );
+
+        } catch (Exception e) {
+            System.out.println("Error creating internship: " + e.getMessage());
+            return null;
+        }
     }
 }

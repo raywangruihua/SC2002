@@ -98,34 +98,43 @@ public class StudentPage extends UserPage<Student> {
 	 * Creates internship application for student given student is applicable 
 	 */
 	public InternshipApplication applyInternship(int yearOfStudy, String id, String name){
-		int index = -1;
-		while (true) {
-			try {
-				System.out.print("Enter internship index: ");
-				index = Integer.parseInt(sc.nextLine());
-				break;
-			}
-			catch (NumberFormatException e) {}
-		}
+	    long activeApps = account.getApplications().stream()
+	        .map(app -> appMgr.getApplicationStatus(app))
+	        .filter(s -> s == ApplicationStatus.Pending || s == ApplicationStatus.Successful)
+	        .count();
 
-		if (!internMgr.checkInternshipExists(index)) {System.out.println("Internship does not exist!"); return null;}
+	    if (activeApps >= 3) {
+	        System.out.println("FAILURE: You have reached the limit of 3 active applications.");
+	        return null;
+	    }
 
-		else if ((internMgr.getInternshipLevel(index) != InternshipLevel.Basic) && ((yearOfStudy == 1) || (yearOfStudy == 2))){
-			System.out.println("Internship level too high for student."); 
-			return null;
-		}
+	    int index = -1;
+	    while (true) {
+	        try {
+	            System.out.print("Enter internship index: ");
+	            index = Integer.parseInt(sc.nextLine());
+	            break;
+	        }
+	        catch (NumberFormatException e) {}
+	    }
 
-		else if (checkApplied(name, index) == true){
-			System.out.println("Student already applied for internship."); 
-			return null;
-		}
-
-		else {
-			// create new application
-			InternshipApplication application = internMgr.applyInternship(index, id, name);
-			// add application to studentpending
-			return application;
-		}
+	    if (!internMgr.checkInternshipExists(index)) {
+	        System.out.println("Internship does not exist!"); 
+	        return null;
+	    }
+	    // Logic Check: Year 1/2 cannot apply for Intermediate/Advanced
+	    else if ((internMgr.getInternshipLevel(index) != InternshipLevel.Basic) && ((yearOfStudy == 1) || (yearOfStudy == 2))){
+	        System.out.println("Internship level too high for student."); 
+	        return null;
+	    }
+	    else if (checkApplied(name, index) == true){
+	        System.out.println("Student already applied for internship."); 
+	        return null;
+	    }
+	    else {
+	        InternshipApplication application = internMgr.applyInternship(index, id, name);
+	        return application;
+	    }
 	}
 
 	/**

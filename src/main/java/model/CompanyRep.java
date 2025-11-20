@@ -25,4 +25,5 @@ public class CompanyRep extends Account {
 	public String toString() {
 		return "UserID: " + getUserID() + " Name: " + getName() + " Company: " + getCompanyName() + " Department: " + getDepartment() + " Positon: " + getPosition();
 	}
+	
 }

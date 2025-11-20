@@ -55,7 +55,7 @@ public class CompanyRepPage extends UserPage<CompanyRep> {
 			}
 
             switch (option) {
-                case 1 -> createInternship(account.getCompanyName());
+                case 1 -> createInternship();
                 case 2 -> viewInternships(account.getCompanyName());
                 case 3 -> {
                     while (true) {
@@ -131,13 +131,18 @@ public class CompanyRepPage extends UserPage<CompanyRep> {
 	 * 
 	 * @param numInternships
 	 */
-	public void createInternship(String companyName) {
-		if (coMgr.getNumInternships(companyName) >= 5) System.out.println("\nNumber of internships exceeded.");
-
-		InternshipCreation form = new InternshipCreation(companyName, coMgr, sc);
-		internMgr.createInternship(form.submit());
-		coMgr.incrementInternships(companyName);
-		System.out.println("Internship submitted for approval.");
+	public void createInternship() {
+	    // 1. Use the form to gather data (it creates an object with Index -1)
+	    forms.InternshipCreation form = new forms.InternshipCreation(sc, account.getCompanyName(), account.getName());
+	    Internship newInternship = form.submit();
+	    
+	    if (newInternship != null) {
+	        // 2. Pass it to Manager to Fix ID and Save
+	        internMgr.submitInternship(newInternship);
+	        // Success message is printed inside the manager
+	    } else {
+	        System.out.println("Internship creation cancelled.");
+	    }
 	}
 
 	/**

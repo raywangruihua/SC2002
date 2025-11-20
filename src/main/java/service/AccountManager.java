@@ -19,6 +19,7 @@ import enums.LoginStatus;
  * @see Student
  */
 public class AccountManager {
+	private String studentPath, staffPath, repPath;
 	private List<Account> accounts;
 	private List<Account> pending;
 
@@ -30,11 +31,15 @@ public class AccountManager {
 	 * @param staffsFilepath Filepath of staff accounts csv
 	 */
 	public AccountManager(String studentsFilepath, String staffsFilepath, String companyRepsFilepath) {
+		this.studentPath = studentsFilepath;
+		this.staffPath = staffsFilepath;
+		this.repPath = companyRepsFilepath;
+		
 		accounts = new ArrayList<>();
 		CSVHandler csvHandler = new CSVHandler();
 		accounts.addAll(csvHandler.readStudents(studentsFilepath));
-        accounts.addAll(csvHandler.readStaffs(staffsFilepath));       // Missing in CSVHandler
-        accounts.addAll(csvHandler.readCompanyReps(companyRepsFilepath)); // Missing in CSVHandler
+        accounts.addAll(csvHandler.readStaffs(staffsFilepath));       
+        accounts.addAll(csvHandler.readCompanyReps(companyRepsFilepath));
 
 		pending = new ArrayList<>();
 	}
@@ -72,18 +77,30 @@ public class AccountManager {
 	 * 
 	 */
 	public LoginStatus checkValid(String userID, String password) {
-		for (Account acc: accounts){
-			// correct userID and password
-			if ((acc.getUserID().equals(userID)) && (acc.getPassword().equals(password))){
-				return LoginStatus.Valid;
-			}
-			// correct userID but incorrect password
-			if ((acc.getUserID().equals(userID)) && !(acc.getPassword().equals(password))){
-				return LoginStatus.IncorrectPassword; 
-			}
-		}
-		// userID doesnt exist 
-		return LoginStatus.Invalid;
+	    if (checkPending(userID)) {
+	        System.out.println("LOGIN FAILED: Your account is pending approval from Career Center Staff.");
+	        util.AuditLogger.log("LOGIN_ATTEMPT_PENDING", userID, "User tried to log in while pending");
+	        return LoginStatus.Invalid;
+	    }
+	    // ---------------------------------
+
+	    for (Account acc : accounts) {
+	        if (acc.getUserID().equals(userID)) {
+	            if (acc.isLocked()) {
+	                 System.out.println("Account is locked due to too many failed attempts.");
+	                 return LoginStatus.Invalid; 
+	            }
+	            if (acc.getPassword().equals(password)) {
+	                acc.resetFailedAttempts();
+	                return LoginStatus.Valid;
+	            } else {
+	                acc.incrementFailedAttempts();
+	                return LoginStatus.IncorrectPassword;
+	            }
+	        }
+	    }
+	    util.AuditLogger.log("LOGIN_UNKNOWN", userID, "User ID not found");
+	    return LoginStatus.Invalid;
 	}
 
 	/**
@@ -145,14 +162,23 @@ public class AccountManager {
 	 * @param userID
 	 * @param newPassword
 	 */
-	public void updatePassword(String userID, String newPassword) throws Exception{
-		for (Account acc : accounts){
-			if (acc.getUserID().equals(userID)){
-				acc.setPassword(newPassword);
-				return;
-			}
-		}
-		throw new Exception("Password could not be changed.");
+	public void updatePassword(String userID, String newPassword) throws Exception {
+	    boolean found = false;
+	    for (Account acc : accounts) {
+	        if (acc.getUserID().equals(userID)) {
+	            acc.setPassword(newPassword);
+	            found = true;
+	            break;
+	        }
+	    }
+
+	    if (found) {
+	        saveAllAccounts(); // <--- THIS IS THE CRITICAL MISSING LINE
+	        util.AuditLogger.log("PASSWORD_CHANGE", userID, "Password updated successfully");
+	        System.out.println("Password changed and saved to file.");
+	    } else {
+	        throw new Exception("Password could not be changed: User not found.");
+	    }
 	}
 
 	/**
@@ -171,6 +197,7 @@ public class AccountManager {
 			pending.remove(toApprove);
 			accounts.add(toApprove);
 			System.out.println("Account " + userID + " is approved.");
+			saveAllAccounts();
 		} else {
 			System.out.println("No pending account found with userID " + userID + ".");
 		}
@@ -207,6 +234,24 @@ public class AccountManager {
 			}
 		}
 		throw new IllegalArgumentException("Account does not exist");
+	}
+	
+	private void saveAllAccounts() {
+	    List<Student> students = new ArrayList<>();
+	    List<CareerCenterStaff> staffs = new ArrayList<>();
+	    List<CompanyRep> reps = new ArrayList<>();
+
+	    // Separate the single list back into types
+	    for (Account acc : accounts) {
+	        if (acc instanceof Student) students.add((Student) acc);
+	        else if (acc instanceof CareerCenterStaff) staffs.add((CareerCenterStaff) acc);
+	        else if (acc instanceof CompanyRep) reps.add((CompanyRep) acc);
+	    }
+
+	    CSVHandler csvHandler = new CSVHandler();
+	    csvHandler.writeStudents(studentPath, students);
+	    csvHandler.writeStaffs(staffPath, staffs);
+	    csvHandler.writeCompanyReps(repPath, reps);
 	}
 
 }
