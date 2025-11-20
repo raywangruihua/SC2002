@@ -88,7 +88,7 @@ public class StudentPage implements UserInterface<Student> {
 	/**
 	 * Creates internship application for student given student is applicable 
 	 */
-	public InternshipApplication applyInternship(int yearOfStudy, String id, String name) {
+	public InternshipApplication applyInternship(int yearOfStudy, String id, String name){
 		int index = -1;
 		while (true) {
 			try {
@@ -104,6 +104,7 @@ public class StudentPage implements UserInterface<Student> {
 		if ((internMgr.getInternshipLevel(index) != InternshipLevel.Basic) && ((yearOfStudy == 1) || (yearOfStudy == 2))){
 			throw new IllegalArgumentException("Application Unaccepted");
 		}
+
 		else {
 			// create new application
 			InternshipApplication application = internMgr.applyInternship(index, id, name);

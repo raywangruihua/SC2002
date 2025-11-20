@@ -6,6 +6,7 @@ import enums.ApplicationStatus;
 import model.InternshipApplication;
 import model.Student;
 import repository.Repository;
+import java.util.ArrayList;
 
 public class InternshipApplicationManager {
 	private Repository repo;
@@ -124,15 +125,22 @@ public class InternshipApplicationManager {
 		if (apps == null){
 			return;
 		}
+		List<InternshipApplication> toRemove = new ArrayList<>();
 
 		for (InternshipApplication app: apps){
 			if (app == acceptedApplication) continue; 
+			
 			status = getApplicationStatus(app);
 			
 			if (status == ApplicationStatus.Pending || status == ApplicationStatus.Successful){
 				app.setApplicationStatus(ApplicationStatus.Withdrawn);
 				app.setWithdrawalRequested(false);
+				toRemove.add(app);
 			}
+		}
+		for (InternshipApplication app: toRemove){
+			student.getApplications().remove(app);
+			repo.getInternshipApplications().remove(app);
 		}
 	}
 }
