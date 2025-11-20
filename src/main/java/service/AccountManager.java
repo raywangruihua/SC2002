@@ -87,8 +87,8 @@ public class AccountManager {
 	    for (Account acc : accounts) {
 	        if (acc.getUserID().equals(userID)) {
 	            if (acc.isLocked()) {
-	                 System.out.println("Account is locked due to too many failed attempts.");
-	                 return LoginStatus.Invalid; 
+	            	util.AuditLogger.log("LOGIN_LOCKED", userID, "Attempted login on locked account");
+	                throw new IllegalArgumentException("Account is locked due to too many failed attempts."); 
 	            }
 	            if (acc.getPassword().equals(password)) {
 	                acc.resetFailedAttempts();
@@ -173,7 +173,7 @@ public class AccountManager {
 	    }
 
 	    if (found) {
-	        saveAllAccounts(); // <--- THIS IS THE CRITICAL MISSING LINE
+	        saveAllAccounts();
 	        util.AuditLogger.log("PASSWORD_CHANGE", userID, "Password updated successfully");
 	        System.out.println("Password changed and saved to file.");
 	    } else {

@@ -1,2 +1,3 @@
-UserID,Name,Password,CompanyName,Department,Position
+ID,Name,Password,CompanyName,Department,Position
 exampleRep123,exampleRep,Password123,exampleCompany,exampleDepartment,examplePosition
+rep1,Alice,password,Google,IT,Manager

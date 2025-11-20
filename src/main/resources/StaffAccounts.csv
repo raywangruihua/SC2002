@@ -1,2 +1,4 @@
 StaffID,Name,Password,Department,Role,Email
 exampleStaff123,exampleStaff,Password123,Student Affairs,Help Desk,exampleStaff123@e.ntu.edu.sg
+123,exampleStaff,123,Student Affairs,Help Desk,exampleStaff123@e.ntu.edu.sg
+admin,exampleStaff,123,Student Affairs,Help Desk,exampleStaff123@e.ntu.edu.sg
