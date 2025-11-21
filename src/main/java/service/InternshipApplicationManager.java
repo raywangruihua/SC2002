@@ -145,6 +145,7 @@ public class InternshipApplicationManager {
 
 	/**
 	 * auto-withdraw student's application when accepted internship
+	 * @param student that accepted an application
 	 * @param application the student has accepted
 	 */
 	public void autoWithdrawApplications(Student student, InternshipApplication acceptedApplication){
