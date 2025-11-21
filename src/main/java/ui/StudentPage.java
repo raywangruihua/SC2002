@@ -231,55 +231,58 @@ public class StudentPage extends UserPage<Student> {
 			System.out.println("You have no applications to withdraw.");
 			return;
 		}
-		List<InternshipApplication> withdrawable = new ArrayList<>();
+		else {
+			List<InternshipApplication> withdrawable = new ArrayList<>();
 		
-		for (InternshipApplication app: applications){
-			ApplicationStatus status = appMgr.getApplicationStatus(app);
+			for (InternshipApplication app: applications){
+				ApplicationStatus status = appMgr.getApplicationStatus(app);
 
-			if (status != ApplicationStatus.Unsuccessful && status != ApplicationStatus.Withdrawn && !app.getWithdrawalRequested()){
-				withdrawable.add(app);
-			}
-		}
-
-		if (withdrawable.isEmpty()){
-			System.out.println("No applications are eligible for withdrawal.");
-			return;
-		}
-
-		System.out.println("Applications that can be withdrawn: ");
-		for (int i = 0; i < withdrawable.size(); i ++){
-			InternshipApplication app = withdrawable.get(i);
-			ApplicationStatus status = appMgr.getApplicationStatus(app);
-
-			System.out.println("[" + (i+1) + "]");
-			System.out.println("Internship Title     : " + app.getInternshipTitle());
-			System.out.println("Status               : " + status);
-			System.out.println("Accepted             : " + (app.getAccepted() ? "Yes" : "No"));
-			System.out.println("Withdrawal Requested : " + (app.getWithdrawalRequested() ? "Yes" : "No"));
-			System.out.println();
-		}
-		int choice = -1; 
-		while (true){
-			try{
-				System.out.print("Enter the index of the application to withdraw: ");
-            	choice = sc.nextInt();
-
-				if (choice < 1 || choice > withdrawable.size()){
-					System.out.println("Invalid index. Try again.");
-				} else {
-					break;
+				if (status != ApplicationStatus.Unsuccessful && status != ApplicationStatus.Withdrawn && !app.getWithdrawalRequested()){
+					withdrawable.add(app);
 				}
-			} catch (NumberFormatException e){
-				System.out.println("Please enter a valid number.");
-				sc.nextLine();
 			}
+
+			if (withdrawable.isEmpty()){
+				System.out.println("No applications are eligible for withdrawal.");
+				return;
+			}
+
+			System.out.println("Applications that can be withdrawn: ");
+			for (int i = 0; i < withdrawable.size(); i ++){
+				InternshipApplication app = withdrawable.get(i);
+				ApplicationStatus status = appMgr.getApplicationStatus(app);
+
+				System.out.println("[" + (i+1) + "]");
+				System.out.println("Internship Title     : " + app.getInternshipTitle());
+				System.out.println("Status               : " + status);
+				System.out.println("Accepted             : " + (app.getAccepted() ? "Yes" : "No"));
+				System.out.println("Withdrawal Requested : " + (app.getWithdrawalRequested() ? "Yes" : "No"));
+				System.out.println();
+			}
+			int choice = -1; 
+			while (true){
+				try{
+					System.out.print("Enter the index of the application to withdraw: ");
+            		choice = sc.nextInt();
+
+					if (choice < 1 || choice > withdrawable.size()){
+						System.out.println("Invalid index. Try again.");
+					} else {
+						break;
+					}
+				} catch (NumberFormatException e){
+					System.out.println("Please enter a valid number.");
+					sc.nextLine();
+				}
+			}
+			InternshipApplication selected = withdrawable.get(choice - 1);
+			if (selected.getAccepted()){
+				internMgr.requestWithdrawal(selected);
+			} else {
+				appMgr.requestWithdrawal(selected);
+			}
+			
+			System.out.println("Withdrawal request submitted.");
 		}
-		InternshipApplication selected = withdrawable.get(choice - 1);
-		if (selected.getAccepted()){
-			internMgr.requestWithdrawal(selected);
-		} else {
-			appMgr.requestWithdrawal(selected);
-		}
-		System.out.println("Withdrawal request submitted.");
 	}
 }

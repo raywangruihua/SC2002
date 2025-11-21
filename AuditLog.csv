@@ -14,3 +14,4 @@
 2025-11-20 22:30:18,LOGIN_LOCKED,admin,Attempted login on locked account
 2025-11-20 22:31:36,LOGIN_LOCKED,admin,Attempted login on locked account
 2025-11-20 22:31:58,LOGIN_UNKNOWN,staff,User ID not found
+2025-11-21 13:58:48,LOGIN_UNKNOWN,exampleCompany123,User ID not found

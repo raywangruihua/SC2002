@@ -288,9 +288,7 @@ public class InternshipManager {
 		if (internship.getNumSlots() == 0){
 			internship.setStatus(InternshipStatus.FILLED);
 			for (InternshipApplication app : repo.getInternshipApplications()){
-				if (app != application 
-				   && app.getInternshipIndex() == index
-				   && (app.getStatus() == ApplicationStatus.Pending || app.getStatus() == ApplicationStatus.Successful)){
+				if (app != application){
 					app.setApplicationStatus(ApplicationStatus.Unsuccessful);
 				}
 			}
