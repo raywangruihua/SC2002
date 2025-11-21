@@ -141,7 +141,7 @@ public class InternshipManager {
 
 	/**
 	 * count the number of internships belonging to a particular company
-	 * @param companyName
+	 * @param companyName name of the company 
 	 * @return number of internships 
 	 */
 	public int getNumInternships(String companyName) {
@@ -152,7 +152,7 @@ public class InternshipManager {
 
 	/**
 	 * add internship to the list 
-	 * @param i
+	 * @param i internship to be added
 	 */
 	public void addInternship(Internship i) {
 		repo.getInternships().add(i);
@@ -160,7 +160,7 @@ public class InternshipManager {
 
 	/**
 	 * check the number of internships 
-	 * @param companyName
+	 * @param companyName name of company to be added
 	 */
 	public void checkNumInternships(String companyName) {
 		int count = getNumInternships(companyName);
@@ -180,7 +180,7 @@ public class InternshipManager {
 
 	/**
 	 * reject the internship made
-	 * @param index
+	 * @param index of the internship to be rejected 
 	 */
 	public void rejectInternship(int index) {
 		Internship internship = getInternship(index);
@@ -192,7 +192,8 @@ public class InternshipManager {
 	/**
 	 * Set the status (eg. approved, rejected, pending) for an internship
      * Moves approved internships from Pending -> Active list
-	 * @param i
+	 * @param i internship index to be set 
+	 * @param status internship status has be added 
 	 */
 	public void setInternshipStatus(int index, InternshipStatus status) {
 		Internship target = null;
@@ -243,7 +244,7 @@ public class InternshipManager {
 
 	/**
 	 * Approve a withdrawal request for an application accepted by student
-	 * @param application
+	 * @param application to be withdrawn
 	 */
 	public void approveWithdrawal(InternshipApplication application){
 		int index = application.getInternshipIndex();
@@ -268,7 +269,7 @@ public class InternshipManager {
 
 	/**
 	 * reject a withdrawal from an internship
-	 *  @param application The internship application to reject withdrawal for
+	 *  @param application the internship application to reject withdrawal for
 	 */
 	public void rejectWithdrawal(InternshipApplication application) {
 		application.setWithdrawalRequested(false);
@@ -277,9 +278,9 @@ public class InternshipManager {
 
 	/**
 	 * student apply an internship
-	 * @param index 
-	 * @param id 
-	 * @param name 
+	 * @param index of the internship 
+	 * @param id of the student
+	 * @param name of the student 
 	 * @return internshipapplication
 	 */
 	public InternshipApplication applyInternship(int index, String id, String name) {
@@ -304,7 +305,7 @@ public class InternshipManager {
 
 	/**
 	 * reject an application for a student 
-	 * @param a
+	 * @param a application of a student 
 	 */
 	public void rejectApplication(InternshipApplication a) {
 		if (a != null) {
@@ -315,7 +316,7 @@ public class InternshipManager {
 	
    /**
 	* get withdrawal status of an internship application
-	* @param a
+	* @param a application to be added
 	* @return withdrawal status 
     */
 	public ApplicationStatus getWithdrawalStatus(InternshipApplication a) {
@@ -324,7 +325,7 @@ public class InternshipManager {
 
 	/**
 	 * student accepts a placement 
-	 * @param application
+	 * @param application to be accepted 
 	 */
 	public void acceptPlacement(InternshipApplication application){
 		int index = application.getInternshipIndex();
