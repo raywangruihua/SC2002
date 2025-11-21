@@ -1,4 +1,6 @@
 StaffID,Name,Password,Department,Role,Email
-exampleStaff123,exampleStaff,Password123,Student Affairs,Help Desk,exampleStaff123@e.ntu.edu.sg
-123,exampleStaff,123,Student Affairs,Help Desk,exampleStaff123@e.ntu.edu.sg
-admin,exampleStaff,123,Student Affairs,Help Desk,exampleStaff123@e.ntu.edu.sg
+lktan@ntu.edu.sg,Linda Tan Kai Ting,ccadmin123,Career Center,Manager,lktan@ntu.edu.sg
+mohdrahman@ntu.edu.sg,Mohd Rahman Sufyan,career2025,Career Center,Career Coach,mohdrahman@ntu.edu.sg
+cheryllim@ntu.edu.sg,Cheryl Lim Pei Zhen,clpz9988,Career Center,Senior Officer,cheryllim@ntu.edu.sg
+ongjw@ntu.edu.sg,Ong Jin Wei,jwongPass1!,Career Center,Internship Coordinator,ongjw@ntu.edu.sg
+tansh@ntu.edu.sg,Tan Shi Hui,shcareer77,Career Center,Assistant Director,tansh@ntu.edu.sg

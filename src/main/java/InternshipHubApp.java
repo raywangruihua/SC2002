@@ -19,14 +19,14 @@ import repository.*;
  * Users can login or register for an account
  */
 public class InternshipHubApp {
-	private static final String STUDENT_ACCOUNTS_PATH     = "src/main/resources/StudentAccounts.csv";
-    private static final String STAFF_ACCOUNTS_PATH       = "src/main/resources/StaffAccounts.csv";
-    private static final String COMPANY_REP_ACCOUNTS_PATH = "src/main/resources/CompanyRepAccounts.csv";
-    private static final String COMPANIES_PATH_STRING     = "src/main/resources/Companies.csv";
+	private static final String STUDENT_ACCOUNTS_PATH     = "StudentAccounts.csv";
+    private static final String STAFF_ACCOUNTS_PATH       = "StaffAccounts.csv";
+    private static final String COMPANY_REP_ACCOUNTS_PATH = "CompanyRepAccounts.csv";
+    private static final String COMPANIES_PATH_STRING     = "Companies.csv";
 
-    private static final String INTERNSHIPS_PATH          = "src/main/resources/Internships.csv";
-    private static final String APPLICATIONS_PATH         = "src/main/resources/InternshipApplications.csv";
-    private static final String PENDING_INTERNSHIPS_PATH  = "src/main/resources/PendingInternships.csv";
+    private static final String INTERNSHIPS_PATH          = "Internships.csv";
+    private static final String APPLICATIONS_PATH         = "InternshipApplications.csv";
+    private static final String PENDING_INTERNSHIPS_PATH  = "PendingInternships.csv";
 
     private static Repository repo = new Repository(
             INTERNSHIPS_PATH, 
