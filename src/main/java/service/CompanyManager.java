@@ -1,8 +1,8 @@
 package service;
 
 
-import repository.Repository;
 import model.Company;
+import repository.Repository;
 
 
 /**
@@ -12,6 +12,9 @@ import model.Company;
 public class CompanyManager {
     private Repository repo;
 
+    /**
+     * constructor
+     */
     public CompanyManager(Repository repo) {
         this.repo = repo;
     }
@@ -23,16 +26,33 @@ public class CompanyManager {
         return null;
     }
 
+    /** 
+     * get number of internships 
+     * @param companyName 
+     * @return number of internships
+     */
     public int  getNumInternships(String companyName)    {return getCompany(companyName).getNumInternships();}
 
+    /**
+     * increase number of internships under company 
+     * @param companyName
+     */
     public void incrementInternships(String companyName) {getCompany(companyName).incrementInternships();}
+    
+    /**
+     * decrease number of internships under company 
+     * @param companyName
+     */
     public void decrementInternships(String companyName) {getCompany(companyName).decrementInternships();}
 
+    /**
+     * add company to the list 
+     * @param co
+     */
     public void addCompany(Company co) {repo.addCompany(co);}
 
     /**
-     * New employee is updated in repository company list
-     * 
+     * add a new employee to the company 
      * @param acc
      * @param companyName
      */
