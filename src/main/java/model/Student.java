@@ -40,34 +40,18 @@ public class Student extends Account {
 	public String getMajor() {return major;}
 	public List<InternshipApplication> getApplications() {return applications;}
 
-	/**
-	 * student accepts an internship 
-	 * @param a
-	 */
 	public void acceptPlacement(InternshipApplication a) {
 		accepted = a;
 	}
 
-	/**
-	 * add student application to a list of applications 
-	 * @param a 
-	 */
 	public void addApplication(InternshipApplication a) {
 		applications.add(a);
 	}
 
-	/**
-	 * check if student has an internship application
-	 * @return boolean
-	 */
 	public boolean hasAcceptedPlacement(){
 		return (accepted != null);
 	}
 
-	/**
-	 * remove student application from a list of applications 
-	 * @param a
-	 */
 	public void removeApplication(InternshipApplication a){
 		this.applications.remove(a);
 	}

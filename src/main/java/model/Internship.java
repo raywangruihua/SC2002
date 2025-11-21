@@ -79,7 +79,7 @@ public class Internship {
 
 	/**
 	 * adds application to list of applications received
-	 * @param application
+	 * @param application application to be added
 	 */
 	public void addApplication(InternshipApplication application) {
 		applicationsReceived.add(application.getApplicationIndex());
@@ -87,24 +87,16 @@ public class Internship {
 
 	/**
 	 * change InternshipStatus from pending to approve or reject
-	 * @param status
+	 * @param status new status
 	 */
 	public void setStatus(InternshipStatus status) {
 		this.status = status;
 	}
 	
-	/**
-	 * 
-	 * @param index
-	 */
 	public void setIndex(int index) {
 	    this.index = index;
 	}
 
-	/**
-	 * change the visibility 
-	 * @param visibility 
-	 */
 	public void setVisibility(boolean visibility){
 		this.visibility = visibility;
 	}
@@ -116,5 +108,4 @@ public class Internship {
     public List<Integer> getApplicationsReceived() { return applicationsReceived; }
     public boolean isVisibility() { return visibility; }
     public boolean isApprovalStatus() { return status == InternshipStatus.APPROVED; }
-
 }

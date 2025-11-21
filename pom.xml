@@ -28,6 +28,7 @@
         <version>3.2.5</version>
         <configuration>
           <useModulePath>false</useModulePath>
+          <doclint>none</doclint>
         </configuration>
       </plugin>
     </plugins>

@@ -107,7 +107,7 @@ public class InternshipManager {
 	 * Returns list of sorted internships from repo based on student's year of study and major
 	 * @param yearOfStudy 
 	 * @param major 
-	 * @return list of internships based on year of study & major 
+	 * @return list of internships based on year of study and major 
 	 */
 	public List<Internship> getInternships(int yearOfStudy, String major) {
 		List<Internship> display_list = repo.getDisplayInternships(yearOfStudy, major);
@@ -192,7 +192,7 @@ public class InternshipManager {
 	/**
 	 * Set the status (eg. approved, rejected, pending) for an internship
      * Moves approved internships from Pending -> Active list
-	 * @param i internship index to be set 
+	 * @param index internship index to be set 
 	 * @param status internship status has be added 
 	 */
 	public void setInternshipStatus(int index, InternshipStatus status) {

@@ -9,9 +9,9 @@ public abstract class Account {
 
 	/**
 	 * Default constructor
-	 * @param userID
-	 * @param name
-	 * @param password
+	 * @param userID userID
+	 * @param name name
+	 * @param password password
 	 */
 	public Account(String userID, String name, String password) {
 		this.userID   = userID;
@@ -38,8 +38,7 @@ public abstract class Account {
     public boolean isLocked() {return this.failedLoginAttempts >= MAX_ATTEMPTS;}
     
     /**
-     * Getter for the number of failed attempts (optional, for display).
-	 * @return
+	 * @return number of failed logins
      */
     public int getFailedAttempts() {return failedLoginAttempts;}
 

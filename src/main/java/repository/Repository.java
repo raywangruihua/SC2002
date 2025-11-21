@@ -130,11 +130,6 @@ public class Repository {
 		applications.remove(a);
 	}
 
-	/**
-	 * Remove internship application according to application
-	 * 
-	 * @param applicaton is the application to remove from repo
-	 */
 	public void removeApplication(InternshipApplication application) {
 		applications.remove(application);
 	}

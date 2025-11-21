@@ -228,7 +228,7 @@ public class CSVHandler {
     /**
      * Write internships information into csv following standard format
      * @param filePath
-     * @param students
+     * @param internships
      */
     public void writeInternships(String filePath, List<Internship> internships) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
@@ -258,7 +258,7 @@ public class CSVHandler {
     /**
      * Write staff account information into csv following standard format
      * @param filePath
-     * @param students
+     * @param staffs
      */
     public void writeStaffs(String filePath, List<CareerCenterStaff> staffs) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
@@ -279,7 +279,7 @@ public class CSVHandler {
      /**
      * Write company representative information into csv following standard format
      * @param filePath
-     * @param students
+     * @param reps
      */
     public void writeCompanyReps(String filePath, List<CompanyRep> reps) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
@@ -301,8 +301,8 @@ public class CSVHandler {
 
     /**
      * Write company information into csv following standard format
-     * @param filePath
-     * @param students
+     * @param filepath
+     * @param companies
      */
     public void writeCompanies(String filepath, List<Company> companies) {
         try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(filepath)))) {

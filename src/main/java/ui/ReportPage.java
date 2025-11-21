@@ -163,7 +163,7 @@ public class ReportPage {
 
     /**
      * Filter internships by minimum number of applications received.
-     * Assumes getApplicationsReceived() returns a List<Integer> of application IDs.
+     * Assumes getApplicationsReceived() returns a List of Integer of application IDs.
      */
     public void filterByApplicationsReceived() {
         System.out.print("\nFiltering Min number of applications received to the MAX, Enter minimum number: ");
