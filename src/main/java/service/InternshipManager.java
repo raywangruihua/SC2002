@@ -1,8 +1,8 @@
 package service;
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
+
 import enums.ApplicationStatus;
 import enums.InternshipLevel;
 import enums.InternshipStatus;
@@ -15,7 +15,12 @@ public class InternshipManager {
 	private Repository repo;
 
 	public InternshipManager(Repository repo) {this.repo = repo;}
-
+	
+	/**
+	 * get internship based on internship index 
+	 * @param index
+	 * @return Internship
+	 */
 	public Internship getInternship(int index) {
 		for (Internship i : repo.getInternships()) if (i.getIndex() == index) return i;
         // Also check pending list
@@ -24,7 +29,8 @@ public class InternshipManager {
 	}
 
 	/**
-	 * Get pending internships according to company
+	 * Get pending internships according to company's name
+	 * @param companyName 
 	 */
 	public List<Internship> getPendingInternships(String companyName) {
 		return repo.getPendingInternships().stream()
@@ -34,6 +40,7 @@ public class InternshipManager {
 
 	/**
 	 * Get all pending internships
+	 * @return listOfInternships 
 	 */
 	public List<Internship> getPendingInternships() {
 		return repo.getPendingInternships();
@@ -41,6 +48,8 @@ public class InternshipManager {
 
 	/**
 	 * Get approved internships according to company
+	 * @param companyName 
+	 * @return list of internships based on company's name 
 	 */
 	public List<Internship> getApprovedInternships(String companyName) {
 		return repo.getInternships().stream()
@@ -48,13 +57,21 @@ public class InternshipManager {
 									.collect(Collectors.toList());
 	}
 
+	/**
+	 * check internship exists 
+	 * @param index
+	 * @return internshipExists 
+	 */
 	public boolean checkInternshipExists(int index) {
 		for (Internship i : repo.getInternships()) if (i.getIndex() == index) return true;
-        // FIX: Must also check pending list
         for (Internship i : repo.getPendingInternships()) if (i.getIndex() == index) return true;
 		return false;
 	}
 
+	/**
+	 * create a new internship
+	 * @param newInternship
+	 */
     public void submitInternship(Internship newInternship) {
         int maxId = 0;
         
@@ -88,13 +105,19 @@ public class InternshipManager {
 
 	/**
 	 * Returns list of sorted internships from repo based on student's year of study and major
+	 * @param yearOfStudy 
+	 * @param major 
+	 * @return list of internships based on year of study & major 
 	 */
 	public List<Internship> getInternships(int yearOfStudy, String major) {
 		List<Internship> display_list = repo.getDisplayInternships(yearOfStudy, major);
 		return display_list;
 	}
 
-
+	/**
+	 * toggle the visibility of the internship 
+	 * @param internshipIndex
+	 */
 	public void toggleVisibility(int internshipIndex) {
 		Internship internship = repo.getInternshipByIndex(internshipIndex);
 		internship.setVisibility(!(internship.isVisibility()));
@@ -108,14 +131,18 @@ public class InternshipManager {
         }
 	}
 
-	// Return all internships
+	/**
+	 * retrieve a whole list of internships 
+	 * @return list of internships 
+	 */
 	public List<Internship> getInternships() {
 		return repo.getInternships();
 	}
 
 	/**
-	 * Count the number of internships belonging to a particular company
+	 * count the number of internships belonging to a particular company
 	 * @param companyName
+	 * @return number of internships 
 	 */
 	public int getNumInternships(String companyName) {
 		return (int) repo.getInternships().stream()
@@ -124,13 +151,17 @@ public class InternshipManager {
 	}
 
 	/**
-	 * * @param i
+	 * add internship to the list 
+	 * @param i
 	 */
 	public void addInternship(Internship i) {
 		repo.getInternships().add(i);
 	}
 
-	// Print out how many internships a company owns
+	/**
+	 * check the number of internships 
+	 * @param companyName
+	 */
 	public void checkNumInternships(String companyName) {
 		int count = getNumInternships(companyName);
         System.out.println("Total internships for company " + companyName + ": " + count);
@@ -138,6 +169,8 @@ public class InternshipManager {
 
 	/**
 	 * Returns internship level of internship by index 
+	 * @param index of the internship 
+	 * @return InternshipLevel for that internship 
 	 */
 	public InternshipLevel getInternshipLevel(int index) {
 		Internship internship = getInternship(index); // Updated to use the smarter getInternship
@@ -145,7 +178,10 @@ public class InternshipManager {
 		return internship.getInternshipLevel();
 	}
 
-	// career staff reject the publish of internships
+	/**
+	 * reject the internship made
+	 * @param index
+	 */
 	public void rejectInternship(int index) {
 		Internship internship = getInternship(index);
         if (internship != null) {
@@ -231,7 +267,8 @@ public class InternshipManager {
 	}
 
 	/**
-	 * * @param application The internship application to reject withdrawal for
+	 * reject a withdrawal from an internship
+	 *  @param application The internship application to reject withdrawal for
 	 */
 	public void rejectWithdrawal(InternshipApplication application) {
 		application.setWithdrawalRequested(false);
@@ -239,7 +276,11 @@ public class InternshipManager {
 	}
 
 	/**
-	 * Creates internship application for students 
+	 * student apply an internship
+	 * @param index 
+	 * @param id 
+	 * @param name 
+	 * @return internshipapplication
 	 */
 	public InternshipApplication applyInternship(int index, String id, String name) {
 		Internship internship = repo.getInternshipByIndex(index);
@@ -261,7 +302,10 @@ public class InternshipManager {
 		return application;
 	}
 
-	// Reject an application and mark with rejected status
+	/**
+	 * reject an application for a student 
+	 * @param a
+	 */
 	public void rejectApplication(InternshipApplication a) {
 		if (a != null) {
             a.setApplicationStatus(ApplicationStatus.Unsuccessful);
@@ -269,14 +313,18 @@ public class InternshipManager {
         }
 	}
 	
-   // Retrieve withdrawal status of a given application
+   /**
+	* get withdrawal status of an internship application
+	* @param a
+	* @return withdrawal status 
+    */
 	public ApplicationStatus getWithdrawalStatus(InternshipApplication a) {
 		return a != null ? a.getStatus() : null;
 	}
 
 	/**
-	 * student accepts a placement for internship
-	 * @application
+	 * student accepts a placement 
+	 * @param application
 	 */
 	public void acceptPlacement(InternshipApplication application){
 		int index = application.getInternshipIndex();
