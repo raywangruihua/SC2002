@@ -1,12 +1,13 @@
 package service;
-import util.CSVHandler;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import enums.LoginStatus;
 import model.Account;
 import model.CareerCenterStaff;
 import model.CompanyRep;
 import model.Student;
-import enums.LoginStatus;
+import util.CSVHandler;
 
 /**
  * Loads all existing accounts from csv file and stores them in a list
@@ -26,7 +27,6 @@ public class AccountManager {
 	/**
 	 * Load all pre-exisiting accounts into memory
 	 * Accounts without password are assigned default passwords
-	 * 
 	 * @param studentsFilepath Filepath of student accounts csv
 	 * @param staffsFilepath Filepath of staff accounts csv
 	 */
@@ -46,14 +46,15 @@ public class AccountManager {
 
 	/**
 	 * Get all pending accounts
-	 * @return
+	 * @return list of pending accounts 
 	 */
 	public List<Account> getPendingAccounts() {
 		return pending;
 	}
 
 	/**
-	 * Get pending Company Representative account
+	 * get pending Company Representative account
+	 * @return CompanyRep 
 	 */
 	public CompanyRep getPendingAccount(String userID) {
 		for (Account acc : pending) {
@@ -62,6 +63,9 @@ public class AccountManager {
 		return null;
 	}
 
+	/**
+	 * print accounts
+	 */
 	public void printAccounts() {
 		for (Account acc : accounts) {
 			System.out.println(acc);
@@ -69,10 +73,8 @@ public class AccountManager {
 	}
 
 	/**
-	 * Check if login information is valid
-	 * 
+	 * check if login information is valid
 	 * @see LoginStatus
-	 * 
 	 * @return Validity of login information
 	 * 
 	 */
@@ -104,7 +106,7 @@ public class AccountManager {
 	}
 
 	/**
-	 * Add account to pending list if it isn't a duplicate
+	 * add account to pending list if it isn't a duplicate
 	 * @param acc
 	 */
 	public void register(Account acc) {
@@ -115,9 +117,9 @@ public class AccountManager {
 	}
 
 	/**
-	 * Check if account already exists by searching for user ID
+	 * check if account already exists by searching for userID
 	 * @param acc
-	 * @return Whether account exists
+	 * @return whether account exists
 	 */
 	public boolean checkExists(Account acc) {
 		for (Account existingAccount : accounts){
@@ -129,8 +131,8 @@ public class AccountManager {
 	}
 
 	/**
-	 * @param userID
-	 * @return Whether user ID is taken
+	 * @param userID of student
+	 * @return whether user ID is taken
 	 */
 	public boolean checkExists(String userID) {
 		for (Account acc : accounts){
@@ -159,6 +161,7 @@ public class AccountManager {
 	}
 
 	/**
+	 * user wants to update password 
 	 * @param userID
 	 * @param newPassword
 	 */
@@ -182,7 +185,7 @@ public class AccountManager {
 	}
 
 	/**
-	 * Move company representative account from pending list to account list
+	 * approve account by moving company representative account from pending list to account list
 	 * @param userID 
 	 */
 	public void approveAccount(String userID) {
@@ -204,11 +207,10 @@ public class AccountManager {
 	}
 
 	/**
-	 * Remove company representative account from pending list
+	 * remove company representative account from pending list
 	 * @param userID
 	 */
 	public void removePending(String userID) {
-		// TODO - implement AccountManager.removePending
 		Account toReject = null; 
 		for (Account acc: pending){
 			if (acc.getUserID().equals(userID)){
@@ -226,6 +228,8 @@ public class AccountManager {
 
 	/**
 	 * Returns account based on UserID
+	 * @param userID 
+	 * @return account 
 	 */
 	public Account getAccount(String userID) throws IllegalArgumentException {
 		for (Account account: accounts) {
@@ -235,6 +239,7 @@ public class AccountManager {
 		}
 		throw new IllegalArgumentException("Account does not exist");
 	}
+	
 	
 	private void saveAllAccounts() {
 	    List<Student> students = new ArrayList<>();
