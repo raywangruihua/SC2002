@@ -14,13 +14,23 @@ public class InternshipCreation {
     private String companyName;
     private String repName;
 
-    // This is the constructor your CompanyRepPage is looking for
+    /**
+    * Constructor to create InternshipCreation object
+    *
+    * @param sc is the Scanner object created used throughout this class
+    * @param companyName is the name of company that is creating a new internship
+    * @param repName is the name of the company representative that created the new internship
+    */
     public InternshipCreation(Scanner sc, String companyName, String repName) {
         this.sc = sc;
         this.companyName = companyName;
         this.repName = repName;
     }
 
+    /**
+    * Submits new internship created by company representative by providing prompts
+    * Displays error when wrong value/parameter
+    */
     public Internship submit() {
         try {
             System.out.println("\n--- Create New Internship ---");

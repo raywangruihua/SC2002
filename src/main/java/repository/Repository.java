@@ -53,7 +53,11 @@ public class Repository {
 
 	/**
 	 * Get internship application according to application index
-	 * Returns null if not found
+	 * 
+	 * @param applicationIndex is passed through to find specific appliction from repo
+	 * 
+	 * @return application if found
+	 * @return null if not found
 	 */
 	public InternshipApplication getInternshipApplication(int applicationIndex) {
 		for (InternshipApplication a : applications) {
@@ -72,7 +76,7 @@ public class Repository {
 	 */
 	public void createInternship(Internship i) {pendingInternships.add(i);}
 
-	/* 
+	/**
 	 * Returns internship based off index
 	 */
 	public Internship getInternshipByIndex(int index){
@@ -84,8 +88,13 @@ public class Repository {
 		throw new IllegalArgumentException("Internship with index " + index + " not found.");
 	}
 
-	/* 
+	/**
 	 * Returns list of internships to display for students
+	 * 
+	 * @param yearOfStudy is the year of study of the student 
+	 * @param major is the major of the student 
+	 * 
+	 * @return the list of sorted internships
 	 */
 	public List<Internship> getDisplayInternships(int yearOfStudy, String major){
 		List<Internship> display_list = Sort.sortByMajor(internships, major);
@@ -94,8 +103,11 @@ public class Repository {
 		return display_list;
 	}
 
-	/* 
+	/**
 	 * Returns list of visbile internships for viewing
+	 * 
+	 * @param internships is the list of internships for display that needs sorting based on visbility
+	 * @return list of internships that are visible
 	 */
 	public static List<Internship> showVisible(List<Internship> internships){
 		List<Internship> visible_list = new ArrayList<>();
@@ -105,8 +117,10 @@ public class Repository {
 		return visible_list;
 	}
 
-	/* 
+	/**
 	 * Adds new internship application to list of applications
+	 * 
+	 * @param application is the internship application to add into the repo
 	 */
 	public void addApplication(InternshipApplication application){
 		applications.add(application);
@@ -114,6 +128,8 @@ public class Repository {
 
 	/**
 	 * Remove internship application according to application index if it exists
+	 * 
+	 * @param applicationIndex is the index of the applicaton to remove form the repo
 	 */
 	public void removeApplication(int applicationIndex) {
 		InternshipApplication a = getInternshipApplication(applicationIndex);
@@ -122,13 +138,19 @@ public class Repository {
 
 	/**
 	 * Remove internship application according to application
+	 * 
+	 * @param applicaton is the application to remove from repo
 	 */
 	public void removeApplication(InternshipApplication application) {
 		applications.remove(application);
 	}
 
-	/* 
+	/**
 	 * Returns application status of applications
+	 * 
+	 * @param application is the application that requires application status
+	 * @return application status 
+	 * @return null if application not found
 	 */
 	public ApplicationStatus getApplicationStatus(InternshipApplication application){
 		for (InternshipApplication a: applications){
@@ -140,6 +162,9 @@ public class Repository {
 		return null;
 	}
 
+	/**
+	 * adds all information from CSV
+	 */
 	public void saveAll() {
         csvHandler.writeStudents(studentFilePath, this.students);
         
@@ -150,15 +175,30 @@ public class Repository {
         System.out.println("Repository saved to file.");
     }
 
+	/**
+	 * Adds new student object into list of students
+	 * @param s is the new student
+	 */
     public void addStudent(Student s) {
         this.students.add(s);
         saveAll(); 
     }
 
+	/**
+	 * Returns the list of students in repo
+	 * @return
+	 */
     public List<Student> getStudents() {
         return students;
     }
 
+	/**
+	 * Returns student based on student ID
+	 * 
+	 * @param id userID of student in UXXXXXXXA format
+	 * @return student object of corresponding student ID
+	 * @return null if not found
+	 */
 	public Student getStudentByID(String id){
 		for (Student s : students){
 			if (s.getUserID().equals(id)){

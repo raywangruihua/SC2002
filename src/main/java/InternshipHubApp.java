@@ -19,14 +19,15 @@ import repository.*;
  * Users can login or register for an account
  */
 public class InternshipHubApp {
-	private static final String STUDENT_ACCOUNTS_PATH     = "StudentAccounts.csv";
-    private static final String STAFF_ACCOUNTS_PATH       = "StaffAccounts.csv";
-    private static final String COMPANY_REP_ACCOUNTS_PATH = "CompanyRepAccounts.csv";
-    private static final String COMPANIES_PATH_STRING     = "Companies.csv";
+    private static final String DATA_PATH = "src/main/resources/";
+	private static final String STUDENT_ACCOUNTS_PATH     = DATA_PATH + "StudentAccounts.csv";
+    private static final String STAFF_ACCOUNTS_PATH       = DATA_PATH + "StaffAccounts.csv";
+    private static final String COMPANY_REP_ACCOUNTS_PATH = DATA_PATH + "CompanyRepAccounts.csv";
+    private static final String COMPANIES_PATH_STRING     = DATA_PATH + "Companies.csv";
 
-    private static final String INTERNSHIPS_PATH          = "Internships.csv";
-    private static final String APPLICATIONS_PATH         = "InternshipApplications.csv";
-    private static final String PENDING_INTERNSHIPS_PATH  = "PendingInternships.csv";
+    private static final String INTERNSHIPS_PATH          = DATA_PATH + "Internships.csv";
+    private static final String APPLICATIONS_PATH         = DATA_PATH + "InternshipApplications.csv";
+    private static final String PENDING_INTERNSHIPS_PATH  = DATA_PATH + "PendingInternships.csv";
 
     private static Repository repo = new Repository(
             INTERNSHIPS_PATH, 
@@ -35,7 +36,7 @@ public class InternshipHubApp {
             STUDENT_ACCOUNTS_PATH,
             COMPANIES_PATH_STRING
         );
-    
+
     private static AccountManager               accMgr      = new AccountManager(STUDENT_ACCOUNTS_PATH, STAFF_ACCOUNTS_PATH, COMPANY_REP_ACCOUNTS_PATH);
     /// Future implementation : Save repository offline
     /// Managers have access to repo
@@ -47,6 +48,10 @@ public class InternshipHubApp {
     private static LoginPage                    loginPage   = new LoginPage(accMgr, coMgr, sc);
     private static Account                      acc;
 
+    /**
+     * Displays login page with options of internship hub app 
+     * Gets account from login and filters the type of account 
+     */
     public static void login() {
         acc = loginPage.display();
 
@@ -58,6 +63,10 @@ public class InternshipHubApp {
         else System.out.println("Unknown account type.");
     }
 
+    /**
+     * Displays student page login page with options for students 
+     * Reprints login page for internship hub app when exited 
+     */
     public static void student() {
         Student studentAcc = (Student) acc;
         StudentPage studentPage = new StudentPage(studentAcc, accMgr, internMgr, appMgr, sc);
@@ -65,6 +74,10 @@ public class InternshipHubApp {
         login();
     }
 
+    /**
+     * Displays company representative page login page with options for company representatives 
+     * Reprints login page for internship hub app when exited 
+     */
     public static void companyRep() {
         CompanyRep repAcc = (CompanyRep) acc;
         CompanyRepPage repPage = new CompanyRepPage(repAcc, accMgr, internMgr, appMgr, coMgr, sc);
@@ -72,6 +85,10 @@ public class InternshipHubApp {
         login();
     }
 
+    /**
+     * Displays career center staff page login page with options for career center staff 
+     * Reprints login page for internship hub app when exited 
+     */
     public static void careerCenterStaff() {
         CareerCenterStaff staffAcc = (CareerCenterStaff) acc;
         CareerCenterStaffPage staffPage = new CareerCenterStaffPage(staffAcc, accMgr, sc, internMgr, appMgr, coMgr);
