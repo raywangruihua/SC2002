@@ -20,13 +20,17 @@ import model.*;
 
 /**
  * Util class that reads and writes
- * 
  */
-
 public class CSVHandler {
 
-    // --- READ METHODS ---
+    //----------------------------------- Read Methods -----------------------------------
 
+    /**
+     * Read students csv file into an array list of students
+     * Refer to resources folder for student accounts format
+     * @param filePath
+     * @return
+     */
     public List<Student> readStudents(String filePath) {
         List<Student> students = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -49,6 +53,12 @@ public class CSVHandler {
         return students;
     }
 
+    /**
+     * Read career center staff csv file into an array list of career center staff account types
+     * Refer to resources folder for career center staff accounts format
+     * @param filePath
+     * @return
+     */
     public List<CareerCenterStaff> readStaffs(String filePath) {
         List<CareerCenterStaff> staffs = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -57,13 +67,11 @@ public class CSVHandler {
             while ((line = br.readLine()) != null) {
                 if (isHeader) { isHeader = false; continue; }
                 
-                // FIX: Regex split
                 String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 for(int i=0; i<data.length; i++) data[i] = clean(data[i]);
 
                 if (data.length < 4) continue;
 
-                // ID, Name, Password, Department
                 CareerCenterStaff s = new CareerCenterStaff(data[0], data[1], data[2], data[3]);
                 staffs.add(s);
             }
@@ -73,6 +81,12 @@ public class CSVHandler {
         return staffs;
     }
 
+    /**
+     * Read company representatives csv file into an array list of company representative account types
+     * Refer to resources folder for career center staff accounts format
+     * @param filePath
+     * @return
+     */
     public List<CompanyRep> readCompanyReps(String filePath) {
         List<CompanyRep> reps = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -98,6 +112,12 @@ public class CSVHandler {
         return reps;
     }
 
+    /**
+     * Read internship csv file into an array list of internships
+     * Refer to resources folder for internship format
+     * @param filePath
+     * @return
+     */
     public List<Internship> readInternships(String filePath) {
         List<Internship> internships = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -144,6 +164,12 @@ public class CSVHandler {
         return internships;
     }
 
+    /**
+     * Read companies csv file into an array list of companies
+     * Refer to resources folder for company format
+     * @param companiesFilePath
+     * @return
+     */
     public List<Company> readCompanies(String companiesFilePath) {
         List<Company> companies = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(companiesFilePath))) {
@@ -152,7 +178,6 @@ public class CSVHandler {
             while ((line = br.readLine()) != null) {
                 if (isHeader) {isHeader = false; continue;}
                 
-                // FIX: Regex split
                 String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
                 for(int i=0; i<data.length; i++) data[i] = clean(data[i]);
 
@@ -175,8 +200,13 @@ public class CSVHandler {
         return companies;
     }
 
-    // --- WRITE METHODS ---
+    //----------------------------------- Write Methods -----------------------------------
 
+    /**
+     * Write student account information into csv following standard format
+     * @param filePath
+     * @param students
+     */
     public void writeStudents(String filePath, List<Student> students) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
             pw.println("StudentID,Name,Password,Year,Major,Email");
@@ -195,6 +225,11 @@ public class CSVHandler {
         }
     }
 
+    /**
+     * Write internships information into csv following standard format
+     * @param filePath
+     * @param students
+     */
     public void writeInternships(String filePath, List<Internship> internships) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
             pw.println("Index,Title,Level,PreferredMajor,OpenDate,CloseDate,Status,CompanyName,Slots,Representatives,ApplicationsReceived,Visibility,Description");
@@ -220,6 +255,11 @@ public class CSVHandler {
         }
     }
     
+    /**
+     * Write staff account information into csv following standard format
+     * @param filePath
+     * @param students
+     */
     public void writeStaffs(String filePath, List<CareerCenterStaff> staffs) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
             pw.println("ID,Name,Password,Department");
@@ -236,6 +276,11 @@ public class CSVHandler {
         }
     }
 
+     /**
+     * Write company representative information into csv following standard format
+     * @param filePath
+     * @param students
+     */
     public void writeCompanyReps(String filePath, List<CompanyRep> reps) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filePath, false))) {
             pw.println("ID,Name,Password,CompanyName,Department,Position");
@@ -254,6 +299,11 @@ public class CSVHandler {
         }
     }
 
+    /**
+     * Write company information into csv following standard format
+     * @param filePath
+     * @param students
+     */
     public void writeCompanies(String filepath, List<Company> companies) {
         try (PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(filepath)))) {
             pw.println("Company Name,Number of Internships,Employees");
@@ -271,8 +321,13 @@ public class CSVHandler {
         }
     }
 
-    // ---  HELPERS ---
+    //----------------------------------- Helper Methods -----------------------------------
 
+    /**
+     * Removes "\" characters from string
+     * @param input
+     * @return
+     */
     private String clean(String input) {
         if (input != null && input.startsWith("\"") && input.endsWith("\"")) {
             return input.substring(1, input.length() - 1);
@@ -280,23 +335,48 @@ public class CSVHandler {
         return input;
     }
 
+    /**
+     * Replace "," characters to ";" in a string
+     * @param input
+     * @return
+     */
     private String sanitize(String input) { return input == null ? "null" : input.replace(",", ";"); }
     
+    /**
+     * Flattens a list of strings into a string separated with ";" characters
+     * @param list
+     * @return
+     */
     private String listToString(List<String> list) {
         if (list == null || list.isEmpty()) return "null";
         return String.join(";", list);
     }
 
+    /**
+     * Flattens a list of integers into a string separated with ";" characters
+     * @param list
+     * @return
+     */
     private String integerListToString(List<Integer> list) {
         if (list == null || list.isEmpty()) return "null";
         return list.stream().map(String::valueOf).collect(Collectors.joining(";"));
     }
 
+    /**
+     * Tokenise string input into list of strings with delimiter "[:/;]"
+     * @param input
+     * @return
+     */
     private List<String> parseList(String input) {
         if (input == null || input.equals("null") || input.isEmpty()) return new ArrayList<>();
         return new ArrayList<>(Arrays.asList(input.split("[:/;]"))); 
     }
 
+    /**
+     * Tokenise string input into a list of integers with delimiter "[:/;]"
+     * @param input
+     * @return
+     */
     private List<Integer> parseIntegerList(String input) {
         List<Integer> list = new ArrayList<>();
         if (input == null || input.equals("null") || input.isEmpty()) return list;
@@ -306,6 +386,11 @@ public class CSVHandler {
         return list;
     }
 
+    /**
+     * Turn string input into LocalDate object type
+     * @param input
+     * @return
+     */
     private LocalDate parseDate(String input) {
         if (input == null || input.isEmpty()) return null;
         try {
@@ -319,6 +404,11 @@ public class CSVHandler {
         }
     }
 
+    /**
+     * Turn string input into InternshipStatus enum type
+     * @param input
+     * @return
+     */
     private InternshipStatus parseStatus(String input) {
         try {
             return InternshipStatus.valueOf(input); 
@@ -327,6 +417,11 @@ public class CSVHandler {
         }
     }
 
+    /**
+     * Turn string input into InternshipLevel enum type
+     * @param input
+     * @return
+     */
     private InternshipLevel parseLevel(String input) {
         try {
             return InternshipLevel.valueOf(input); 

@@ -6,12 +6,6 @@ package model;
  * @see CompanyRep
 */
 public abstract class Account {
-
-	/**
-	 * @param userID   
-	 * @param name     
-	 * @param password 
-	 */
 	private final String userID;
 	private final String name;
 	private 	  String password;
@@ -19,7 +13,10 @@ public abstract class Account {
     private static final int MAX_ATTEMPTS = 3;
 
 	/**
-	 * @param password Default password is "password"
+	 * Default constructor
+	 * @param userID
+	 * @param name
+	 * @param password
 	 */
 	public Account(String userID, String name, String password) {
 		this.userID   = userID;
@@ -27,62 +24,29 @@ public abstract class Account {
 		this.password = password;
 	}
 
-	/**
-	 * @return userID
-	 */
-	public String getUserID() {
-		return this.userID;
-	}
+	public String getUserID() 					  {return this.userID;}
+	public String getName() 					  {return this.name;}
+	public String getPassword() 				  {return this.password;}
+	public void   setPassword(String newPassword) {this.password = newPassword;}
+
+	public void   incrementFailedAttempts() 	  {this.failedLoginAttempts++;}
 
 	/**
-	 * @return name
+	 * Resets the failure counter to 0 (used on successful login).
 	 */
-	public String getName() {
-		return this.name;
-	}
-
-	/**
-	 * @return password
-	 */
-	public String getPassword() {
-		return this.password; 
-	}
-	
-	/**
-	 * Change user's password
-	 */
-	public void setPassword(String newPassword) {
-		this.password = newPassword; 
-	}
-	
-	/**
-     * Increases the failure counter by 1.
-     */
-	public void incrementFailedAttempts() {
-        this.failedLoginAttempts++;
-    }
-
-    /**
-     * Resets the failure counter to 0 (used on successful login).
-     */
-    public void resetFailedAttempts() {
-        this.failedLoginAttempts = 0;
-    }
+    public void resetFailedAttempts() {this.failedLoginAttempts = 0;}
 
     /**
      * Checks if the user is locked out.
      * @return true if attempts >= 3
      */
-    public boolean isLocked() {
-        return this.failedLoginAttempts >= MAX_ATTEMPTS;
-    }
+    public boolean isLocked() {return this.failedLoginAttempts >= MAX_ATTEMPTS;}
     
     /**
      * Getter for the number of failed attempts (optional, for display).
+	 * @return
      */
-    public int getFailedAttempts() {
-        return failedLoginAttempts;
-    }
+    public int getFailedAttempts() {return failedLoginAttempts;}
 
 	@Override
 	public String toString() {

@@ -6,7 +6,6 @@ package model;
  * @see Account
  */
 public class CareerCenterStaff extends Account {
-
 	private String staffDepartment;
 
 	public CareerCenterStaff(String userID, String name, String password, String department) {
@@ -14,11 +13,7 @@ public class CareerCenterStaff extends Account {
 		this.staffDepartment = department;
 	}
 
-	public String getDepartment() {
-		return this.staffDepartment;
-	}
+	public String getDepartment() {return this.staffDepartment;}
 
-	public void setDepartment(String department) {
-		this.staffDepartment = department;
-	}
+	public void setDepartment(String department) {this.staffDepartment = department;}
 }
