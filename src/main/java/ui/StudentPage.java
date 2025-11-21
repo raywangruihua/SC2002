@@ -70,8 +70,10 @@ public class StudentPage extends UserPage<Student> {
         }
 	}
 	
-	/* 
+	/** 
+	 * 
 	 * Displays internship information by index, title, internship level, company name and description
+	 * @param display_list
 	 */
 	public void displayInternships(List<Internship> display_list) {
 		if (display_list == null){
@@ -86,6 +88,8 @@ public class StudentPage extends UserPage<Student> {
 
 	/**
 	 * Retrieves all internships student can apply for through internshipmanager
+	 * @param yearOfStudy
+	 * @param major
 	 */
 	public void viewInternships(int yearOfStudy, String major) {
 		System.out.println("-----Internships-----");
@@ -96,6 +100,10 @@ public class StudentPage extends UserPage<Student> {
 
 	/**
 	 * Creates internship application for student given student is applicable 
+	 * @param yearOfStudy
+	 * @param id
+	 * @param name
+	 * @return
 	 */
 	public InternshipApplication applyInternship(int yearOfStudy, String id, String name){
 	    long activeApps = account.getApplications().stream()
@@ -155,6 +163,9 @@ public class StudentPage extends UserPage<Student> {
 
 	/**
 	 * Checks whether internship to apply exists in student applied internships
+	 * @param name
+	 * @param index
+	 * @return
 	 */
 	public boolean checkApplied(String name, int index) {
 		List<InternshipApplication> applications = appMgr.getApplications(index);
@@ -224,7 +235,10 @@ public class StudentPage extends UserPage<Student> {
 
 		System.out.println("Placement accepted successfully. Other applications have been withdrawn.");
 	}
-
+	/**
+	 * check whether student account to apply exists in account
+	 * @param account
+	 */
 	public void withdrawApplication(Student account) {
 		List<InternshipApplication> applications = account.getApplications();
 		if (applications == null || applications.isEmpty()){

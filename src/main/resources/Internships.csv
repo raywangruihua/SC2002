@@ -1,4 +1,5 @@
 Index,Title,Level,PreferredMajor,OpenDate,CloseDate,Status,CompanyName,Slots,Representatives,ApplicationsReceived,Visibility,Description
+<<<<<<< HEAD
 1,Software Engineering Intern,Basic,Computer Science,2025-11-15,2026-01-31,FILLED,Grab,3,jason.lim@grab.com,0,True,Work with Grab engineering teams to prototype and build features for the Grab super app.
 2,Data Analytics Intern,Basic,Data Science,2025-11-20,2026-02-15,APPROVED,DBS Bank,2,amelia.choo@dbs.com,0,True,Support the DBS data team in dashboard development and insight generation for retail banking.
 3,Network Engineering Intern,Intermediate,Computer Engineering,2025-11-18,2026-01-25,APPROVED,Singtel,2,rajiv.menon@singtel.com,0,True,Assist in configuring and monitoring network infrastructure for large-scale telecom deployments.
@@ -8,3 +9,14 @@ Index,Title,Level,PreferredMajor,OpenDate,CloseDate,Status,CompanyName,Slots,Rep
 7,UX/UI Design Intern,Advanced,Design,2025-11-19,2026-01-30,APPROVED,DBS Bank,1,amelia.choo@dbs.com,0,True,Help design intuitive user experiences for DBS digital banking platforms and mobile apps.
 8,Software Engineering Intern,Intermediate,Computer Science,2025-11-15,2026-01-31,FILLED,Grab,3,jason.lim@grab.com,0,True,Work with Grab engineering teams to prototype and build features for the Grab super app.
 9,Software Engineering Intern,Advanced,Computer Science,2025-11-15,2026-01-31,FILLED,Grab,3,jason.lim@grab.com,0,True,Work with Grab engineering teams to prototype and build features for the Grab super app.
+=======
+1,Software Engineering Intern,Basic,Computer Science,2025-11-15,2026-01-31,FILLED,Grab,3,jason.lim@grab.com,0;1;1,true,Work with Grab engineering teams to prototype and build features for the Grab super app.
+2,Data Analytics Intern,Basic,Data Science,2025-11-20,2026-02-15,APPROVED,DBS Bank,2,amelia.choo@dbs.com,0,true,Support the DBS data team in dashboard development and insight generation for retail banking.
+3,Network Engineering Intern,Intermediate,Computer Engineering,2025-11-18,2026-01-25,APPROVED,Singtel,2,rajiv.menon@singtel.com,0,true,Assist in configuring and monitoring network infrastructure for large-scale telecom deployments.
+4,Consulting Analyst Intern,Basic,Business,2025-11-10,2026-01-20,APPROVED,Deloitte,4,samantha.tan@deloitte.com,0,true,Join project teams to analyze client problems and prepare presentations for consulting engagements.
+5,Sustainability Engineering Intern,Basic,Environmental Engineering,2025-11-22,2026-02-28,APPROVED,Sembcorp,2,keith.ong@sembcorp.com,0,false,Support sustainability projects focusing on clean energy and process optimization.
+6,Product Management Intern,Intermediate,Business,2025-11-25,2026-02-10,PENDING,Grab,1,jason.lim@grab.com,0,false,Collaborate with cross-functional teams to define requirements and track feature rollouts.
+7,UX/UI Design Intern,Advanced,Design,2025-11-19,2026-01-30,APPROVED,DBS Bank,1,amelia.choo@dbs.com,0,true,Help design intuitive user experiences for DBS digital banking platforms and mobile apps.
+8,Software Engineering Intern,Intermediate,Computer Science,2025-11-15,2026-01-31,FILLED,Grab,3,jason.lim@grab.com,0;2;2,true,Work with Grab engineering teams to prototype and build features for the Grab super app.
+9,Software Engineering Intern,Advanced,Computer Science,2025-11-15,2026-01-31,FILLED,Grab,3,jason.lim@grab.com,0;3,true,Work with Grab engineering teams to prototype and build features for the Grab super app.
+>>>>>>> 4ef1e1c21e2f62dafa1e0c68224a40f327361fc2

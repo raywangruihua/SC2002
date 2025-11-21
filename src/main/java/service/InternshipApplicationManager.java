@@ -40,6 +40,7 @@ public class InternshipApplicationManager {
 	}
 
 	/**
+	 * get list of applications based on the student's id 
 	 * @param studentID unique ID of the student
 	 * @return a list of applications submitted by the given student
 	 */
@@ -52,7 +53,7 @@ public class InternshipApplicationManager {
 	/**
 	 * returns the internship application with the given application index
 	 * @param applicationIndex the application index 
-	 * @return the corresponding {@link InternshipApplication}, or {@code null} if not found
+	 * @return the corresponding internship application
 	 */
 	public InternshipApplication getApplication(int applicationIndex) {
 		for (InternshipApplication a : repo.getInternshipApplications()) {
@@ -80,7 +81,7 @@ public class InternshipApplicationManager {
 
 	/**
 	 * reject the student's application 
-	 * @param applicationIndex
+	 * @param applicationIndex of the application
 	 */
 	public void rejectApplication(int applicationIndex) {
 		getApplication(applicationIndex).setApplicationStatus(ApplicationStatus.Unsuccessful);		
@@ -145,7 +146,8 @@ public class InternshipApplicationManager {
 
 	/**
 	 * auto-withdraw student's application when accepted internship
-	 * @param application the student has accepted
+	 * @param student that accepted an application
+	 * @param acceptedApplication the student has accepted
 	 */
 	public void autoWithdrawApplications(Student student, InternshipApplication acceptedApplication){
 		ApplicationStatus status;

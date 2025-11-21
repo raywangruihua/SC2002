@@ -12,6 +12,10 @@ import model.Internship;
 public class Sort {
 	/**
 	 * returns sorted list of internships by major
+	 * 
+	 * @param internships is the list of internships to sort 
+	 * @param major is the major with relevant internships to display
+	 * @return list of internships with corresponding major 
 	 */
 	public static List<Internship> sortByMajor(List<Internship> internships, String major) {
 		List<Internship> display_list = new ArrayList<>();
@@ -24,8 +28,13 @@ public class Sort {
 
 		return display_list;
 	}
+
 	/**
 	 * returns sorted list of internships by year of study
+	 * 
+	 * @param internships is the list of internships to sort 
+	 * @param yearOfStudy is the year of study to sort by 
+	 * @return list of internships with relevant internship levels based on year of study 
 	 */
 	public static List<Internship> sortByYearOfStudy(List<Internship> internships, int yearOfStudy) {
 		List<Internship> display_list = new ArrayList<>();
@@ -42,15 +51,6 @@ public class Sort {
 		}
 
 		return display_list;
-	}
-
-	/**
-	 * 
-	 * @param companyName
-	 */
-	public static List<Internship> sortByCompany(String companyName) {
-		// TODO - implement Sort.sortByCompany
-		throw new UnsupportedOperationException();
 	}
 
 }
