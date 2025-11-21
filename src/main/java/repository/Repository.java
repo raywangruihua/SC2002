@@ -17,9 +17,6 @@ import model.Student;
  * Repository class stores all pending internships, internships and internships applications
  * This creates a centralised list that all manager classes can access
  * Also stores list of companies
- * 
- * @see InternshipManager
- * @see InternshipApplicationManager
  */
 public class Repository {
 	private List<Internship> 			internships;
@@ -70,9 +67,6 @@ public class Repository {
 
 	/**
 	 * When new internship is created, add to pending list to await approval by career center staff
-	 * 
-	 * @see Internship
-	 * @see CareerCenterStaff
 	 */
 	public void createInternship(Internship i) {pendingInternships.add(i);}
 

@@ -6,9 +6,6 @@ import java.util.List;
  * Company class
  * Contains list of employee accounts
  * A list of companies is kept in repository
- * 
- * @see CompanyRep
- * @see Repository
  */
 public class Company {
     private String           name;

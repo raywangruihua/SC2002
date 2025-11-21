@@ -7,9 +7,7 @@ import java.util.Scanner;
 
 import enums.InternshipStatus;
 import model.*;
-import repository.Repository;
 import service.*;
-import util.Sort;
 
 public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 	public final int MAX_OPTION = 12;
@@ -207,8 +205,6 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 
 	/**
 	 * If withdrawal is accepted, delete application from repository
-	 * 
-	 * @see Repository
 	 */
 	public void acceptWithdrawal() {
 		List<InternshipApplication> withdrawals = appMgr.getWithdrawals();
@@ -294,7 +290,6 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 	 * Dynamically filers and sorts a list of internships
 	 * 
 	 * go to report page
-	 * @see Sort
 	 */
 	public void generateReport() {
         ReportPage reportPage = new ReportPage(internMgr.getInternships(), sc);

@@ -2,8 +2,6 @@ package model;
 
 /**
  * Account subtype that has staff privileges
- * 
- * @see Account
  */
 public class CareerCenterStaff extends Account {
 	private String staffDepartment;

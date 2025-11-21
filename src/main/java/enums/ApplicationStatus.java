@@ -1,11 +1,7 @@
 package enums;
 
-import model.InternshipApplication;
-
 /**
  * After a student creates an application for an internship, they can check its status
- * 
- * @see InternshipApplication
  */ 
 public enum ApplicationStatus {
 	/**

@@ -2,8 +2,6 @@ package model;
 
 /**
  * Account subtype with company rep privileges
- * 
- * @see Company
  */
 public class CompanyRep extends Account {
 	private String department;

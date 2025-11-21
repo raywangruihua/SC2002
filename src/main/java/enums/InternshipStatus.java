@@ -2,8 +2,6 @@ package enums;
 
 /**
  * After a company representative creates an internship, they must wait for the career center staff to approve it
- * 
- * @see Internship
  */
 public enum InternshipStatus {
 	/**

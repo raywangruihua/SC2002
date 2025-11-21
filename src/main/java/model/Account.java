@@ -1,10 +1,5 @@
 package model;
 
-/**
- * @see Student
- * @see CareerCenterStaff
- * @see CompanyRep
-*/
 public abstract class Account {
 	private final String userID;
 	private final String name;
