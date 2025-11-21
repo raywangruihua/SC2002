@@ -12,13 +12,15 @@ import repository.Repository;
 public class CompanyManager {
     private Repository repo;
 
-    /**
-     * constructor
-     */
     public CompanyManager(Repository repo) {
         this.repo = repo;
     }
 
+    /**
+     * get company based on company's name 
+     * @param companyName name of company
+     * @return company 
+     */
     public Company getCompany(String companyName) {
         for (Company c : repo.getCompanies()) {
             if (c.getName().equalsIgnoreCase(companyName)) return c;
@@ -28,33 +30,33 @@ public class CompanyManager {
 
     /** 
      * get number of internships 
-     * @param companyName 
+     * @param companyName company's name 
      * @return number of internships
      */
     public int  getNumInternships(String companyName)    {return getCompany(companyName).getNumInternships();}
 
     /**
      * increase number of internships under company 
-     * @param companyName
+     * @param companyName company's name 
      */
     public void incrementInternships(String companyName) {getCompany(companyName).incrementInternships();}
     
     /**
      * decrease number of internships under company 
-     * @param companyName
+     * @param companyName company's name 
      */
     public void decrementInternships(String companyName) {getCompany(companyName).decrementInternships();}
 
     /**
      * add company to the list 
-     * @param co
+     * @param co company to be added 
      */
     public void addCompany(Company co) {repo.addCompany(co);}
 
     /**
      * add a new employee to the company 
-     * @param acc
-     * @param companyName
+     * @param employee name of employee
+     * @param companyName company's name 
      */
     public void addNewEmployee(String employee, String companyName) {
         Company company = getCompany(companyName);
