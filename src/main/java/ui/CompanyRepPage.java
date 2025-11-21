@@ -129,7 +129,7 @@ public class CompanyRepPage extends UserPage<CompanyRep> {
 	 * @see Repository
 	 * @see CareerCenterStaff
 	 * 
-	 * @param numInternships
+	 * 
 	 */
 	public void createInternship() {
 	    // 1. Use the form to gather data (it creates an object with Index -1)
@@ -147,6 +147,7 @@ public class CompanyRepPage extends UserPage<CompanyRep> {
 
 	/**
 	 * View internships (pending or approved)
+	 * @param companyName
 	 */
 	public void viewInternships(String companyName) {
 		System.out.print("\nApproved Internships");
@@ -158,6 +159,8 @@ public class CompanyRepPage extends UserPage<CompanyRep> {
 
 	/**
 	 * Toggle approved internship visibility by index
+	 * @param index
+	 * @throws NullPointerException
 	 */
 	public void toggleInternship(int index) throws NullPointerException {	
 		internMgr.getInternship(index).toggleVisibility();
@@ -165,6 +168,7 @@ public class CompanyRepPage extends UserPage<CompanyRep> {
 
 	/**
 	 * View applications for internship chosen
+	 * @param internshipIndex
 	 */
 	public void viewApplications(int internshipIndex) {
 		System.out.println("-----Applications-----");
@@ -176,11 +180,13 @@ public class CompanyRepPage extends UserPage<CompanyRep> {
 
 	/**
 	 * Approve application via InternshipApplication Manager
+	 * @param applicationIndex
 	 */
 	public void approveApplication(int applicationIndex) {appMgr.approveApplication(applicationIndex);}
 
 	/**
 	 * Reject application via InternshipApplication Manager
+	 * @param applicationIndex
 	 */
 	public void rejectApplication(int applicationIndex) {appMgr.rejectApplication(applicationIndex);}
 }

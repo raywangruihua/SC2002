@@ -90,7 +90,11 @@ public class LoginPage {
         accMgr.register(form.submit());
         System.out.println("Account submitted for approval.");
     }
-
+    /**
+     * check for empty input
+     * @param prompt
+     * @return
+     */
     private String getNonEmptyInput(String prompt) {
         String input = "";
         while (input.isEmpty()) {

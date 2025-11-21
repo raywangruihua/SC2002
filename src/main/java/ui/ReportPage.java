@@ -120,7 +120,9 @@ public class ReportPage {
             default -> System.out.println("Invalid option.");
         }
     }
-
+    /**
+     * Filter internships by major , e.g., Computer Science, "Data Science", etc.
+     */
     public void filterByMajor() {
         System.out.print("\nEnter major: ");
         String major = sc.nextLine();
@@ -193,7 +195,9 @@ public class ReportPage {
 
 
 
-
+    /**
+     * display report
+     */
 
     public void display() {
         System.out.print(
@@ -204,7 +208,9 @@ public class ReportPage {
             "4. Return\n"
         );
     }
-
+    /**
+     * display all the filtered choices.
+     */
     public void displayOptions() {
         System.out.print(
             "1. Status\n" +

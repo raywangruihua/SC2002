@@ -103,6 +103,7 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
 	 * Approve Company Representative Account
 	 * Adds employee name to exisitng company
 	 * If company does not exist, creates new company
+	 * @param userID
 	 */
 	public void acceptAccount(String userID) {
 		CompanyRep acc = accMgr.getPendingAccount(userID);
@@ -122,7 +123,9 @@ public class CareerCenterStaffPage extends UserPage<CareerCenterStaff> {
         coMgr.addNewEmployee(name, companyName);
 	}
 	/**
+	 * 
 	 * Reject Account via Account Manager
+	 * @param userID
 	 */
 	public void rejectAccount(String userID) {
 		accMgr.removePending(userID);
