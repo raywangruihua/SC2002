@@ -2,8 +2,6 @@ package model;
 
 /**
  * Account subtype with company rep privileges
- * 
- * @see Company
  */
 public class CompanyRep extends Account {
 	private String department;
@@ -25,5 +23,4 @@ public class CompanyRep extends Account {
 	public String toString() {
 		return "UserID: " + getUserID() + " Name: " + getName() + " Company: " + getCompanyName() + " Department: " + getDepartment() + " Positon: " + getPosition();
 	}
-	
 }

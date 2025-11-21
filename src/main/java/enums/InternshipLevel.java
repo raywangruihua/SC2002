@@ -2,8 +2,6 @@ package enums;
 
 /**
  * Students can only view and apply for interships of a certain internship level
- * 
- * @see Internship
  */
 public enum InternshipLevel {
 	/**

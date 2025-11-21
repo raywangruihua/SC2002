@@ -5,12 +5,13 @@ import java.util.Scanner;
 import model.CompanyRep;
 import service.AccountManager;
 
-    /**
-    * Registration form for company representatives to submit information and create an account
-    */
-    public class Registration implements Base<CompanyRep> {
+/**
+* Registration form for company representatives to submit information and create an account
+*/
+public class Registration implements Base<CompanyRep> {
     private AccountManager accMgr;
     private Scanner        sc;
+    
     /**
     * Constructor to register new account
     * @param accMgr is Account Manager object used across the class

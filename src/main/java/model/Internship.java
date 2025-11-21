@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 import enums.InternshipLevel;
@@ -22,8 +21,6 @@ public class Internship {
 	private String 						companyName;
 	private int							slots;
 	private List<String> 				companyRepresentatives;
-	// private boolean 					approvalStatus;
-	/// Access applications received via application index
 	private List<Integer> 				applicationsReceived;
 	private boolean 					visibility;
 
@@ -45,10 +42,9 @@ public class Internship {
 		this.index 					= index;
 	}
 
-	/*
-	 * title, desc, level, major, openDate, closeDate, companyName, slots
+	/**
+	 * Prints in this order: title, desc, level, major, openDate, closeDate, companyName, slots
 	 */
-	
 	@Override
 	public String toString() {
 		return "Company Name: "				 + companyName			  +
@@ -73,32 +69,38 @@ public class Internship {
 	public String 		    getCompanyName() 	 {return companyName;}
 	public int 			    getIndex() 			 {return index;}
 	public InternshipStatus getStatus()			 {return status;}
-	public void toggleVisibility() {visibility = !visibility;}
+	public void 			toggleVisibility()   {visibility = !visibility;}
 
 	/**
 	 * increase num of slots by 1 
 	 * @param addedSlots no of slots to be added
 	 */
-	public void incrementSlots(int addedSlots){
-		slots = slots + addedSlots; 
-	}
+	public void incrementSlots(int addedSlots) {slots = slots + addedSlots;}
 
-	/*
+	/**
 	 * adds application to list of applications received
+	 * @param application
 	 */
-	public void addApplication(InternshipApplication application){
+	public void addApplication(InternshipApplication application) {
 		applicationsReceived.add(application.getApplicationIndex());
 	}
-	/*
+
+	/**
 	 * change InternshipStatus from pending to approve or reject
+	 * @param status
 	 */
 	public void setStatus(InternshipStatus status) {
 		this.status = status;
 	}
 	
+	/**
+	 * 
+	 * @param index
+	 */
 	public void setIndex(int index) {
 	    this.index = index;
 	}
+
 	/**
 	 * change the visibility 
 	 * @param visibility 

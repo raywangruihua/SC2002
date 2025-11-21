@@ -5,8 +5,6 @@ import java.util.List;
 
 /**
  * Account subtype that has student privieges
- * 
- * @see Account
  */
 public class Student extends Account {
 	private int 						yearOfStudy;

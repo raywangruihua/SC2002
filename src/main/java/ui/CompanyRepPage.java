@@ -124,12 +124,6 @@ public class CompanyRepPage extends UserPage<CompanyRep> {
 	 * Submit internship creation form
 	 * Add new internship to pending list in repo for Career Center Staff approval
 	 * Prevents new internships from being created if current company already has 5 (pending or approved)
-	 * 
-	 * @see InternshipCreation
-	 * @see Repository
-	 * @see CareerCenterStaff
-	 * 
-	 * 
 	 */
 	public void createInternship() {
 	    // 1. Use the form to gather data (it creates an object with Index -1)

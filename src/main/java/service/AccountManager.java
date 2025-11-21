@@ -13,11 +13,6 @@ import util.CSVHandler;
  * Loads all existing accounts from csv file and stores them in a list
  * Stores registered company representative accounts pending approval
  * Each account is identified by their unique user ID
- * 
- * @see Account
- * @see CareerCenterStaff
- * @see CompanyRep
- * @see Student
  */
 public class AccountManager {
 	private String studentPath, staffPath, repPath;
@@ -75,12 +70,8 @@ public class AccountManager {
 
 	/**
 	 * check if login information is valid
-	 * 
-	 * @param userID is the username of the company representative's registered account 
-	 * @param password is the password of the account
-	 * @see LoginStatus 
+	 * @see LoginStatus
 	 * @return Validity of login information
-	 * 
 	 */
 	public LoginStatus checkValid(String userID, String password) {
 	    if (checkPending(userID)) {
