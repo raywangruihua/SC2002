@@ -54,6 +54,7 @@ public class AccountManager {
 
 	/**
 	 * get pending Company Representative account
+	 * @param userID is the username of company representative account
 	 * @return CompanyRep 
 	 */
 	public CompanyRep getPendingAccount(String userID) {
@@ -74,7 +75,10 @@ public class AccountManager {
 
 	/**
 	 * check if login information is valid
-	 * @see LoginStatus
+	 * 
+	 * @param userID is the username of the company representative's registered account 
+	 * @param password is the password of the account
+	 * @see LoginStatus 
 	 * @return Validity of login information
 	 * 
 	 */
@@ -107,7 +111,7 @@ public class AccountManager {
 
 	/**
 	 * add account to pending list if it isn't a duplicate
-	 * @param acc
+	 * @param acc is the account created by comapny representatuve 
 	 */
 	public void register(Account acc) {
 		if (checkPending(acc.getUserID())) {
@@ -118,7 +122,7 @@ public class AccountManager {
 
 	/**
 	 * check if account already exists by searching for userID
-	 * @param acc
+	 * @param acc is the account that needs checking
 	 * @return whether account exists
 	 */
 	public boolean checkExists(Account acc) {
@@ -131,6 +135,7 @@ public class AccountManager {
 	}
 
 	/**
+	 * checks whether account exists based on userID
 	 * @param userID of student
 	 * @return whether user ID is taken
 	 */
@@ -146,7 +151,8 @@ public class AccountManager {
 	}
 
 	/**
-	 * @param userID
+	 * checks whether company is pending based on userID
+	 * @param userID is the userID entered
 	 * @return Whether account is pending approval
 	 */
 	public boolean checkPending(String userID) {
@@ -162,8 +168,8 @@ public class AccountManager {
 
 	/**
 	 * user wants to update password 
-	 * @param userID
-	 * @param newPassword
+	 * @param userID is the userID entered
+	 * @param newPassword is the new password added
 	 */
 	public void updatePassword(String userID, String newPassword) throws Exception {
 	    boolean found = false;
@@ -186,7 +192,7 @@ public class AccountManager {
 
 	/**
 	 * approve account by moving company representative account from pending list to account list
-	 * @param userID 
+	 * @param userID is the userID entered
 	 */
 	public void approveAccount(String userID) {
 		Account toApprove = null; 
@@ -208,7 +214,7 @@ public class AccountManager {
 
 	/**
 	 * remove company representative account from pending list
-	 * @param userID
+	 * @param userID is the userID added
 	 */
 	public void removePending(String userID) {
 		Account toReject = null; 
@@ -228,7 +234,7 @@ public class AccountManager {
 
 	/**
 	 * Returns account based on UserID
-	 * @param userID 
+	 * @param userID is the userID entered
 	 * @return account 
 	 */
 	public Account getAccount(String userID) throws IllegalArgumentException {
